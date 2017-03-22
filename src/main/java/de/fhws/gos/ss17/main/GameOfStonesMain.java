@@ -8,35 +8,31 @@ import de.fhws.gos.game.impl.GameFactory;
 /**
  * (c) Tobias Fertig, FHWS 2017
  */
-public class GameOfStonesMain
-{
-	public static void main( String[] args )
-	{
-		GameOfStonesMain gameOfStonesMain = new GameOfStonesMain( );
-		gameOfStonesMain.generateGame( );
-		gameOfStonesMain.showWelcome( );
-		gameOfStonesMain.startGame( );
-	}
+public class GameOfStonesMain {
 
-	private Game game;
+  public static void main(String[] args) {
+    GameOfStonesMain gameOfStonesMain = new GameOfStonesMain();
+    gameOfStonesMain.generateGame();
+    gameOfStonesMain.showWelcome();
+    gameOfStonesMain.startGame();
+  }
 
-	public void generateGame( )
-	{
-		Connection connection = Config.initConnection( );
-		Board board = Config.initBoard( );
+  private Game game;
 
-		this.game = GameFactory.getInstance( connection, board ).createGame( Config.GAME_MODE );
-		this.game.setPlayers( Config.getRandomPlayer( ), Config.getRemotePlayer( connection ) );
-	}
+  public void generateGame() {
+    Connection connection = Config.initConnection();
+    Board board = Config.initBoard();
 
-	public void showWelcome( )
-	{
-		System.out.println( "Welcome to GameOfStones!" );
-	}
+    this.game = GameFactory.getInstance(connection, board).createGame(Config.GAME_MODE);
+    this.game.setPlayers(Config.getRandomPlayer(), Config.getRemotePlayer(connection));
+  }
 
-	public void startGame( )
-	{
-		game.initGame( );
-		game.startGame( );
-	}
+  public void showWelcome() {
+    System.out.println("Welcome to GameOfStones!");
+  }
+
+  public void startGame() {
+    game.initGame();
+    game.startGame();
+  }
 }
