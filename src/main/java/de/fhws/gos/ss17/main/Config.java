@@ -8,6 +8,7 @@ import de.fhws.gos.game.impl.BoardImpl;
 import de.fhws.gos.network.impl.DefaultConnection;
 import de.fhws.gos.players.impl.RandomPlayerWithRules;
 import de.fhws.gos.remote.impl.RemoteBotPlayer;
+import de.fhws.gos.ss17.players.HumanPlayer;
 
 /**
  * (c) Tobias Fertig, FHWS 2017
@@ -66,7 +67,8 @@ public class Config {
    * @return the initialized human player
    */
   public static Player getHumanPlayer(){
-
+    HumanPlayer humanPlayer = new HumanPlayer(PositionToken.PLAYER_ONE);
+    return humanPlayer;
   }
 
   /**
