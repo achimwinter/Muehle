@@ -19,7 +19,8 @@ public class Config {
 
   public final static int PORT = 3000;
 
-  public final static String GROUP_ID = "6997";
+  //public final static String GROUP_ID = "6997";
+  public final static String GROUP_ID = "9000";
 
   public final static String GAME_MODE = "remotebotgame";
 
@@ -63,10 +64,9 @@ public class Config {
   /**
    * This Method is used to play as a human.
    *
-   *
    * @return the initialized human player
    */
-  public static Player getHumanPlayer(){
+  public static Player getHumanPlayer() {
     HumanPlayer humanPlayer = new HumanPlayer(PositionToken.PLAYER_ONE);
     return humanPlayer;
   }
