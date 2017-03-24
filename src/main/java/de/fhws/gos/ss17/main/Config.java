@@ -60,6 +60,16 @@ public class Config {
   }
 
   /**
+   * This Method is used to play as a human.
+   *
+   *
+   * @return the initialized human player
+   */
+  public static Player getHumanPlayer(){
+
+  }
+
+  /**
    * This method is used to get a random player. The RandomPlayerWithRules class can be used.
    *
    * @return the initialized player.
