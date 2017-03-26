@@ -74,6 +74,7 @@ public class HumanPlayer extends AbstractPlayer {
 
     int removeId = -1;
     if (MillCombinations.getInstance(board).isMill(this.playerToken, fromId, toId)) {
+      System.out.print("ID des zu entfernenden Steins eingeben: ");
       removeId = input.nextInt();
     }
     return new Move(fromId, toId, removeId);
@@ -102,7 +103,7 @@ public class HumanPlayer extends AbstractPlayer {
     Scanner input = new Scanner(System.in);
     int fromId;
     do {
-      System.out.print("ID des Steins eingeben: ");
+      System.out.print("ID des zu bewegenden Steins eingeben: ");
       fromId = input.nextInt();
     } while (!this.validateFrom(board, fromId));
 
