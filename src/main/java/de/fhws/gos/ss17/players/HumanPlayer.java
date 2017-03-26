@@ -68,10 +68,8 @@ public class HumanPlayer extends AbstractPlayer {
 
     int toId;
     do {
-      Position[] neighbors = board.getPosition(fromId).getNeighbors();
       System.out.print("ID der neuen Position eingeben: ");
-      int index = input.nextInt();
-      toId = neighbors[index].getId();
+      toId = input.nextInt();
     } while (!board.getPosition(toId).isAvailable());
 
     int removeId = -1;
