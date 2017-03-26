@@ -19,8 +19,7 @@ public class Config {
 
   public final static int PORT = 3000;
 
-  //public final static String GROUP_ID = "6997";
-  public final static String GROUP_ID = "9000";
+  public final static String GROUP_ID = "6997";
 
   public final static String GAME_MODE = "remotebotgame";
 
