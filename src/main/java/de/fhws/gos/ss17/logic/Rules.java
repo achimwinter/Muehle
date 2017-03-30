@@ -1,5 +1,6 @@
 package de.fhws.gos.ss17.logic;
 
+import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Player;
 import de.fhws.gos.core.utils.PositionToken;
@@ -9,13 +10,15 @@ import de.fhws.gos.core.utils.PositionToken;
  */
 public interface Rules {
 
-  boolean isMill(Board board,PositionToken playerToken, int stoneId);
-  boolean willBeMill(Board board, PositionToken playerToken, int fromId, int toId);
-  boolean isValidFrom(Board board, PositionToken playerToken, int fromId);
-  boolean isValidTo(Board board, PositionToken playerToken, int toId);
-  boolean isValidRemove(Board board, PositionToken playerToken, int stoneId);
-  boolean isValidMove(Board board, PositionToken playerToken, int fromId, int toId);
-  boolean isValidPlacement(Board board, int stoneId);
-  boolean isValidFlying(Board board, PositionToken playerToken, int fromId, int toId);
+
+  boolean isMill(Board board,PositionToken playerToken, int stoneId) throws GameException;
+  boolean willBeMill(Board board, PositionToken playerToken, int fromId, int toId)
+      throws GameException;
+  boolean isValidFrom(Board board, PositionToken playerToken, int fromId)throws GameException;
+  boolean isValidTo(Board board, int toId)throws GameException;
+  boolean isValidRemove(Board board, PositionToken playerToken, int stoneId)throws GameException;
+  boolean isValidMove(Board board, PositionToken playerToken, int fromId, int toId)throws GameException;
+  boolean isValidPlacement(Board board, int stoneId)throws GameException;
+  boolean isValidFlying(Board board, PositionToken playerToken, int fromId, int toId)throws GameException;
 
 }
