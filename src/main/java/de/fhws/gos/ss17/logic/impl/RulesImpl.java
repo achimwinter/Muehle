@@ -12,9 +12,11 @@ import de.fhws.gos.ss17.logic.Rules;
  */
 
 public class RulesImpl implements Rules {
+
   @Override
   public boolean isMill(Board board, PositionToken playerToken, int stoneId) throws GameException {
-    return MillCombinations.getInstance(board).isMill(playerToken, stoneId);
+    return MillCombinations.getInstance(board).isMill(playerToken, stoneId) && board
+        .getPosition(stoneId).getPositionToken().equals(playerToken);
   }
 
   @Override
@@ -62,13 +64,15 @@ public class RulesImpl implements Rules {
   }
 
   @Override
-  public boolean isValidPlacement(Board board, int stoneId)throws GameException{
-    return this.isValidTo(board , stoneId);
+  public boolean isValidPlacement(Board board, int stoneId) throws GameException {
+    return this.isValidTo(board, stoneId);
   }
 
   @Override
-  public boolean isValidFlying(Board board, PositionToken playerToken, int fromId, int toId) throws GameException{
-    return this.isValidFrom(board, playerToken, fromId) && board.getPosition(toId).isAvailable() && (board.getNumberOfTokensForPlayer(playerToken) == 3);
+  public boolean isValidFlying(Board board, PositionToken playerToken, int fromId, int toId)
+      throws GameException {
+    return this.isValidFrom(board, playerToken, fromId) && this.isValidTo(board, toId) && (
+        board.getNumberOfTokensForPlayer(playerToken) == 3);
   }
 
 }
