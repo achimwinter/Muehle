@@ -2,7 +2,6 @@ package de.fhws.gos.ss17.players;
 
 import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Board;
-import de.fhws.gos.core.logic.Game;
 import de.fhws.gos.core.logic.Move;
 import de.fhws.gos.core.logic.Position;
 import de.fhws.gos.core.utils.PositionToken;
@@ -34,7 +33,6 @@ public class HumanPlayer extends AbstractPlayer {
       System.out.print("ID des zu entfernenden Steines eingeben: ");
       removeId = this.getRemoveIndex(board);
     }
-
     return new Move(-1, toId, removeId);
   }
 
