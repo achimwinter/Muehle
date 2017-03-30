@@ -4,7 +4,6 @@ import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Game;
 import de.fhws.gos.core.network.Connection;
 import de.fhws.gos.game.impl.GameFactory;
-import de.fhws.gos.ss17.logic.impl.RulesImpl;
 
 /**
  * (c) Tobias Fertig, FHWS 2017
