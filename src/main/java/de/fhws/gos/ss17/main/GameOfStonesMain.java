@@ -4,6 +4,7 @@ import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Game;
 import de.fhws.gos.core.network.Connection;
 import de.fhws.gos.game.impl.GameFactory;
+import de.fhws.gos.ss17.logic.impl.RulesImpl;
 
 /**
  * (c) Tobias Fertig, FHWS 2017
@@ -24,9 +25,7 @@ public class GameOfStonesMain {
     Board board = Config.initBoard();
 
     this.game = GameFactory.getInstance(connection, board).createGame(Config.GAME_MODE);
-    //this.game.setPlayers(Config.getRandomPlayer(), Config.getRemotePlayer(connection));
-    //HumanPlayer Einstellung
-    this.game.setPlayers(Config.getHumanPlayer(), Config.getRemotePlayer(connection));
+    this.game.setPlayers(Config.getRandomPlayer(), Config.getRemotePlayer(connection));
   }
 
   public void showWelcome() {
