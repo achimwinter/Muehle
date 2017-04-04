@@ -8,6 +8,7 @@ import de.fhws.gos.game.impl.BoardImpl;
 import de.fhws.gos.network.impl.DefaultConnection;
 import de.fhws.gos.players.impl.RandomPlayerWithRules;
 import de.fhws.gos.remote.impl.RemoteBotPlayer;
+import de.fhws.gos.ss17.players.CyborgPlayer;
 import de.fhws.gos.ss17.players.HumanPlayer;
 
 /**
@@ -68,6 +69,11 @@ public class Config {
   public static Player getHumanPlayer() {
     HumanPlayer humanPlayer = new HumanPlayer(PositionToken.PLAYER_ONE);
     return humanPlayer;
+  }
+
+  public static Player getCyborgPlayer(){
+    CyborgPlayer cyborgPlayer = new CyborgPlayer(PositionToken.PLAYER_ONE);
+    return cyborgPlayer;
   }
 
   /**
