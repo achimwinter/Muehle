@@ -8,8 +8,8 @@ import de.fhws.gos.game.impl.BoardImpl;
 import de.fhws.gos.network.impl.DefaultConnection;
 import de.fhws.gos.players.impl.RandomPlayerWithRules;
 import de.fhws.gos.remote.impl.RemoteBotPlayer;
-import de.fhws.gos.ss17.players.impl.CyborgPlayer;
-import de.fhws.gos.ss17.players.impl.HumanPlayer;
+import de.fhws.gos.ss17.players.CyborgPlayer;
+import de.fhws.gos.ss17.players.HumanPlayer;
 
 /**
  * (c) Tobias Fertig, FHWS 2017

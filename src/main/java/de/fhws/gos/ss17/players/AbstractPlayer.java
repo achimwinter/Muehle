@@ -1,4 +1,4 @@
-package de.fhws.gos.ss17.players.impl;
+package de.fhws.gos.ss17.players;
 
 import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Move;
