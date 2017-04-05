@@ -1,4 +1,4 @@
-package de.fhws.gos.ss17.players;
+package de.fhws.gos.ss17.players.impl;
 
 import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Board;
@@ -11,7 +11,7 @@ import java.util.Scanner;
 /**
  * Created by awinter on 04.04.17.
  */
-public class CyborgPlayer extends AbstractPlayer{
+public class CyborgPlayer extends AbstractPlayer {
 
   HumanPlayer human = new HumanPlayer(playerToken);
   RandomPlayerWithRules randomPlayer = new RandomPlayerWithRules(playerToken);
