@@ -20,7 +20,7 @@ public class MillCombinations_original {
 
   public static de.fhws.gos.players.utils.MillCombinations getInstance(Board board) throws GameException {
     if(instance == null) {
-      instance = new de.fhws.gos.players.utils.MillCombinations(board);
+      instance = new MillCombinations_original(board);
     }
 
     return instance;
