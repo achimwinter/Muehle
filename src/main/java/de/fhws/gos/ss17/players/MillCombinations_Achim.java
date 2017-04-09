@@ -15,7 +15,7 @@ public class MillCombinations_Achim {
   
   private static MillCombinations_Achim instance;
   private Board board;
-  
+
   public static MillCombinations_Achim getInstance(Board board){
     if (instance == null){
       instance = new MillCombinations_Achim();
