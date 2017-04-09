@@ -16,7 +16,7 @@ public class MillCombinations {
   private static MillCombinations instance;
 
   private Board board;
-  /*
+
   private List<Position[]> millCombinations;
   private List<Integer[]> millCombinationIndices;
 
@@ -27,7 +27,7 @@ public class MillCombinations {
 
     return instance;
   }
-  */
+
 /*
   private MillCombinations(Board board) throws GameException {
     this.board = board;
