@@ -19,7 +19,7 @@ public abstract class AbstractPlayer implements Player {
   }
 
   public Move getNextMove(Board board) {
-    if (board.getNumberOfMovesForPlayer(playerToken) > 8 && this.phase == Phase.PLACING) {
+    if (board.getNumberOfMovesForPlayer(playerToken) == 8 && this.phase == Phase.PLACING) {
       this.phase = Phase.MOVING;
     }
     if (board.getNumberOfTokensForPlayer(playerToken) == 3 && this.phase == Phase.MOVING) {
