@@ -72,7 +72,7 @@ public class Config {
     return humanPlayer;
   }
 
-  public static Player getCyborgPlayer(){
+  public static Player getCyborgPlayer() {
     CyborgPlayer cyborgPlayer = new CyborgPlayer(PositionToken.PLAYER_ONE);
     return cyborgPlayer;
   }

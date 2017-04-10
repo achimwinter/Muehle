@@ -30,7 +30,7 @@ public abstract class AbstractPlayer implements Player {
     return nextMove;
   }
 
-  protected Move doGetNextMove(Board board) throws GameException{
+  protected Move doGetNextMove(Board board) throws GameException {
     Move move = new Move();
     if (this.phase == Phase.PLACING) {
       move = getPlacingMove(board);
@@ -46,7 +46,7 @@ public abstract class AbstractPlayer implements Player {
 
   protected abstract Move getPlacingMove(Board var1) throws GameException;
 
-  protected abstract Move getMovingMove(Board var1) throws  GameException;
+  protected abstract Move getMovingMove(Board var1) throws GameException;
 
   protected abstract Move getFlyingMove(Board var1) throws GameException;
 

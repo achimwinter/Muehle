@@ -71,32 +71,32 @@ public class MillCombinations {
   public boolean isMill(PositionToken playerToken, int stoneId) throws GameException {
     Integer[][] combinations = getMillCombinations(stoneId);
     for (int i = 0; i < 2; i++) {
-        if (
-            board.getPosition(combinations[i][0]).equals(playerToken) && board
-            .getPosition(combinations[i][1]).equals(playerToken) && board
-            .getPosition(combinations[i][2]).equals(playerToken)
-            ||
-                board.getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
-                    .getPosition(combinations[i][2]).getPositionToken().equals(playerToken) && board
-                    .getPosition(combinations[i][1]).getPositionToken().equals(playerToken)
-            ||
-                board.getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
-                    .getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
-                    .getPosition(combinations[i][2]).getPositionToken().equals(playerToken)
-            ||
-                board.getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
-                    .getPosition(combinations[i][2]).getPositionToken().equals(playerToken) && board
-                    .getPosition(combinations[i][0]).getPositionToken().equals(playerToken)
-            ||
-                board.getPosition(combinations[i][2]).getPositionToken().equals(playerToken) && board
-                    .getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
-                    .getPosition(combinations[i][0]).getPositionToken().equals(playerToken)
-            ||
-                board.getPosition(combinations[i][2]).getPositionToken().equals(playerToken) && board
-                    .getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
-                    .getPosition(combinations[i][1]).getPositionToken().equals(playerToken)
-            ) {
-          return true;
+      if (
+          board.getPosition(combinations[i][0]).equals(playerToken) && board
+              .getPosition(combinations[i][1]).equals(playerToken) && board
+              .getPosition(combinations[i][2]).equals(playerToken)
+              ||
+              board.getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
+                  .getPosition(combinations[i][2]).getPositionToken().equals(playerToken) && board
+                  .getPosition(combinations[i][1]).getPositionToken().equals(playerToken)
+              ||
+              board.getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
+                  .getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
+                  .getPosition(combinations[i][2]).getPositionToken().equals(playerToken)
+              ||
+              board.getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
+                  .getPosition(combinations[i][2]).getPositionToken().equals(playerToken) && board
+                  .getPosition(combinations[i][0]).getPositionToken().equals(playerToken)
+              ||
+              board.getPosition(combinations[i][2]).getPositionToken().equals(playerToken) && board
+                  .getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
+                  .getPosition(combinations[i][0]).getPositionToken().equals(playerToken)
+              ||
+              board.getPosition(combinations[i][2]).getPositionToken().equals(playerToken) && board
+                  .getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
+                  .getPosition(combinations[i][1]).getPositionToken().equals(playerToken)
+          ) {
+        return true;
       }
     }
     return false;

@@ -1,5 +1,5 @@
 package de.fhws.gos.ss17.players;
-
+/*
 import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Position;
@@ -8,7 +8,7 @@ import de.fhws.gos.core.utils.PositionToken;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
+*/
 /**
  * Created by Auron on 07.04.2017.
  */

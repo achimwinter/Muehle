@@ -11,6 +11,7 @@ import java.util.Scanner;
 /**
  * Created by awinter on 04.04.17.
  */
+
 public class CyborgPlayer extends AbstractPlayer {
 
   HumanPlayer human = new HumanPlayer(playerToken);

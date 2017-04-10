@@ -62,4 +62,5 @@ public class ConfigTests {
 
     assertFalse("Exception was thrown, but shouldn't", exceptionThrown);
   }
+
 }

@@ -1,5 +1,6 @@
 package de.fhws.gos.ss17.main;
 
+import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Game;
 import de.fhws.gos.core.network.Connection;
@@ -10,7 +11,7 @@ import de.fhws.gos.game.impl.GameFactory;
  */
 public class GameOfStonesMain {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws GameException {
     GameOfStonesMain gameOfStonesMain = new GameOfStonesMain();
     gameOfStonesMain.generateGame();
     gameOfStonesMain.showWelcome();
@@ -19,12 +20,12 @@ public class GameOfStonesMain {
 
   private Game game;
 
-  public void generateGame() {
+  public void generateGame() throws GameException {
     Connection connection = Config.initConnection();
     Board board = Config.initBoard();
 
     this.game = GameFactory.getInstance(connection, board).createGame(Config.GAME_MODE);
-    this.game.setPlayers(Config.getRandomPlayer(), Config.getRemotePlayer(connection));
+    this.game.setPlayers(Config.getHumanPlayer(), Config.getRemotePlayer(connection));
   }
 
   public void showWelcome() {
