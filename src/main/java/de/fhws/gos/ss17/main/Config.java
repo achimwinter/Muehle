@@ -6,7 +6,7 @@ import de.fhws.gos.core.network.Connection;
 import de.fhws.gos.core.utils.PositionToken;
 import de.fhws.gos.game.impl.BoardImpl;
 import de.fhws.gos.network.impl.DefaultConnection;
-import de.fhws.gos.players.impl.RandomPlayerWithRules;
+//import de.fhws.gos.ss17.players.RandomPlayerWithRules;
 import de.fhws.gos.remote.impl.RemoteBotPlayer;
 import de.fhws.gos.ss17.players.CyborgPlayer;
 import de.fhws.gos.ss17.players.HumanPlayer;
@@ -81,9 +81,11 @@ public class Config {
    *
    * @return the initialized player.
    */
+  /*
   public static Player getRandomPlayer() {
     RandomPlayerWithRules localPlayer = new RandomPlayerWithRules(PositionToken.PLAYER_ONE);
     return localPlayer;
     //throw new UnsupportedOperationException("Not yet implemented");
   }
+  */
 }

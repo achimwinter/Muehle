@@ -5,6 +5,7 @@ import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Move;
 import de.fhws.gos.core.utils.PositionToken;
 import de.fhws.gos.ss17.main.Config;
+import de.fhws.gos.ss17.players.MillCombinations;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -18,6 +19,19 @@ public class RulesTest {
   private PositionToken playerToken = PositionToken.PLAYER_ONE;
 
   RulesImpl test = new RulesImpl();
+
+  @Test
+  private void testMillCombinations_Achim()throws GameException{
+    board.executeMove((new Move(-1, 0, -1)),playerToken);
+    board.executeMove((new Move(-1, 2, -1)),playerToken);
+    board.executeMove((new Move(-1, 1, -1)),playerToken);
+    board.printBoard();
+    boolean result = MillCombinations.getInstance(board).isMill(playerToken, 2);
+    Assert.assertTrue("was mill, returned false", result);
+  }
+
+
+
 
   @Test
   public void testisMill_MillClosed_TrueReturned() throws GameException {

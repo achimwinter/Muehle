@@ -1,5 +1,6 @@
 package de.fhws.gos.ss17.players;
 
+import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Move;
 import de.fhws.gos.core.logic.Player;
@@ -43,11 +44,11 @@ public abstract class AbstractPlayer implements Player {
     return move;
   }
 
-  protected abstract Move getPlacingMove(Board var1);
+  protected abstract Move getPlacingMove(Board var1) throws GameException;
 
-  protected abstract Move getMovingMove(Board var1);
+  protected abstract Move getMovingMove(Board var1) throws  GameException;
 
-  protected abstract Move getFlyingMove(Board var1);
+  protected abstract Move getFlyingMove(Board var1) throws GameException;
 
   public boolean canFly() {
     return this.phase.equals(Phase.FLYING);

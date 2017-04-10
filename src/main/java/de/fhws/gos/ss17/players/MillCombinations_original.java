@@ -12,13 +12,14 @@ import java.util.List;
 /**
  * Created by Auron on 07.04.2017.
  */
+/*
 public class MillCombinations_original {
   private static de.fhws.gos.players.utils.MillCombinations instance;
   private Board board;
   private List<Position[]> millCombinations;
   private List<Integer[]> millCombinationIndices;
 
-  public static de.fhws.gos.players.utils.MillCombinations getInstance(Board board) throws GameException {
+  public static de.fhws.gos.players.utils.MillCombination getInstance(Board board) throws GameException {
     if(instance == null) {
       instance = new MillCombinations_original(board);
     }
@@ -134,3 +135,4 @@ public class MillCombinations_original {
   }
 
 }
+*/

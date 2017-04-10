@@ -1,3 +1,5 @@
+package de.fhws.gos.ss17.players;
+
 import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Move;
@@ -10,21 +12,23 @@ import de.fhws.gos.ss17.players.MillCombinations;
 public class RandomPlayer extends AbstractPlayer {
 
   RulesImpl rules = new RulesImpl();
-  public RandomPlayer(PositionToken playerToken) {super(playerToken)};
-
-  protected Move getNextMove(board){
-    return this.move;
+  public RandomPlayer(PositionToken playerToken) {
+    super(playerToken);
   }
-  protected Move getPlacingMove(Board board) throws GameException {
+
+  public Move getNextMove(Board board){
+    return super.getNextMove(board);
+  }
+  protected Move getPlacingMove(Board board) throws GameException{
     int randomValue;
     int removeId = -1;
     int toId;
 
     do {
-      randomValue = Math.random(*24);
+      toId = (int)Math.random() * 24;
     } while (!board.getPosition(toId).isAvailable());
 
-    if (rules.willBeMill(board)) {
+    if (rules.willBeMill(board, playerToken, -1, toId)) {
       removeId = this.getRemoveIndex(board);
     }
     return new Move(-1, toId, removeId);
@@ -34,19 +38,22 @@ public class RandomPlayer extends AbstractPlayer {
     int fromId;
     int randomValue;
     do {
-      randomValue = Math.random(*24);
+      randomValue = (int)Math.random() *24;
       fromId = randomValue;
     } while (!this.validateFrom(board, fromId));
 
     int toId;
     do {
-      toId = Math.random(*24); //weiß nicht, wie man die Regeln der Bewegung implementiert
+      toId = (int) Math.random() *24; //weiß nicht, wie man die Regeln der Bewegung implementiert
     } while (!board.getPosition(toId).isAvailable());
 
     int removeId = -1;
     if (MillCombinations.getInstance(board).isMill(this.playerToken, fromId, toId)) {
-      randomValue = Math.random(*24); //da muss man irgendwie noch checken, ob der Stein einem selbst gehört oder halt nicht
-      removeId = randomValue;
+      do{
+        randomValue = (int)Math.random() * 24; //da muss man irgendwie noch checken, ob der Stein einem selbst gehört oder halt nicht
+        removeId = randomValue;
+      }while (!rules.isValidRemove(board, playerToken, removeId));
+
     }
     return new Move(fromId, toId, removeId);
   }
@@ -56,13 +63,13 @@ public class RandomPlayer extends AbstractPlayer {
     int randomValue;
     int fromId;
     do {
-      randomValue = Math.random(*24);
+      randomValue = (int)Math.random()*24;
       fromId = randomValue;
     } while (!this.validateFrom(board, fromId));
 
     int toId;
     do {
-      toId = Math.random(*24);
+      toId = (int) Math.random() * 24;
     } while (!board.getPosition(toId).isAvailable());
 
     int removeId = -1;
@@ -99,7 +106,7 @@ public class RandomPlayer extends AbstractPlayer {
     int removeId;
     do {
       System.out.print("ID des zu entfernenden Steins eingeben: ");
-      removeId = Math.random(*24);
+      removeId = (int)Math.random()*24;
       if (board.getPosition(removeId).getPositionToken().equals(opponent) && (
           !MillCombinations.getInstance(board).isMill(opponent, removeId) || MillCombinations
               .getInstance(board).allInMill(opponent))) {
