@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class CyborgPlayer extends AbstractPlayer {
 
   HumanPlayer human = new HumanPlayer(playerToken);
-  RandomPlayerWithRules randomPlayer = new RandomPlayerWithRules(playerToken);
+  RandomPlayerWithRules RandomPlayer = new RandomPlayerWithRules(playerToken);
 
   private Scanner sc = new Scanner(System.in);
   char change = 'n';
@@ -26,7 +26,7 @@ public class CyborgPlayer extends AbstractPlayer {
 
 
   protected Move getPlacingMove(Board board) throws GameException {
-    Move placement = randomPlayer.getNextMove(board);
+    Move placement = RandomPlayer.getNextMove(board);
     System.out.println("Stein wird gesetzt auf: " + placement.getToId());
     System.out.print("Möchten Sie den Zug verändern?(y/n)");
     change = sc.next(".").charAt(0);
@@ -38,7 +38,7 @@ public class CyborgPlayer extends AbstractPlayer {
   }
 
   protected Move getMovingMove(Board board) throws GameException {
-    Move move = randomPlayer.getNextMove(board);
+    Move move = RandomPlayer.getNextMove(board);
     System.out
         .println("Stein wird verschoben von: " + move.getFromId() + " nach: " + move.getToId());
     System.out.print("Möchten Sie den Zug ändern? (y/n)");
@@ -51,7 +51,7 @@ public class CyborgPlayer extends AbstractPlayer {
 
 
   protected Move getFlyingMove(Board board) throws GameException {
-    Move move = randomPlayer.getNextMove(board);
+    Move move = RandomPlayer.getNextMove(board);
     System.out
         .println("Stein wird verschoben von: " + move.getFromId() + " nach: " + move.getToId());
     change = sc.next(".").charAt(0);
