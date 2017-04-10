@@ -28,6 +28,7 @@ public class RulesImpl implements Rules {
   @Override
   public boolean isValidFrom(Board board, PositionToken playerToken, int fromId)
       throws GameException {
+    //Hier sollte noch überprüft werden, ob die Position auch freie Nachbarn hat \Achim
     return board.getPosition(fromId).getPositionToken().equals(playerToken);
   }
 

@@ -8,6 +8,7 @@ import de.fhws.gos.game.impl.BoardImpl;
 import de.fhws.gos.network.impl.DefaultConnection;
 //import de.fhws.gos.ss17.players.RandomPlayerWithRules;
 import de.fhws.gos.remote.impl.RemoteBotPlayer;
+import de.fhws.gos.ss17.players.AdvancedRandomPlayer;
 import de.fhws.gos.ss17.players.CyborgPlayer;
 import de.fhws.gos.ss17.players.HumanPlayer;
 import de.fhws.gos.ss17.players.RandomPlayerWithRules;
@@ -21,7 +22,7 @@ public class Config {
 
   public final static int PORT = 3000;
 
-  public final static String GROUP_ID = "6997";
+  public final static String GROUP_ID = "-1";
 
   public final static String GAME_MODE = "remotebotgame";
 
@@ -87,6 +88,10 @@ public class Config {
     RandomPlayerWithRules localPlayer = new RandomPlayerWithRules(PositionToken.PLAYER_ONE);
     return localPlayer;
     //throw new UnsupportedOperationException("Not yet implemented");
+  }
+  public static Player getAdvancedRandomPlayer(){
+    AdvancedRandomPlayer advancedRandomPlayer = new AdvancedRandomPlayer((PositionToken.PLAYER_ONE));
+    return advancedRandomPlayer;
   }
 
 }

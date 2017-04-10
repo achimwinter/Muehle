@@ -22,13 +22,12 @@ public class RandomPlayerWithRules extends AbstractPlayer {
   }
 
   protected Move getPlacingMove(Board board) throws GameException {
-    int randomValue;
     int removeId = -1;
     int toId;
 
     do {
-      toId = (int) Math.random() * 24;
-    } while (!board.getPosition(toId).isAvailable());
+      toId = (int) (Math.random() * 24);
+    } while (!rules.isValidPlacement(board, toId));
 
     if (rules.willBeMill(board, playerToken, -1, toId)) {
       removeId = this.getRemoveIndex(board);
@@ -40,20 +39,20 @@ public class RandomPlayerWithRules extends AbstractPlayer {
     int fromId;
     int randomValue;
     do {
-      randomValue = (int) Math.random() * 24;
+      randomValue = (int) (Math.random() * 24);
       fromId = randomValue;
     } while (!this.validateFrom(board, fromId));
 
     int toId;
     do {
-      toId = (int) Math.random() * 24; //weiß nicht, wie man die Regeln der Bewegung implementiert
+      toId = (int) (Math.random() * 24); //weiß nicht, wie man die Regeln der Bewegung implementiert
     } while (!board.getPosition(toId).isAvailable());
 
     int removeId = -1;
     if (MillCombinations.getInstance(board).isMill(this.playerToken, fromId, toId)) {
       do {
-        randomValue = (int) Math.random()
-            * 24; //da muss man irgendwie noch checken, ob der Stein einem selbst gehört oder halt nicht
+        randomValue = (int) (Math.random()
+            * 24); //da muss man irgendwie noch checken, ob der Stein einem selbst gehört oder halt nicht
         removeId = randomValue;
       } while (!rules.isValidRemove(board, playerToken, removeId));
 
@@ -66,13 +65,13 @@ public class RandomPlayerWithRules extends AbstractPlayer {
     int randomValue;
     int fromId;
     do {
-      randomValue = (int) Math.random() * 24;
+      randomValue = (int) (Math.random() * 24);
       fromId = randomValue;
     } while (!this.validateFrom(board, fromId));
 
     int toId;
     do {
-      toId = (int) Math.random() * 24;
+      toId = (int) (Math.random() * 24);
     } while (!board.getPosition(toId).isAvailable());
 
     int removeId = -1;
@@ -111,7 +110,7 @@ public class RandomPlayerWithRules extends AbstractPlayer {
     int removeId;
     do {
       System.out.print("ID des zu entfernenden Steins eingeben: ");
-      removeId = (int) Math.random() * 24;
+      removeId = (int) (Math.random() * 24);
       if (board.getPosition(removeId).getPositionToken().equals(opponent) && (
           !MillCombinations.getInstance(board).isMill(opponent, removeId) || MillCombinations
               .getInstance(board).allInMill(opponent))) {
