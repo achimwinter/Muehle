@@ -3,6 +3,7 @@ package de.fhws.gos.ss17.players;
 /**
  * Created by Achim on 09.04.2017.
  */
+
 import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Position;
@@ -14,18 +15,18 @@ import java.util.Iterator;
 import java.util.List;
 
 public class MillCombinations {
-  
+
   private static MillCombinations instance;
   private Board board;
 
-  public static MillCombinations getInstance(Board board){
-    if (instance == null){
+  public static MillCombinations getInstance(Board board) {
+    if (instance == null) {
       instance = new MillCombinations(board);
     }
     return instance;
   }
 
-  private MillCombinations(Board board){
+  private MillCombinations(Board board) {
     this.board = board;
   }
 
@@ -49,12 +50,12 @@ public class MillCombinations {
       {2, 14, 23},
   };
 
-  public Integer[][] getMillCombinations(int positionIndex){
+  public Integer[][] getMillCombinations(int positionIndex) {
     int counter = 0;
     Integer[][] combinations = new Integer[2][3];
-    for(int i = 0; i<POSSIBLE_MILLS.toArray().length ; i++){
-      for (int j = 0; j < 3; j++){
-        if(positionIndex == possibleMillsArray[i][j]){
+    for (int i = 0; i < POSSIBLE_MILLS.toArray().length; i++) {
+      for (int j = 0; j < 3; j++) {
+        if (positionIndex == possibleMillsArray[i][j]) {
           combinations[counter] = possibleMillsArray[i];
           counter++;
         }
@@ -69,9 +70,33 @@ public class MillCombinations {
 
   public boolean isMill(PositionToken playerToken, int stoneId) throws GameException {
     Integer[][] combinations = getMillCombinations(stoneId);
-    for(int i = 0; i<2; i++){
-      if(board.getPosition(combinations[i][0]).equals(playerToken) && board.getPosition(combinations[i][1]).equals(playerToken) && board.getPosition(combinations[i][2]).equals(playerToken)){
-        return true;
+    for (int i = 0; i < 2; i++) {
+        if (
+            board.getPosition(combinations[i][0]).equals(playerToken) && board
+            .getPosition(combinations[i][1]).equals(playerToken) && board
+            .getPosition(combinations[i][2]).equals(playerToken)
+            ||
+                board.getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
+                    .getPosition(combinations[i][2]).getPositionToken().equals(playerToken) && board
+                    .getPosition(combinations[i][1]).getPositionToken().equals(playerToken)
+            ||
+                board.getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
+                    .getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
+                    .getPosition(combinations[i][2]).getPositionToken().equals(playerToken)
+            ||
+                board.getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
+                    .getPosition(combinations[i][2]).getPositionToken().equals(playerToken) && board
+                    .getPosition(combinations[i][0]).getPositionToken().equals(playerToken)
+            ||
+                board.getPosition(combinations[i][2]).getPositionToken().equals(playerToken) && board
+                    .getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
+                    .getPosition(combinations[i][0]).getPositionToken().equals(playerToken)
+            ||
+                board.getPosition(combinations[i][2]).getPositionToken().equals(playerToken) && board
+                    .getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
+                    .getPosition(combinations[i][1]).getPositionToken().equals(playerToken)
+            ) {
+          return true;
       }
     }
     return false;
@@ -82,17 +107,16 @@ public class MillCombinations {
     int tokenInMillCounter = 0;
     Iterator iterator = this.board.iteratePositions();
 
-    while(iterator.hasNext()) {
-      Position pos = (Position)iterator.next();
-      if(this.isMill(token, pos.getId())) {
+    while (iterator.hasNext()) {
+      Position pos = (Position) iterator.next();
+      if (this.isMill(token, pos.getId())) {
         ++tokenInMillCounter;
       }
     }
 
     return tokenInMillCounter == tokensForPlayer;
   }
-  
-  
+
 
   static {
     List<List<Integer>> possMills = new ArrayList<List<Integer>>();

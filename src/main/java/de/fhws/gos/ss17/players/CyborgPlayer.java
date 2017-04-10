@@ -5,7 +5,7 @@ import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Move;
 import de.fhws.gos.core.utils.PositionToken;
 import de.fhws.gos.ss17.players.AbstractPlayer;
-import de.fhws.gos.players.impl.RandomPlayerWithRules;
+import de.fhws.gos.ss17.players.RandomPlayerWithRules;
 import java.util.Scanner;
 
 /**

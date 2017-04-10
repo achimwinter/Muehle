@@ -21,15 +21,21 @@ public class RulesTest {
   RulesImpl test = new RulesImpl();
 
   @Test
-  private void testMillCombinations_Achim()throws GameException{
+  public void testMillCombinations_Achim()throws GameException{
     board.executeMove((new Move(-1, 0, -1)),playerToken);
     board.executeMove((new Move(-1, 2, -1)),playerToken);
     board.executeMove((new Move(-1, 1, -1)),playerToken);
+    board.executeMove((new Move(-1, 9, -1)),playerToken);
+    board.executeMove((new Move(-1, 21, -1)),playerToken);
     board.printBoard();
-    boolean result = MillCombinations.getInstance(board).isMill(playerToken, 2);
-    Assert.assertTrue("was mill, returned false", result);
+    boolean result = MillCombinations.getInstance(board).allInMill(playerToken);
+    System.out.println(result);
+/*
+    Integer[][] combinations = MillCombinations.getInstance(board).getMillCombinations(21);
+    System.out.println("Komb1: " + combinations[0][0] + "Komb2: " + combinations[0][1] + "Komb3: " + combinations[0][2]);
+    System.out.println("Komb1: " + combinations[1][0] + "Komb2: " + combinations[1][1] + "Komb3: " + combinations[1][2]);
+*/
   }
-
 
 
 

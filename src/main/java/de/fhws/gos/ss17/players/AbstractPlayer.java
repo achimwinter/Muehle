@@ -19,7 +19,7 @@ public abstract class AbstractPlayer implements Player {
     this.phase = Phase.PLACING;
   }
 
-  public Move getNextMove(Board board) {
+  public Move getNextMove(Board board) throws GameException {
     if (board.getNumberOfMovesForPlayer(playerToken) == 8 && this.phase == Phase.PLACING) {
       this.phase = Phase.MOVING;
     }
@@ -30,7 +30,7 @@ public abstract class AbstractPlayer implements Player {
     return nextMove;
   }
 
-  protected Move doGetNextMove(Board board) {
+  protected Move doGetNextMove(Board board) throws GameException{
     Move move = new Move();
     if (this.phase == Phase.PLACING) {
       move = getPlacingMove(board);

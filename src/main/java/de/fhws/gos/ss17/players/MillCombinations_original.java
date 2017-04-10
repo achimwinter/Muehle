@@ -4,7 +4,7 @@ import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Position;
 import de.fhws.gos.core.utils.PositionToken;
-import de.fhws.gos.players.utils.*;
+//import de.fhws.gos.players.utils.*;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;

@@ -10,6 +10,7 @@ import de.fhws.gos.network.impl.DefaultConnection;
 import de.fhws.gos.remote.impl.RemoteBotPlayer;
 import de.fhws.gos.ss17.players.CyborgPlayer;
 import de.fhws.gos.ss17.players.HumanPlayer;
+import de.fhws.gos.ss17.players.RandomPlayerWithRules;
 
 /**
  * (c) Tobias Fertig, FHWS 2017
@@ -81,11 +82,11 @@ public class Config {
    *
    * @return the initialized player.
    */
-  /*
+
   public static Player getRandomPlayer() {
     RandomPlayerWithRules localPlayer = new RandomPlayerWithRules(PositionToken.PLAYER_ONE);
     return localPlayer;
     //throw new UnsupportedOperationException("Not yet implemented");
   }
-  */
+
 }

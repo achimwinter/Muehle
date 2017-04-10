@@ -9,14 +9,14 @@ import de.fhws.gos.ss17.players.AbstractPlayer;
 import de.fhws.gos.ss17.logic.impl.RulesImpl;
 import de.fhws.gos.ss17.players.MillCombinations;
 
-public class RandomPlayer extends AbstractPlayer {
+public class RandomPlayerWithRules extends AbstractPlayer {
 
   RulesImpl rules = new RulesImpl();
-  public RandomPlayer(PositionToken playerToken) {
+  public RandomPlayerWithRules(PositionToken playerToken) {
     super(playerToken);
   }
 
-  public Move getNextMove(Board board){
+  public Move getNextMove(Board board) throws GameException {
     return super.getNextMove(board);
   }
   protected Move getPlacingMove(Board board) throws GameException{

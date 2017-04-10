@@ -4,9 +4,8 @@ import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Position;
 import de.fhws.gos.core.utils.PositionToken;
-import de.fhws.gos.players.utils.MillCombinations;
-import de.fhws.gos.ss17.logic.Rules;
 import de.fhws.gos.ss17.players.MillCombinations;
+import de.fhws.gos.ss17.logic.Rules;
 
 /**
  * Created by awinter on 29.03.17.
