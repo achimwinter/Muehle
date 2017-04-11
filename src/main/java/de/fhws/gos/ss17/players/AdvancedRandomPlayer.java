@@ -48,7 +48,7 @@ public class AdvancedRandomPlayer extends RandomPlayerWithRules {
 
     }
 
-    if (MillCombinations.getInstance(board).isMill(this.playerToken, fromId, toId)) {
+    if (rules.willBeMill(board,  playerToken, fromId,toId)) {
       do {
         removeId = (int) (Math.random() * 24);
       } while (!rules.isValidRemove(board, playerToken, removeId));
