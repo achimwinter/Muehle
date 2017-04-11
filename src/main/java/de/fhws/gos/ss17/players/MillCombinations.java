@@ -69,12 +69,43 @@ public class MillCombinations {
     return isMill(playerToken, toId);
   }
 
+  public boolean willBeMill(PositionToken playerToken, int fromId, int toId) throws GameException {
+    Integer[][] combinations = getMillCombinations(toId);
+    for (int i = 0; i < 2; i++) {
+      if (board.getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
+            .getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
+            .getPosition(combinations[i][2]).getPositionToken().equals(playerToken)
+            ||
+            board.getPosition(toId).isAvailable() &&
+                (board.getPosition(combinations[i][1]).getPositionToken().equals(playerToken) &&
+                    fromId != combinations[i][1]) &&
+                (board.getPosition(combinations[i][2]).getPositionToken().equals(playerToken) &&
+                    fromId != combinations[i][2])
+            ||
+            (board.getPosition(combinations[i][0]).getPositionToken().equals(playerToken)
+                && fromId != combinations[i][0]) && board
+                .getPosition(toId).isAvailable() &&
+                (board.getPosition(combinations[i][2]).getPositionToken().equals(playerToken)
+                    && fromId != combinations[i][2])
+            ||
+            (board.getPosition(combinations[i][0]).getPositionToken().equals(playerToken)
+                && fromId != combinations[i][0]) &&
+                (board.getPosition(combinations[i][1]).getPositionToken().equals(playerToken)
+                    && fromId != combinations[i][1])
+                && board.getPosition(toId).isAvailable()) {
+          return true;
+      }
+    }
+    return false;
+  }
+
+
   public boolean isMill(PositionToken playerToken, int stoneId) throws GameException {
     Integer[][] combinations = getMillCombinations(stoneId);
     for (int i = 0; i < 2; i++) {
       if (board.getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
-              .getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
-              .getPosition(combinations[i][2]).getPositionToken().equals(playerToken)
+          .getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
+          .getPosition(combinations[i][2]).getPositionToken().equals(playerToken)
           ||
           board.getPosition(stoneId).isAvailable() && board
               .getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board

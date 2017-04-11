@@ -17,6 +17,17 @@ public class MillCombinationsTest {
   private Board board = Config.initBoard();
   private PositionToken playerToken = PositionToken.PLAYER_ONE;
 
+  @Test
+  public void testWillBeMill() throws GameException{
+    board.executeMove((new Move(-1, 3, -1)), playerToken);
+    board.executeMove((new Move(-1, 18, -1)), playerToken);
+    //board.executeMove((new Move(-1, 9, -1)), playerToken);
+    Integer[][] comb = MillCombinations.getInstance(board).getMillCombinations(9);
+    System.out.println(comb[1][0] + " "  + comb[1][1] + " " + comb[1][2]);
+    System.out.println(comb[0][0] + " "  + comb[0][1] + " " + comb[0][2]);
+    System.out.println(MillCombinations.getInstance(board).willBeMill(playerToken, 18,10));
+  }
+
 
   @Test
   public void testAllinMill_NoStonesPlaced_FalseReturned() throws GameException{
