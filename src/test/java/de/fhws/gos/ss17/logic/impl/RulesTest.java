@@ -27,7 +27,7 @@ public class RulesTest {
     board.executeMove((new Move(-1, 2, -1)), playerToken);
     board.executeMove((new Move(-1, 1, -1)), playerToken);
     board.printBoard();
-    boolean result = test.isMill(board, playerToken, 1);
+    boolean result = test.isMill(board, playerToken,0);
     Assert.assertTrue("was mill, returned false", result);
   }
 

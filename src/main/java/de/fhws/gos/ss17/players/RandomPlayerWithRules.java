@@ -30,7 +30,10 @@ public class RandomPlayerWithRules extends AbstractPlayer {
     } while (!rules.isValidPlacement(board, toId));
 
     if (rules.willBeMill(board, playerToken, -1, toId)) {
-      removeId = this.getRemoveIndex(board);
+      do{
+        removeId = this.getRemoveIndex(board);
+      }while (!rules.isValidRemove(board, playerToken, removeId));
+
     }
     return new Move(-1, toId, removeId);
   }

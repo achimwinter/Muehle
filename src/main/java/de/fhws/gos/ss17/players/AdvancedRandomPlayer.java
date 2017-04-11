@@ -18,43 +18,40 @@ public class AdvancedRandomPlayer extends RandomPlayerWithRules {
     super(playerToken);
   }
 
-  public Move getNextMove(Board board) throws GameException{
+  public Move getNextMove(Board board) throws GameException {
     return super.getNextMove(board);
   }
 
   @Override
-  protected Move getMovingMove(Board board) throws GameException{
+  protected Move getMovingMove(Board board) throws GameException {
     int fromId;
     int toId = -1;
     int removeId = -1;
-    boolean foundMillComb = false;
+    boolean foundToId = false;
 
-    do{
+    do {
       fromId = (int) (Math.random() * 24);
-    }while (!rules.isValidFrom(board, playerToken, fromId));
+    } while (!rules.isValidFrom(board, playerToken, fromId));
 
     Position[] neighbors = board.getPosition(fromId).getNeighbors();
-    for (int i = 0; i < neighbors.length ; i++){
-      Position position = neighbors[i];
-      if(position.isAvailable()){
-
-
-      toId = (int) (Math.random() * 24);
-      if(rules.willBeMill(board, playerToken ,fromId, toId) && board.getPosition(toId).isAvailable()) {
-        foundMillComb = true;
+    for (int i = 0; i < neighbors.length; i++) {
+      if(neighbors[i].isAvailable() && rules.willBeMill(board, playerToken, fromId, neighbors[i].getId())) {
+        toId = neighbors[i].getId();
+        foundToId = true;
       }
-    do{
-
-        }
-
-
+    }
+    if(foundToId == false){
+      for(int i = 0; i < neighbors.length; i++){
+        if(neighbors[i].isAvailable())
+          toId = neighbors[i].getId();
       }
-    }while (!rules.isValidMove(board, playerToken, fromId, toId));
 
-    if(MillCombinations.getInstance(board).isMill(this.playerToken, fromId, toId)){
-      do{
+    }
+
+    if (MillCombinations.getInstance(board).isMill(this.playerToken, fromId, toId)) {
+      do {
         removeId = (int) (Math.random() * 24);
-      }while (!rules.isValidRemove(board, playerToken, removeId));
+      } while (!rules.isValidRemove(board, playerToken, removeId));
 
     }
     return new Move(fromId, toId, removeId);

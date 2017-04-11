@@ -6,6 +6,7 @@ package de.fhws.gos.ss17.players;
 
 import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Board;
+import de.fhws.gos.core.logic.Move;
 import de.fhws.gos.core.logic.Position;
 import de.fhws.gos.core.utils.PositionToken;
 import java.util.ArrayList;
@@ -71,31 +72,21 @@ public class MillCombinations {
   public boolean isMill(PositionToken playerToken, int stoneId) throws GameException {
     Integer[][] combinations = getMillCombinations(stoneId);
     for (int i = 0; i < 2; i++) {
-      if (
-          board.getPosition(combinations[i][0]).equals(playerToken) && board
-              .getPosition(combinations[i][1]).equals(playerToken) && board
-              .getPosition(combinations[i][2]).equals(playerToken)
-              ||
-              board.getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
-                  .getPosition(combinations[i][2]).getPositionToken().equals(playerToken) && board
-                  .getPosition(combinations[i][1]).getPositionToken().equals(playerToken)
-              ||
-              board.getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
-                  .getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
-                  .getPosition(combinations[i][2]).getPositionToken().equals(playerToken)
-              ||
-              board.getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
-                  .getPosition(combinations[i][2]).getPositionToken().equals(playerToken) && board
-                  .getPosition(combinations[i][0]).getPositionToken().equals(playerToken)
-              ||
-              board.getPosition(combinations[i][2]).getPositionToken().equals(playerToken) && board
-                  .getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
-                  .getPosition(combinations[i][0]).getPositionToken().equals(playerToken)
-              ||
-              board.getPosition(combinations[i][2]).getPositionToken().equals(playerToken) && board
-                  .getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
-                  .getPosition(combinations[i][1]).getPositionToken().equals(playerToken)
-          ) {
+      if (board.getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
+              .getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
+              .getPosition(combinations[i][2]).getPositionToken().equals(playerToken)
+          ||
+          board.getPosition(stoneId).isAvailable() && board
+              .getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
+              .getPosition(combinations[i][2]).getPositionToken().equals(playerToken)
+          ||
+          board.getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
+              .getPosition(stoneId).isAvailable() && board
+              .getPosition(combinations[i][2]).getPositionToken().equals(playerToken)
+          ||
+          board.getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
+              .getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
+              .getPosition(stoneId).isAvailable()) {
         return true;
       }
     }

@@ -5,6 +5,7 @@ import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Move;
 import de.fhws.gos.core.logic.Position;
 import de.fhws.gos.core.utils.PositionToken;
+import de.fhws.gos.ss17.logic.impl.RulesImpl;
 import de.fhws.gos.ss17.players.AbstractPlayer;
 import de.fhws.gos.ss17.players.MillCombinations;
 import java.util.Scanner;
@@ -13,6 +14,8 @@ import java.util.Scanner;
  * Created by Achim on 24.03.2017.
  */
 public class HumanPlayer extends AbstractPlayer {
+
+  private RulesImpl rules = new RulesImpl();
 
   public HumanPlayer(PositionToken playerToken) {
     super(playerToken);
@@ -29,7 +32,7 @@ public class HumanPlayer extends AbstractPlayer {
       toId = input.nextInt();
     } while (!board.getPosition(toId).isAvailable());
 
-    if (MillCombinations.getInstance(board).isMill(this.playerToken, toId)) {
+    if (rules.willBeMill(board, playerToken, -1, toId)) {
       System.out.print("ID des zu entfernenden Steines eingeben: ");
       removeId = this.getRemoveIndex(board);
     }
@@ -71,7 +74,7 @@ public class HumanPlayer extends AbstractPlayer {
     } while (!board.getPosition(toId).isAvailable());
 
     int removeId = -1;
-    if (MillCombinations.getInstance(board).isMill(this.playerToken, fromId, toId)) {
+    if (rules.willBeMill(board, playerToken, fromId, toId)) {
       System.out.print("ID des zu entfernenden Steins eingeben: ");
       removeId = input.nextInt();
     }

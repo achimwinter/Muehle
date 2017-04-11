@@ -15,8 +15,7 @@ public class RulesImpl implements Rules {
 
   @Override
   public boolean isMill(Board board, PositionToken playerToken, int stoneId) throws GameException {
-    return MillCombinations.getInstance(board).isMill(playerToken, stoneId) && board
-        .getPosition(stoneId).getPositionToken().equals(playerToken);
+    return MillCombinations.getInstance(board).isMill(playerToken, stoneId);
   }
 
   @Override
@@ -28,8 +27,18 @@ public class RulesImpl implements Rules {
   @Override
   public boolean isValidFrom(Board board, PositionToken playerToken, int fromId)
       throws GameException {
-    //Hier sollte noch überprüft werden, ob die Position auch freie Nachbarn hat \Achim
-    return board.getPosition(fromId).getPositionToken().equals(playerToken);
+    boolean playerOwnsPosition = board.getPosition(fromId).getPositionToken().equals(playerToken);
+    boolean positionHasFreeNeighbors = false;
+    Position[] neighbors = board.getPosition(fromId).getNeighbors();
+
+    for(int i = 0; i < neighbors.length; ++i){
+      Position position = neighbors[i];
+      if(position.isAvailable()){
+        positionHasFreeNeighbors = true;
+        break;
+      }
+    }
+    return playerOwnsPosition && positionHasFreeNeighbors;
   }
 
   @Override
