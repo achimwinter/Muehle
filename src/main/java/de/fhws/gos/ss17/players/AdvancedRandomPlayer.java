@@ -23,6 +23,39 @@ public class AdvancedRandomPlayer extends RandomPlayerWithRules {
   }
 
   @Override
+  protected Move getPlacingMove(Board board) throws GameException{
+    int removeId = -1;
+    int toId = 50;
+    boolean foundMill = false;
+
+
+      for (int i = 0; i < 23; i++) {
+        if (rules.willBeMill(board, playerToken, -1, i) && rules.isValidPlacement(board, i)) {
+          foundMill = true;
+          toId = i;
+        }
+      }
+
+    if(foundMill == false){
+        do{
+          toId = (int) (Math.random()*24);
+        }while (!rules.isValidPlacement(board, toId));
+    }
+
+
+    if(foundMill){
+      do{
+        removeId = (int) (Math.random()*24);
+      }while (!rules.isValidRemove(board, playerToken, removeId));
+    }
+
+    return new Move(-1, toId, removeId);
+  }
+
+
+
+
+  @Override
   protected Move getMovingMove(Board board) throws GameException {
     int fromId;
     int toId = -1;
