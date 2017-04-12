@@ -21,7 +21,6 @@ public class RulesImpl implements Rules {
   @Override
   public boolean willBeMill(Board board, PositionToken playerToken, int fromId, int toId)
       throws GameException {
-    //return MillCombinations.getInstance(board).isMill(playerToken, fromId, toId);
     return MillCombinations.getInstance(board).willBeMill(playerToken, fromId, toId);
   }
 

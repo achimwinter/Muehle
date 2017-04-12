@@ -52,7 +52,7 @@ public class RandomPlayerWithRules extends AbstractPlayer {
     } while (!board.getPosition(toId).isAvailable());
 
     int removeId = -1;
-    if (MillCombinations.getInstance(board).isMill(this.playerToken, fromId, toId)) {
+    if (rules.willBeMill(board, playerToken, fromId, toId)) {
       do {
         randomValue = (int) (Math.random()
             * 24); //da muss man irgendwie noch checken, ob der Stein einem selbst gehört oder halt nicht
@@ -78,7 +78,7 @@ public class RandomPlayerWithRules extends AbstractPlayer {
     } while (!board.getPosition(toId).isAvailable());
 
     int removeId = -1;
-    if (MillCombinations.getInstance(board).isMill(this.playerToken, fromId, toId)) {
+    if (rules.willBeMill(board, playerToken, fromId, toId)) {
       removeId = this.getRemoveIndex(board);
     }
 

@@ -114,7 +114,7 @@ public class HumanPlayer extends AbstractPlayer {
     } while (!board.getPosition(toId).isAvailable());
 
     int removeId = -1;
-    if (MillCombinations.getInstance(board).isMill(this.playerToken, fromId, toId)) {
+    if (rules.willBeMill(board, playerToken, fromId, toId)) {
       removeId = this.getRemoveIndex(board);
     }
 

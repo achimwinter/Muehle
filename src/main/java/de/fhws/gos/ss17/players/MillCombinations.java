@@ -105,19 +105,7 @@ public class MillCombinations {
     for (int i = 0; i < 2; i++) {
       if (board.getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
           .getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
-          .getPosition(combinations[i][2]).getPositionToken().equals(playerToken)
-          ||
-          board.getPosition(stoneId).isAvailable() && board
-              .getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
-              .getPosition(combinations[i][2]).getPositionToken().equals(playerToken)
-          ||
-          board.getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
-              .getPosition(stoneId).isAvailable() && board
-              .getPosition(combinations[i][2]).getPositionToken().equals(playerToken)
-          ||
-          board.getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
-              .getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
-              .getPosition(stoneId).isAvailable()) {
+          .getPosition(combinations[i][2]).getPositionToken().equals(playerToken)){
         return true;
       }
     }
