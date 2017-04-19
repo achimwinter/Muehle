@@ -51,10 +51,11 @@ public class MillCombinations {
       {2, 14, 23},
   };
 
+
   public Integer[][] getMillCombinations(int positionIndex) {
     int counter = 0;
     Integer[][] combinations = new Integer[2][3];
-    for (int i = 0; i < POSSIBLE_MILLS.toArray().length; i++) {
+    for (int i = 0; i < possibleMillsArray.length; i++) {
       for (int j = 0; j < 3; j++) {
         if (positionIndex == possibleMillsArray[i][j]) {
           combinations[counter] = possibleMillsArray[i];
