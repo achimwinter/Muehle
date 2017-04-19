@@ -81,7 +81,7 @@ public class RulesImpl implements Rules {
   @Override
   public boolean isValidFlying(Board board, PositionToken playerToken, int fromId, int toId)
       throws GameException {
-    return this.isValidFrom(board, playerToken, fromId) && this.isValidTo(board, toId) && (
+    return this.isValidPlacement(board, fromId) && this.isValidTo(board, toId) && (
         board.getNumberOfTokensForPlayer(playerToken) == 3);
   }
 
