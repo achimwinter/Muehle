@@ -19,13 +19,13 @@ public class MillCombinationsTest {
 
   @Test
   public void testWillBeMill() throws GameException{
-    board.executeMove((new Move(-1, 3, -1)), playerToken);
-    board.executeMove((new Move(-1, 18, -1)), playerToken);
+    board.executeMove((new Move(-1, 0, -1)), PositionToken.PLAYER_TWO);
+    board.executeMove((new Move(-1, 21, -1)), PositionToken.PLAYER_TWO);
     //board.executeMove((new Move(-1, 9, -1)), playerToken);
     Integer[][] comb = MillCombinations.getInstance(board).getMillCombinations(9);
     System.out.println(comb[1][0] + " "  + comb[1][1] + " " + comb[1][2]);
     System.out.println(comb[0][0] + " "  + comb[0][1] + " " + comb[0][2]);
-    System.out.println(MillCombinations.getInstance(board).willBeMill(playerToken, 18,10));
+    System.out.println(MillCombinations.getInstance(board).willBeMill(playerToken, -1,9));
   }
 
 

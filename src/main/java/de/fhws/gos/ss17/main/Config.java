@@ -22,7 +22,7 @@ public class Config {
 
   public final static int PORT = 3000;
 
-  public final static String GROUP_ID = "5";
+  public final static String GROUP_ID = "6997";
 
   public final static String GAME_MODE = "remotebotgame";
 
@@ -35,7 +35,6 @@ public class Config {
   public static Connection initConnection() {
     DefaultConnection connect = new DefaultConnection(HOST, PORT, GROUP_ID);
     return connect;
-    //throw new UnsupportedOperationException("Not yet implemented");
   }
 
   /**
@@ -46,7 +45,6 @@ public class Config {
   public static Board initBoard() {
     BoardImpl board = new BoardImpl();
     return board;
-    //throw new UnsupportedOperationException("Not yet implemented");
   }
 
   /**
@@ -60,7 +58,6 @@ public class Config {
   public static Player getRemotePlayer(Connection connection) {
     RemoteBotPlayer remotePlayer = new RemoteBotPlayer(PositionToken.PLAYER_TWO, connection);
     return remotePlayer;
-    //throw new UnsupportedOperationException("Not yet implemented");
   }
 
   /**
@@ -87,7 +84,6 @@ public class Config {
   public static Player getRandomPlayer() {
     RandomPlayerWithRules localPlayer = new RandomPlayerWithRules(PositionToken.PLAYER_ONE);
     return localPlayer;
-    //throw new UnsupportedOperationException("Not yet implemented");
   }
   public static Player getAdvancedRandomPlayer(){
     AdvancedRandomPlayer advancedRandomPlayer = new AdvancedRandomPlayer((PositionToken.PLAYER_ONE));
