@@ -1,4 +1,4 @@
-package de.fhws.gos.ss17.players;
+package de.fhws.gos.ss17.players.utils;
 /*
 import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Board;

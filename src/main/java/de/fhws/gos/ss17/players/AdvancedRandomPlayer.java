@@ -6,6 +6,7 @@ import de.fhws.gos.core.logic.Move;
 import de.fhws.gos.core.logic.Position;
 import de.fhws.gos.core.utils.PositionToken;
 import de.fhws.gos.ss17.logic.impl.RulesImpl;
+import de.fhws.gos.ss17.players.utils.NotSoRandomBoard;
 
 /**
  * Created by Achim on 10.04.2017.
@@ -29,15 +30,18 @@ public class AdvancedRandomPlayer extends RandomPlayerWithRules {
     boolean foundMill = false;
 
     for (int i = 0; i < 23; i++) {
-      if (rules.willBeMill(board, playerToken, -1, i) && rules.isValidPlacement(board, i)) {
+      if (rules.willBeMill(board, playerToken, -1, NotSoRandomBoard.give(i)) && rules
+          .isValidPlacement(board, NotSoRandomBoard.give(i))) {
         foundMill = true;
-        toId = i;
+        toId = NotSoRandomBoard.give(i);
       }
     }
 
     if (foundMill == false) {
+      int i = 0;
       do {
-        toId = (int) (Math.random() * 24);
+        toId = NotSoRandomBoard.give(i);
+        i++;
       } while (!rules.isValidPlacement(board, toId));
     }
 

@@ -6,8 +6,7 @@ import de.fhws.gos.core.logic.Move;
 import de.fhws.gos.core.logic.Position;
 import de.fhws.gos.core.utils.PositionToken;
 import de.fhws.gos.ss17.logic.impl.RulesImpl;
-import de.fhws.gos.ss17.players.AbstractPlayer;
-import de.fhws.gos.ss17.players.MillCombinations;
+import de.fhws.gos.ss17.players.utils.MillCombinations;
 import java.util.Scanner;
 
 /**

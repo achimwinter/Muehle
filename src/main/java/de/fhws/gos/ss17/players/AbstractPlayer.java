@@ -5,6 +5,7 @@ import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Move;
 import de.fhws.gos.core.logic.Player;
 import de.fhws.gos.core.utils.PositionToken;
+import de.fhws.gos.ss17.players.utils.Phase;
 
 /**
  * Created by awinter on 05.04.17.
