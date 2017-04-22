@@ -5,6 +5,7 @@ import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Move;
 import de.fhws.gos.core.utils.PositionToken;
+import de.fhws.gos.ss17.main.GameOfStonesMain;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -45,7 +46,7 @@ public class LogPlayer extends AdvancedRandomPlayer {
     private void log(String output){
         FileOutputStream fos = null;
         try{
-            fos = new FileOutputStream("logs/moves.log", true);
+            fos = new FileOutputStream(GameOfStonesMain.logName, true);
 
             ObjectOutputStream oos = null;
 
