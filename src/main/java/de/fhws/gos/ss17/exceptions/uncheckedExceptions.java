@@ -1,4 +1,4 @@
-package de.fhws.gos.ss17.exeptions;
+package de.fhws.gos.ss17.exceptions;
 
 
 /**
