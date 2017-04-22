@@ -82,10 +82,12 @@ public class Config {
     RandomPlayerWithRules localPlayer = new RandomPlayerWithRules(PositionToken.PLAYER_ONE);
     return localPlayer;
   }
+
   public static Player getAdvancedRandomPlayer(){
     AdvancedRandomPlayer advancedRandomPlayer = new AdvancedRandomPlayer((PositionToken.PLAYER_ONE));
     return advancedRandomPlayer;
   }
+
   public static Player getLogPlayer(){
     LogPlayer logPlayer = new LogPlayer((PositionToken.PLAYER_ONE));
     return logPlayer;
