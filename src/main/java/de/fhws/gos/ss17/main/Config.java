@@ -8,10 +8,7 @@ import de.fhws.gos.game.impl.BoardImpl;
 import de.fhws.gos.network.impl.DefaultConnection;
 //import de.fhws.gos.ss17.players.RandomPlayerWithRules;
 import de.fhws.gos.remote.impl.RemoteBotPlayer;
-import de.fhws.gos.ss17.players.AdvancedRandomPlayer;
-import de.fhws.gos.ss17.players.CyborgPlayer;
-import de.fhws.gos.ss17.players.HumanPlayer;
-import de.fhws.gos.ss17.players.RandomPlayerWithRules;
+import de.fhws.gos.ss17.players.*;
 
 /**
  * (c) Tobias Fertig, FHWS 2017
@@ -89,5 +86,8 @@ public class Config {
     AdvancedRandomPlayer advancedRandomPlayer = new AdvancedRandomPlayer((PositionToken.PLAYER_ONE));
     return advancedRandomPlayer;
   }
-
+  public static Player getLogPlayer(){
+    LogPlayer logPlayer = new LogPlayer((PositionToken.PLAYER_ONE));
+    return logPlayer;
+  }
 }
