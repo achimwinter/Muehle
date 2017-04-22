@@ -51,7 +51,7 @@ public class MillCombinations {
   };
 
 
-  private Integer[][] getMillCombinations(int positionIndex) {
+  public Integer[][] getMillCombinations(int positionIndex) {
     int counter = 0;
     Integer[][] combinations = new Integer[2][3];
     for (int i = 0; i < possibleMillsArray.length; i++) {

@@ -21,23 +21,26 @@ public class LogPlayer extends AdvancedRandomPlayer {
     }
 
     public Move getNextMove(Board board) throws GameException {
-        log(super.getNextMove(board).toString());
+        //log(super.getNextMove(board).toString() + "\n");
         return super.getNextMove(board);
     }
 
     protected Move getMovingMove(Board board) throws GameException {
-        log(super.getMovingMove(board).toString());
+        Move move = super.getMovingMove(board);
+        log("Moving from: " + move.getFromId() + " to " + move.getToId() + " (removed " + move.getRemoveId() + ")\n");
         return super.getMovingMove(board);
     }
 
     protected Move getPlacingMove(Board board) throws GameException{
-        log(super.getPlacingMove(board).toString());
-        return super.getPlacingMove(board);
+        Move move = super.getPlacingMove(board);
+        log("Placing to: " + move.getToId() + " (removed " + move.getRemoveId() + ")\n");
+        return move;
     }
 
     protected Move getFlyingMove(Board board) throws GameException{
-        log(super.getFlyingMove(board).toString());
-        return super.getFlyingMove(board);
+        Move move = super.getFlyingMove(board);
+        log("Flying from: " + move.getFromId() + " to " + move.getToId() + " (removed " + move.getRemoveId() + ")\n");
+        return move;
     }
     private void log(String output){
         FileOutputStream fos = null;
