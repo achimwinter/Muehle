@@ -19,6 +19,16 @@ public class RulesTest {
 
   RulesImpl test = new RulesImpl();
 
+  @Test
+  public void testIsMill_WrongValues_GameException() throws GameException{
+    board.executeMove((new Move(-1, 0, -1)), playerToken);
+    board.executeMove((new Move(-1, 2, -1)), playerToken);
+    board.executeMove((new Move(-1, 1, -1)), playerToken);
+    board.printBoard();
+    boolean result = test.isMill(board, playerToken,25);
+    Assert.assertTrue("was mill, returned false", result);
+  }
+
 
   @Test
   public void testisMill_MillClosed_TrueReturned() throws GameException {

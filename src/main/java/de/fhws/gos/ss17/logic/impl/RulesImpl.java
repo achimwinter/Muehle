@@ -4,6 +4,8 @@ import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Position;
 import de.fhws.gos.core.utils.PositionToken;
+import de.fhws.gos.ss17.exceptions.checkedExceptions;
+import de.fhws.gos.ss17.exceptions.uncheckedExceptions;
 import de.fhws.gos.ss17.players.utils.MillCombinations;
 import de.fhws.gos.ss17.logic.Rules;
 
@@ -15,25 +17,61 @@ public class RulesImpl implements Rules {
 
   @Override
   public boolean isMill(Board board, PositionToken playerToken, int stoneId) throws GameException {
-    return MillCombinations.getInstance(board).isMill(playerToken, stoneId);
+    try {
+      return MillCombinations.getInstance(board).isMill(playerToken, stoneId);
+    }
+    catch (GameException e){
+      checkedExceptions.catchGameException(e);
+      return false;
+    }
+    catch(NullPointerException e){
+      uncheckedExceptions.getNullPointerException(e);
+      return false;
+    }
+    catch(ArrayIndexOutOfBoundsException e){
+      uncheckedExceptions.getArrayIndexOutOfBoundsException(e);
+      return false;
+    }
   }
 
   @Override
   public boolean willBeMill(Board board, PositionToken playerToken, int fromId, int toId)
       throws GameException {
-    return MillCombinations.getInstance(board).willBeMill(playerToken, fromId, toId);
+    try {
+      return MillCombinations.getInstance(board).willBeMill(playerToken, fromId, toId);
+    }
+    catch (GameException e){
+      checkedExceptions.catchGameException(e);
+      return false;
+    }
+    catch(NullPointerException e){
+      uncheckedExceptions.getNullPointerException(e);
+      return false;
+    }
+    catch(ArrayIndexOutOfBoundsException e){
+      uncheckedExceptions.getArrayIndexOutOfBoundsException(e);
+      return false;
+    }
   }
 
   @Override
   public boolean isValidFrom(Board board, PositionToken playerToken, int fromId)
       throws GameException {
-    boolean playerOwnsPosition = board.getPosition(fromId).getPositionToken().equals(playerToken);
     boolean positionHasFreeNeighbors = false;
+    boolean playerOwnsPosition;
     Position[] neighbors = board.getPosition(fromId).getNeighbors();
 
-    for(int i = 0; i < neighbors.length; ++i){
+    try {
+      playerOwnsPosition = board.getPosition(fromId).getPositionToken().equals(playerToken);
+    }catch (GameException e){
+      checkedExceptions.catchGameException(e);
+      return false;
+    }
+
+
+    for (int i = 0; i < neighbors.length; ++i) {
       Position position = neighbors[i];
-      if(position.isAvailable()){
+      if (position.isAvailable()) {
         positionHasFreeNeighbors = true;
         break;
       }
@@ -44,15 +82,25 @@ public class RulesImpl implements Rules {
   @Override
   public boolean isValidTo(Board board, int toId)
       throws GameException {
-    return board.getPosition(toId).getPositionToken().equals(PositionToken.IS_EMPTY);
+    try {
+      return board.getPosition(toId).getPositionToken().equals(PositionToken.IS_EMPTY);
+    }catch (GameException e){
+      checkedExceptions.catchGameException(e);
+      return false;
+    }
   }
 
   @Override
   public boolean isValidRemove(Board board, PositionToken playerToken, int stoneId)
       throws GameException {
-    return board.getPosition(stoneId).getPositionToken().equals(PositionToken.PLAYER_TWO)
-        && !(MillCombinations.getInstance(board).isMill(PositionToken.PLAYER_TWO, stoneId)) ||
-        MillCombinations.getInstance(board).allInMill(PositionToken.PLAYER_TWO);
+    try {
+      return board.getPosition(stoneId).getPositionToken().equals(PositionToken.PLAYER_TWO)
+          && !(MillCombinations.getInstance(board).isMill(PositionToken.PLAYER_TWO, stoneId)) ||
+          MillCombinations.getInstance(board).allInMill(PositionToken.PLAYER_TWO);
+    }catch (GameException e){
+      checkedExceptions.catchGameException(e);
+      return false;
+    }
   }
 
   @Override
@@ -60,8 +108,14 @@ public class RulesImpl implements Rules {
       throws GameException {
 
     boolean positionHasFreeNeighbors = false;
-    Position[] neighbors = board.getPosition(fromId).getNeighbors();
-    //int var6 = neighbors.length;
+    Position[] neighbors = new Position[0];
+
+    try {
+      neighbors = board.getPosition(fromId).getNeighbors();
+    }catch (GameException e){
+      checkedExceptions.catchGameException(e);
+    }
+
 
     for (int i = 0; i < neighbors.length; ++i) {
       Position position = neighbors[i];

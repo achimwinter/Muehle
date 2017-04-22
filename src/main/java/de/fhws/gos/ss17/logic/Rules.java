@@ -2,7 +2,6 @@ package de.fhws.gos.ss17.logic;
 
 import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Board;
-import de.fhws.gos.core.logic.Player;
 import de.fhws.gos.core.utils.PositionToken;
 
 /**
