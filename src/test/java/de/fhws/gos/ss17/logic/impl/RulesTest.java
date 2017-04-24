@@ -42,11 +42,11 @@ public class RulesTest {
 
   @Test
   public void testwillBeMill_MillClosed_TrueReturned() throws GameException {
+    board.executeMove((new Move(-1, 0, -1)), playerToken);
     board.executeMove((new Move(-1, 9, -1)), playerToken);
-    board.executeMove((new Move(-1, 2, -1)), playerToken);
-    board.executeMove((new Move(-1, 1, -1)), playerToken);
+    board.executeMove((new Move(-1, 22, -1)), playerToken);
     board.printBoard();
-    boolean result = test.willBeMill(board, playerToken, 9, 0);
+    boolean result = test.willBeMill(board, playerToken, 22, 21);
     Assert.assertTrue("Move wouldn´t close a mill, returned false", result);
   }
 
