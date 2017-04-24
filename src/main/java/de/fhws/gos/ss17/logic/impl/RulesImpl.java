@@ -108,23 +108,15 @@ public class RulesImpl implements Rules {
       throws GameException {
 
     boolean positionHasFreeNeighbors = false;
-    Position[] neighbors = new Position[0];
-
-    try {
-      neighbors = board.getPosition(fromId).getNeighbors();
-    }catch (GameException e){
-      checkedExceptions.catchGameException(e);
-    }
-
+    Position[] neighbors = board.getPosition(fromId).getNeighbors();
 
     for (int i = 0; i < neighbors.length; ++i) {
       Position position = neighbors[i];
-      if (position.getId() == toId) {
+      if (position.isAvailable() && position.getId() == toId) {
         positionHasFreeNeighbors = true;
-        return isValidFrom(board, playerToken, fromId) && positionHasFreeNeighbors;
       }
     }
-    return positionHasFreeNeighbors;
+    return isValidFrom(board, playerToken, fromId) && positionHasFreeNeighbors;
   }
 
   @Override

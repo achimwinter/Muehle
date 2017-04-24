@@ -43,18 +43,18 @@ public class RandomPlayerWithRules extends AbstractPlayer {
     do {
       randomValue = (int) (Math.random() * 24);
       fromId = randomValue;
-    } while (!this.validateFrom(board, fromId));
+    } while (!rules.isValidFrom(board, playerToken, fromId));
 
     int toId;
     do {
-      toId = (int) (Math.random() * 24); //weiß nicht, wie man die Regeln der Bewegung implementiert
-    } while (!board.getPosition(toId).isAvailable());
+      toId = (int) (Math.random() * 24);
+    } while (!rules.isValidMove(board, playerToken, fromId, toId));
 
     int removeId = -1;
     if (rules.willBeMill(board, playerToken, fromId, toId)) {
       do {
         randomValue = (int) (Math.random()
-            * 24); //da muss man irgendwie noch checken, ob der Stein einem selbst gehört oder halt nicht
+            * 24);
         removeId = randomValue;
       } while (!rules.isValidRemove(board, playerToken, removeId));
 
