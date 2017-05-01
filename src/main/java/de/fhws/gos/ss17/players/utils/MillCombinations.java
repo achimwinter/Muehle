@@ -51,7 +51,7 @@ public class MillCombinations {
   };
 
 
-  public boolean isMill(PositionToken playerToken, int fromId, int toId) throws GameException {
+  public boolean isMill(PositionToken playerToken, int fromId , int toId) throws GameException {
     return isMill(playerToken, toId);
   }
 

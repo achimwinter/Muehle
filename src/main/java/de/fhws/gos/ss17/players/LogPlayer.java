@@ -21,11 +21,6 @@ public class LogPlayer extends AdvancedRandomPlayer {
     super(playerToken);
   }
 
-  public Move getNextMove(Board board) throws GameException {
-    //log(super.getNextMove(board).toString() + "\n");
-    return super.getNextMove(board);
-  }
-
   protected Move getMovingMove(Board board) throws GameException {
     Move move = super.getMovingMove(board);
     log("Moving from: " + move.getFromId() + " to " + move.getToId() + " (removed " + move
