@@ -47,12 +47,6 @@ public class GameOfStonesMain {
     DateFormat dateFormat = new SimpleDateFormat("MM_dd_HH_mm_ss");
     Calendar cal = Calendar.getInstance();
     this.logName = "logs/" + dateFormat.format(cal.getTime()) + ".log";
-    try {
-      File file = new File(this.logName);
-      file.createNewFile();
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    }
-    finally{return this.logName;}
+    return this.logName;
   }
 }
