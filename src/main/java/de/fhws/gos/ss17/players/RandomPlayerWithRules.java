@@ -111,7 +111,6 @@ public class RandomPlayerWithRules extends AbstractPlayer {
 
     int removeId;
     do {
-      System.out.print("ID des zu entfernenden Steins eingeben: ");
       removeId = (int) (Math.random() * 24);
       if (board.getPosition(removeId).getPositionToken().equals(opponent) && (
           !MillCombinations.getInstance(board).isMill(opponent, removeId) || MillCombinations

@@ -55,7 +55,6 @@ public class MillCombinations {
     return isMill(playerToken, toId);
   }
 
-
   private boolean isAllied(List<Integer> millcoords, PositionToken playerToken) throws GameException {
     int counter = 0;
     for (int i : millcoords) {
