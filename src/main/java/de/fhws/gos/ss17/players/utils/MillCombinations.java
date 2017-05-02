@@ -30,7 +30,7 @@ public class MillCombinations {
     this.board = board;
   }
 
-  public static final List<List<Integer>> POSSIBLE_MILLS;
+  private static final List<List<Integer>> POSSIBLE_MILLS;
   private static final Integer[][] possibleMillsArray = {
       {0, 1, 2},
       {3, 4, 5},
@@ -89,7 +89,7 @@ public class MillCombinations {
   }
 
 
-  public Integer[][] getMillCombinations(int positionIndex) {
+  private Integer[][] getMillCombinations(int positionIndex) {
     int counter = 0;
     Integer[][] combinations = new Integer[2][3];
     for (int i = 0; i < possibleMillsArray.length; i++) {
