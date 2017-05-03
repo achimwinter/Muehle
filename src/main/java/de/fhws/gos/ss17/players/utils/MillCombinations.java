@@ -92,10 +92,10 @@ public class MillCombinations {
   private Integer[][] getMillCombinations(int positionIndex) {
     int counter = 0;
     Integer[][] combinations = new Integer[2][3];
-    for (int i = 0; i < possibleMillsArray.length; i++) {
+    for (Integer[] aPossibleMillsArray : possibleMillsArray) {
       for (int j = 0; j < 3; j++) {
-        if (positionIndex == possibleMillsArray[i][j]) {
-          combinations[counter] = possibleMillsArray[i];
+        if (positionIndex == aPossibleMillsArray[j]) {
+          combinations[counter] = aPossibleMillsArray;
           counter++;
         }
       }
@@ -133,10 +133,10 @@ public class MillCombinations {
 
 
   static {
-    List<List<Integer>> possMills = new ArrayList<List<Integer>>();
+    List<List<Integer>> possMills = new ArrayList<>();
 
-    for (int i = 0; i < possibleMillsArray.length; i++) {
-      possMills.add(Collections.unmodifiableList(Arrays.asList(possibleMillsArray[i])));
+    for (Integer[] aPossibleMillsArray : possibleMillsArray) {
+      possMills.add(Collections.unmodifiableList(Arrays.asList(aPossibleMillsArray)));
     }
 
     POSSIBLE_MILLS = Collections.unmodifiableList(possMills);
