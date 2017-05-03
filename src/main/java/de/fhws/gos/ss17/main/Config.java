@@ -92,4 +92,8 @@ public class Config {
     LogPlayer logPlayer = new LogPlayer((PositionToken.PLAYER_ONE));
     return logPlayer;
   }
+  public static Player getShortLogPlayer() {
+    ShortLogPlayer localPlayer = new ShortLogPlayer(PositionToken.PLAYER_ONE);
+    return localPlayer;
+  }
 }
