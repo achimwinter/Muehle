@@ -22,6 +22,8 @@ public class LogPlayer extends AdvancedRandomPlayer {
   }
 
   protected Move getMovingMove(Board board) throws GameException {
+    Move enemymove = board.getLastMove();
+    log("Enemy From: " + enemymove.getFromId() + " to "+ enemymove.getToId() + " (removed " + enemymove.getRemoveId() + ")\n");
     Move move = super.getMovingMove(board);
     log("Moving from: " + move.getFromId() + " to " + move.getToId() + " (removed " + move
         .getRemoveId() + ")\n");
@@ -29,12 +31,22 @@ public class LogPlayer extends AdvancedRandomPlayer {
   }
 
   protected Move getPlacingMove(Board board) throws GameException {
+    try {
+      Move enemymove = board.getLastMove();
+      log("Enemy From: " + enemymove.getFromId() + " to " + enemymove.getToId() + " (removed "
+          + enemymove.getRemoveId() + ")\n");
+    }catch(Exception ex){
+      log("We begin \n");
+    }
+
     Move move = super.getPlacingMove(board);
     log("Placing to: " + move.getToId() + " (removed " + move.getRemoveId() + ")\n");
     return move;
   }
 
   protected Move getFlyingMove(Board board) throws GameException {
+    Move enemymove = board.getLastMove();
+    log("Enemy From: " + enemymove.getFromId() + " to "+ enemymove.getToId() + " (removed " + enemymove.getRemoveId() + ")\n");
     Move move = super.getFlyingMove(board);
     log("Flying from: " + move.getFromId() + " to " + move.getToId() + " (removed " + move
         .getRemoveId() + ")\n");
