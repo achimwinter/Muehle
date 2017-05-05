@@ -18,15 +18,18 @@ public class MillCombinationsTest {
   private PositionToken playerToken = PositionToken.PLAYER_ONE;
 
   @Test
-  public void testWillBeMill() throws GameException{
+  public void testWillBeMill_Only2StonesinMillPos_FalseReturned() throws GameException {
     board.executeMove((new Move(-1, 0, -1)), PositionToken.PLAYER_TWO);
     board.executeMove((new Move(-1, 21, -1)), PositionToken.PLAYER_TWO);
-    System.out.println(MillCombinations.getInstance(board).willBeMill(playerToken, -1,9));
+    boolean result = (MillCombinations.getInstance(board).willBeMill(playerToken, 21, 9));
+    board.printBoard();
+    Assert.assertFalse("Mill found, returned true", result);
+
   }
 
 
   @Test
-  public void testAllinMill_NoStonesPlaced_FalseReturned() throws GameException{
+  public void testAllinMill_NoStonesPlaced_FalseReturned() throws GameException {
     board.executeMove((new Move(-1, 0, -1)), PositionToken.PLAYER_TWO);
     board.executeMove((new Move(-1, 1, -1)), PositionToken.PLAYER_TWO);
     board.executeMove((new Move(-1, 2, -1)), PositionToken.PLAYER_TWO);
@@ -39,6 +42,7 @@ public class MillCombinationsTest {
 
   @Test
   public void testAllInMill_AllStonesInMill_TrueReturned() throws GameException {
+    System.out.println("preallinmistest");
     board.executeMove((new Move(-1, 0, -1)), playerToken);
     board.executeMove((new Move(-1, 2, -1)), playerToken);
     board.executeMove((new Move(-1, 1, -1)), playerToken);
@@ -61,18 +65,14 @@ public class MillCombinationsTest {
   }
 
   @Test
-  public void testIsMill_StoneIsPartOfMill_TrueReturned() throws GameException{
+  public void testIsMill_StoneIsPartOfMill_TrueReturned() throws GameException {
     board.executeMove((new Move(-1, 0, -1)), playerToken);
     board.executeMove((new Move(-1, 2, -1)), playerToken);
     board.executeMove((new Move(-1, 1, -1)), playerToken);
     board.printBoard();
-    boolean result = MillCombinations.getInstance(board).isMill(playerToken,-1, 1);
+    boolean result = MillCombinations.getInstance(board).isMill(playerToken, -1, 1);
     Assert.assertTrue("Stone was not in Mill, returned false", result);
   }
-
-
-
-
 
 
 }

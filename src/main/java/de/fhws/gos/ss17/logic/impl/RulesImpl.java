@@ -4,8 +4,8 @@ import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Position;
 import de.fhws.gos.core.utils.PositionToken;
-import de.fhws.gos.ss17.exceptions.checkedExceptions;
-import de.fhws.gos.ss17.exceptions.uncheckedExceptions;
+import de.fhws.gos.ss17.exceptions.CheckedExceptions;
+import de.fhws.gos.ss17.exceptions.UncheckedExceptions;
 import de.fhws.gos.ss17.players.utils.MillCombinations;
 import de.fhws.gos.ss17.logic.Rules;
 
@@ -21,15 +21,15 @@ public class RulesImpl implements Rules {
       return MillCombinations.getInstance(board).isMill(playerToken, stoneId);
     }
     catch (GameException e){
-      checkedExceptions.catchGameException(e);
+      CheckedExceptions.catchGameException(e);
       return false;
     }
     catch(NullPointerException e){
-      uncheckedExceptions.getNullPointerException(e);
+      UncheckedExceptions.getNullPointerException(e);
       return false;
     }
     catch(ArrayIndexOutOfBoundsException e){
-      uncheckedExceptions.getArrayIndexOutOfBoundsException(e);
+      UncheckedExceptions.getArrayIndexOutOfBoundsException(e);
       return false;
     }
   }
@@ -41,15 +41,15 @@ public class RulesImpl implements Rules {
       return MillCombinations.getInstance(board).willBeMill(playerToken, fromId, toId);
     }
     catch (GameException e){
-      checkedExceptions.catchGameException(e);
+      CheckedExceptions.catchGameException(e);
       return false;
     }
     catch(NullPointerException e){
-      uncheckedExceptions.getNullPointerException(e);
+      UncheckedExceptions.getNullPointerException(e);
       return false;
     }
     catch(ArrayIndexOutOfBoundsException e){
-      uncheckedExceptions.getArrayIndexOutOfBoundsException(e);
+      UncheckedExceptions.getArrayIndexOutOfBoundsException(e);
       return false;
     }
   }
@@ -64,7 +64,7 @@ public class RulesImpl implements Rules {
     try {
       playerOwnsPosition = board.getPosition(fromId).getPositionToken().equals(playerToken);
     }catch (GameException e){
-      checkedExceptions.catchGameException(e);
+      CheckedExceptions.catchGameException(e);
       return false;
     }
 
@@ -85,7 +85,7 @@ public class RulesImpl implements Rules {
     try {
       return board.getPosition(toId).getPositionToken().equals(PositionToken.IS_EMPTY);
     }catch (GameException e){
-      checkedExceptions.catchGameException(e);
+      CheckedExceptions.catchGameException(e);
       return false;
     }
   }
@@ -98,7 +98,7 @@ public class RulesImpl implements Rules {
           && !(MillCombinations.getInstance(board).isMill(PositionToken.PLAYER_TWO, stoneId)) ||
           MillCombinations.getInstance(board).allInMill(PositionToken.PLAYER_TWO);
     }catch (GameException e){
-      checkedExceptions.catchGameException(e);
+      CheckedExceptions.catchGameException(e);
       return false;
     }
   }

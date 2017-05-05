@@ -3,7 +3,7 @@ package de.fhws.gos.ss17.exceptions;
 /**
  * Created by Achim on 22.04.2017.
  */
-public class checkedExceptions extends Exception {
+public class CheckedExceptions extends Exception {
 
   public static void catchGameException(Exception ex) {
     System.out.println("GameException was catched");

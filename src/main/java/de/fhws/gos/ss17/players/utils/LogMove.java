@@ -7,6 +7,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import org.omg.CORBA.Environment;
 
 /**
  * Created by Auron on 02.05.2017.
@@ -50,7 +51,7 @@ public class LogMove {
         bw.write(move.getFromId() + ",");
       }
       if (move.getRemoveId() == -1 ) {
-        bw.write("\n");
+        bw.write(System.lineSeparator());
       } else {
         bw.write(move.getRemoveId() + "\n");
       }
