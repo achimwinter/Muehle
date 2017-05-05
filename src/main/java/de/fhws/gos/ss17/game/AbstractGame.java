@@ -11,16 +11,16 @@ import de.fhws.gos.ss17.exceptions.CheckedExceptions;
  */
 public abstract class AbstractGame implements de.fhws.gos.core.logic.Game {
 
-  protected de.fhws.gos.ss17.game.Board board;
+  protected BoardImpl board;
   protected Player playerOne;
   protected Player playerTwo;
   protected Player currentPlayer;
 
-  public AbstractGame(Board board) {
+  public AbstractGame(BoardImpl board) {
     this.board = board;
   }
 
-  public AbstractGame(Board board, Player playerOne, Player playerTwo) {
+  public AbstractGame(BoardImpl board, Player playerOne, Player playerTwo) {
     this.board = board;
     this.playerOne = playerOne;
     this.playerTwo = playerTwo;
