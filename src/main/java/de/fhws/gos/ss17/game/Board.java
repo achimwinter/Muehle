@@ -4,7 +4,6 @@ import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Move;
 import de.fhws.gos.core.utils.GameStatus;
 import de.fhws.gos.core.utils.PositionToken;
-import de.fhws.gos.ss17.game.Position;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -14,7 +13,7 @@ import java.util.NoSuchElementException;
  * Created by Neuer on 03.05.2017.
  */
 public class Board implements de.fhws.gos.core.logic.Board{
-    private Position[] positions;
+    private PositionImpl[] positionImpls;
     private GameStatus gameStatus;
     private int[] tokenCounters;
     private int[] moveCounters;
@@ -38,20 +37,20 @@ public class Board implements de.fhws.gos.core.logic.Board{
         this.moveHistory.add(move);
         if(move.getFromId() != -1) {
             System.out.println(positionToken + " FR " + move.getFromId());
-            this.tokenMinusMinus(this.positions[move.getFromId()].getPositionToken());
-            this.positions[move.getFromId()].setPositionToken(PositionToken.IS_EMPTY);
+            this.tokenMinusMinus(this.positionImpls[move.getFromId()].getPositionToken());
+            this.positionImpls[move.getFromId()].setPositionToken(PositionToken.IS_EMPTY);
         }
 
         if(move.getToId() != -1) {
             System.out.println(positionToken + " TO " + move.getToId());
             this.tokenPlusPlus(positionToken);
-            this.positions[move.getToId()].setPositionToken(positionToken);
+            this.positionImpls[move.getToId()].setPositionToken(positionToken);
         }
 
         if(move.getRemoveId() != -1) {
             System.out.println(positionToken + " REM: " + move.getRemoveId());
-            this.tokenMinusMinus(this.positions[move.getRemoveId()].getPositionToken());
-            this.positions[move.getRemoveId()].setPositionToken(PositionToken.IS_EMPTY);
+            this.tokenMinusMinus(this.positionImpls[move.getRemoveId()].getPositionToken());
+            this.positionImpls[move.getRemoveId()].setPositionToken(PositionToken.IS_EMPTY);
         }
 
     }
@@ -67,9 +66,9 @@ public class Board implements de.fhws.gos.core.logic.Board{
     }
 
     @Override
-    public Position getPosition(int i) throws GameException {
+    public PositionImpl getPosition(int i) throws GameException {
         if(i >= 0 && i < 24) {
-            return this.positions[i];
+            return this.positionImpls[i];
         } else {
             throw new GameException("Blödl... " + i + "geht net!");
         }
@@ -119,8 +118,8 @@ public class Board implements de.fhws.gos.core.logic.Board{
     }
 
     public String getPositionTokenAsString(int position) {
-        if(this.positions[position].getPositionToken() == PositionToken.PLAYER_ONE) return "1";
-        else if(this.positions[position].getPositionToken() == PositionToken.PLAYER_TWO) return "2";
+        if(this.positionImpls[position].getPositionToken() == PositionToken.PLAYER_ONE) return "1";
+        else if(this.positionImpls[position].getPositionToken() == PositionToken.PLAYER_TWO) return "2";
         else return "0";
     }
 
@@ -130,11 +129,11 @@ public class Board implements de.fhws.gos.core.logic.Board{
             private int index = 0;
 
             public boolean hasNext() {
-                return this.index < positions.length;
+                return this.index < positionImpls.length;
             }
 
-            public Position next() {
-                Position pos = positions[this.index];
+            public PositionImpl next() {
+                PositionImpl pos = positionImpls[this.index];
                 ++this.index;
                 return pos;
             }
@@ -157,36 +156,36 @@ public class Board implements de.fhws.gos.core.logic.Board{
     }
 
     private void initPositions() {
-        this.positions = new Position[24];
+        this.positionImpls = new PositionImpl[24];
 
         for(int i = 0; i < 24; ++i) {
-            this.positions[i] = new Position(i);
-            this.positions[i].setPositionToken(PositionToken.IS_EMPTY);
+            this.positionImpls[i] = new PositionImpl(i);
+            this.positionImpls[i].setPositionToken(PositionToken.IS_EMPTY);
         }
 
-        this.positions[0].setNeighbors(new Position[]{this.positions[1], this.positions[9]});
-        this.positions[1].setNeighbors(new Position[]{this.positions[0], this.positions[2], this.positions[4]});
-        this.positions[2].setNeighbors(new Position[]{this.positions[1], this.positions[14]});
-        this.positions[3].setNeighbors(new Position[]{this.positions[4], this.positions[10]});
-        this.positions[4].setNeighbors(new Position[]{this.positions[1], this.positions[3], this.positions[5], this.positions[7]});
-        this.positions[5].setNeighbors(new Position[]{this.positions[4], this.positions[13]});
-        this.positions[6].setNeighbors(new Position[]{this.positions[7], this.positions[11]});
-        this.positions[7].setNeighbors(new Position[]{this.positions[4], this.positions[6], this.positions[8]});
-        this.positions[8].setNeighbors(new Position[]{this.positions[7], this.positions[12]});
-        this.positions[9].setNeighbors(new Position[]{this.positions[0], this.positions[10], this.positions[21]});
-        this.positions[10].setNeighbors(new Position[]{this.positions[3], this.positions[9], this.positions[11], this.positions[18]});
-        this.positions[11].setNeighbors(new Position[]{this.positions[6], this.positions[10], this.positions[15]});
-        this.positions[12].setNeighbors(new Position[]{this.positions[8], this.positions[13], this.positions[17]});
-        this.positions[13].setNeighbors(new Position[]{this.positions[5], this.positions[12], this.positions[14], this.positions[20]});
-        this.positions[14].setNeighbors(new Position[]{this.positions[2], this.positions[13], this.positions[23]});
-        this.positions[15].setNeighbors(new Position[]{this.positions[11], this.positions[16]});
-        this.positions[16].setNeighbors(new Position[]{this.positions[15], this.positions[17], this.positions[19]});
-        this.positions[17].setNeighbors(new Position[]{this.positions[12], this.positions[16]});
-        this.positions[18].setNeighbors(new Position[]{this.positions[10], this.positions[19]});
-        this.positions[19].setNeighbors(new Position[]{this.positions[16], this.positions[18], this.positions[20], this.positions[22]});
-        this.positions[20].setNeighbors(new Position[]{this.positions[13], this.positions[19]});
-        this.positions[21].setNeighbors(new Position[]{this.positions[9], this.positions[22]});
-        this.positions[22].setNeighbors(new Position[]{this.positions[19], this.positions[21], this.positions[23]});
-        this.positions[23].setNeighbors(new Position[]{this.positions[14], this.positions[22]});
+        this.positionImpls[0].setNeighbors(new PositionImpl[]{this.positionImpls[1], this.positionImpls[9]});
+        this.positionImpls[1].setNeighbors(new PositionImpl[]{this.positionImpls[0], this.positionImpls[2], this.positionImpls[4]});
+        this.positionImpls[2].setNeighbors(new PositionImpl[]{this.positionImpls[1], this.positionImpls[14]});
+        this.positionImpls[3].setNeighbors(new PositionImpl[]{this.positionImpls[4], this.positionImpls[10]});
+        this.positionImpls[4].setNeighbors(new PositionImpl[]{this.positionImpls[1], this.positionImpls[3], this.positionImpls[5], this.positionImpls[7]});
+        this.positionImpls[5].setNeighbors(new PositionImpl[]{this.positionImpls[4], this.positionImpls[13]});
+        this.positionImpls[6].setNeighbors(new PositionImpl[]{this.positionImpls[7], this.positionImpls[11]});
+        this.positionImpls[7].setNeighbors(new PositionImpl[]{this.positionImpls[4], this.positionImpls[6], this.positionImpls[8]});
+        this.positionImpls[8].setNeighbors(new PositionImpl[]{this.positionImpls[7], this.positionImpls[12]});
+        this.positionImpls[9].setNeighbors(new PositionImpl[]{this.positionImpls[0], this.positionImpls[10], this.positionImpls[21]});
+        this.positionImpls[10].setNeighbors(new PositionImpl[]{this.positionImpls[3], this.positionImpls[9], this.positionImpls[11], this.positionImpls[18]});
+        this.positionImpls[11].setNeighbors(new PositionImpl[]{this.positionImpls[6], this.positionImpls[10], this.positionImpls[15]});
+        this.positionImpls[12].setNeighbors(new PositionImpl[]{this.positionImpls[8], this.positionImpls[13], this.positionImpls[17]});
+        this.positionImpls[13].setNeighbors(new PositionImpl[]{this.positionImpls[5], this.positionImpls[12], this.positionImpls[14], this.positionImpls[20]});
+        this.positionImpls[14].setNeighbors(new PositionImpl[]{this.positionImpls[2], this.positionImpls[13], this.positionImpls[23]});
+        this.positionImpls[15].setNeighbors(new PositionImpl[]{this.positionImpls[11], this.positionImpls[16]});
+        this.positionImpls[16].setNeighbors(new PositionImpl[]{this.positionImpls[15], this.positionImpls[17], this.positionImpls[19]});
+        this.positionImpls[17].setNeighbors(new PositionImpl[]{this.positionImpls[12], this.positionImpls[16]});
+        this.positionImpls[18].setNeighbors(new PositionImpl[]{this.positionImpls[10], this.positionImpls[19]});
+        this.positionImpls[19].setNeighbors(new PositionImpl[]{this.positionImpls[16], this.positionImpls[18], this.positionImpls[20], this.positionImpls[22]});
+        this.positionImpls[20].setNeighbors(new PositionImpl[]{this.positionImpls[13], this.positionImpls[19]});
+        this.positionImpls[21].setNeighbors(new PositionImpl[]{this.positionImpls[9], this.positionImpls[22]});
+        this.positionImpls[22].setNeighbors(new PositionImpl[]{this.positionImpls[19], this.positionImpls[21], this.positionImpls[23]});
+        this.positionImpls[23].setNeighbors(new PositionImpl[]{this.positionImpls[14], this.positionImpls[22]});
     }
 }

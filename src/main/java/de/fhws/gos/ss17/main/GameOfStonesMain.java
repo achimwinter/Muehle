@@ -31,7 +31,7 @@ public class GameOfStonesMain {
     Board board = Config.initBoard();
 
     this.game = GameFactory.getInstance(connection, board).createGame(Config.GAME_MODE);
-    this.game.setPlayers(Config.getLogPlayer(), Config.getRemotePlayer(connection));
+    this.game.setPlayers(Config.getAdvancedRandomPlayer(), Config.getRemotePlayer(connection));
   }
 
   public void showWelcome() {
