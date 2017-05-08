@@ -8,6 +8,7 @@ import de.fhws.gos.ss17.game.Position;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 /**
  * Created by Neuer on 03.05.2017.
@@ -57,7 +58,12 @@ public class Board implements de.fhws.gos.core.logic.Board{
 
     @Override
     public Move getLastMove() {
-        return this.moveHistory.getLast();
+        try {
+            return (Move) this.moveHistory.getLast();
+        }catch (NoSuchElementException ex){
+            return null;
+        }
+
     }
 
     @Override

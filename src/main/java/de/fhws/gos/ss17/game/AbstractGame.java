@@ -32,12 +32,9 @@ public abstract class AbstractGame implements de.fhws.gos.core.logic.Game {
   }
 
   public void startGame() {
-    while (board.getCurrentGameStatus().equals(GameStatus.RUNNING)) {
-      if (currentPlayer.equals(playerOne)) {
-        currentPlayer = playerTwo;
-      } else {
-        currentPlayer = playerOne;
-      }
+    for (; this.board.getCurrentGameStatus().equals(GameStatus.RUNNING); this.currentPlayer =
+        this.currentPlayer.equals(this.playerOne) ? (this.currentPlayer = this.playerTwo)
+            : (this.currentPlayer = this.playerOne)) {
       try {
         Move nextMove = currentPlayer.getNextMove(board);
         board.executeMove(nextMove, currentPlayer.getPlayerToken());
@@ -57,16 +54,16 @@ public abstract class AbstractGame implements de.fhws.gos.core.logic.Game {
     System.out.println(
         "Moves for Player Two: " + board.getNumberOfMovesForPlayer(playerTwo.getPlayerToken()));
     GameStatus status = board.getCurrentGameStatus();
-    if (status.equals("ERROR"))
+    if (status.equals("ERROR")) {
       System.out.println("Error while Game");
-    else if (status.equals("PLAYER_ONE_WON"))
+    } else if (status.equals("PLAYER_ONE_WON")) {
       System.out.println("Congrats Player One");
-    else if (status.equals("PLAYER_TWO_WON"))
+    } else if (status.equals("PLAYER_TWO_WON")) {
       System.out.println("Congrats Player Two");
-    else if (status.equals("TIE"))
+    } else if (status.equals("TIE")) {
       System.out.println("The Game was a tie");
     }
-
+  }
 
 
   public void setPlayers(Player playerOne, Player playerTwo) {
