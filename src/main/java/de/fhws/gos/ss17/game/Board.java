@@ -58,7 +58,7 @@ public class Board implements de.fhws.gos.core.logic.Board{
     @Override
     public Move getLastMove() {
         try {
-            return (Move) this.moveHistory.getLast();
+            return this.moveHistory.getLast();
         }catch (NoSuchElementException ex){
             return null;
         }
