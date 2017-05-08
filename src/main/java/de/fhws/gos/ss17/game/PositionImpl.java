@@ -1,16 +1,18 @@
 package de.fhws.gos.ss17.game;
 
+import de.fhws.gos.core.logic.Position;
 import de.fhws.gos.core.utils.PositionToken;
+import java.util.Arrays;
 
 /**
  * Created by Neuer on 03.05.2017.
  */
-public class Position implements de.fhws.gos.core.logic.Position {
+public class PositionImpl implements Position {
     private int id;
-    private Position[] neighbors;
+    private PositionImpl[] neighbors;
     private PositionToken positionToken;
 
-    public Position(int id) {
+    public PositionImpl(int id) {
         this.id = id;
     }
 
@@ -20,12 +22,12 @@ public class Position implements de.fhws.gos.core.logic.Position {
     }
 
     @Override
-    public void setNeighbors(de.fhws.gos.core.logic.Position[] positions) {
-        this.neighbors = neighbors;
+    public void setNeighbors(Position[] positions) {
+        this.neighbors = Arrays.copyOf(positions, positions.length, PositionImpl[].class);
     }
 
     @Override
-    public Position[] getNeighbors() {
+    public PositionImpl[] getNeighbors() {
         return this.neighbors;
     }
 
