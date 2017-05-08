@@ -8,13 +8,11 @@ public class CheckedExceptions extends Exception {
   public static void catchGameException(Exception ex) {
     System.out.println("GameException was catched");
     ex.printStackTrace();
-    System.exit(0);
   }
 
   public static void catchGameIOException(Exception ex) {
     System.out.println("IOExceptions was catched");
     ex.printStackTrace();
-    System.exit(0);
   }
 
 }
