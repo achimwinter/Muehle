@@ -68,7 +68,7 @@ public class HumanPlayer extends AbstractPlayer {
 
     int toId;
     do {
-      System.out.print("ID der neuen Position eingeben: ");
+      System.out.print("ID der neuen PositionImpl eingeben: ");
       toId = input.nextInt();
     } while (!board.getPosition(toId).isAvailable());
 
