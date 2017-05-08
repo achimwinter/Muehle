@@ -10,9 +10,9 @@ public class GameFactory {
 
   private static GameFactory instance;
   private Connection connection;
-  private BoardImpl board;
+  private Board board;
 
-  public static GameFactory getInstance(Connection connection, BoardImpl board) {
+  public static GameFactory getInstance(Connection connection, Board board) {
     if (instance == null) {
       instance = new GameFactory(connection, board);
     }
@@ -20,7 +20,7 @@ public class GameFactory {
     return instance;
   }
 
-  private GameFactory(Connection connection, BoardImpl board) {
+  private GameFactory(Connection connection, Board board) {
     this.connection = connection;
     this.board = board;
   }

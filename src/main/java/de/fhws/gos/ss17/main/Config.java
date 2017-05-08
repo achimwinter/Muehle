@@ -1,10 +1,9 @@
 package de.fhws.gos.ss17.main;
 
-import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Player;
 import de.fhws.gos.core.network.Connection;
 import de.fhws.gos.core.utils.PositionToken;
-import de.fhws.gos.game.impl.BoardImpl;
+import de.fhws.gos.ss17.game.Board;
 import de.fhws.gos.network.impl.DefaultConnection;
 //import de.fhws.gos.ss17.players.RandomPlayerWithRules;
 import de.fhws.gos.remote.impl.RemoteBotPlayer;
@@ -40,7 +39,7 @@ public class Config {
    * @return the initialized board object.
    */
   public static Board initBoard() {
-    BoardImpl board = new BoardImpl();
+    Board board = new Board();
     return board;
   }
 

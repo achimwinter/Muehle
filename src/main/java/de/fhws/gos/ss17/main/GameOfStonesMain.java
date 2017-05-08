@@ -1,12 +1,11 @@
 package de.fhws.gos.ss17.main;
 
 import de.fhws.gos.core.exceptions.GameException;
-import de.fhws.gos.core.logic.Board;
+import de.fhws.gos.ss17.game.Board;
 import de.fhws.gos.core.logic.Game;
 import de.fhws.gos.core.network.Connection;
-import de.fhws.gos.game.impl.GameFactory;
+import de.fhws.gos.ss17.game.GameFactory;
 
-import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

@@ -5,6 +5,7 @@ import de.fhws.gos.core.network.Connection;
 import de.fhws.gos.remote.utils.JSONHelper;
 import de.fhws.gos.remote.utils.models.ServerEntity;
 import java.io.IOException;
+import de.fhws.gos.ss17.game.Board;
 
 /**
  * Created by Achim on 05.05.2017.
@@ -13,17 +14,17 @@ public class RemoteBotGame extends AbstractGame {
 
   private Connection connection;
 
-  public RemoteBotGame(BoardImpl board, Connection connection) {
+  public RemoteBotGame(Board board, Connection connection) {
     super(board);
     this.connection = connection;
   }
 
-  public RemoteBotGame(BoardImpl board, Player playerOne,
+  public RemoteBotGame(Board board, Player playerOne,
       Player playerTwo) {
     super(board, playerOne, playerTwo);
   }
 
-  public RemoteBotGame(BoardImpl board, Player playerOne, Player playerTwo, Connection connection) {
+  public RemoteBotGame(Board board, Player playerOne, Player playerTwo, Connection connection) {
     super(board, playerOne, playerTwo);
     this.connection = connection;
   }
@@ -43,7 +44,7 @@ public class RemoteBotGame extends AbstractGame {
         this.currentPlayer = this.playerOne;
       }
 
-      this.board.printBoard();
+      board.printBoard();
     } catch (IOException var3) {
       System.err.println(var3.getMessage());
     }

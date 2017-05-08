@@ -25,11 +25,6 @@ public class Position implements de.fhws.gos.core.logic.Position {
     }
 
     @Override
-    public void setNeighbors(Position[] positions) {
-        this.neighbors = neighbors;
-    }
-
-    @Override
     public Position[] getNeighbors() {
         return this.neighbors;
     }

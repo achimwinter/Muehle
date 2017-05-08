@@ -2,10 +2,9 @@ package de.fhws.gos.ss17.game;
 
 import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Move;
-import de.fhws.gos.core.logic.Position;
 import de.fhws.gos.core.utils.GameStatus;
 import de.fhws.gos.core.utils.PositionToken;
-import de.fhws.gos.game.impl.PositionImpl;
+import de.fhws.gos.ss17.game.Position;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -120,7 +119,7 @@ public class Board implements de.fhws.gos.core.logic.Board{
     }
 
     @Override
-    public Iterator<Position> iteratePositions() {
+    public Iterator<de.fhws.gos.core.logic.Position> iteratePositions() {
         return new Iterator() {
             private int index = 0;
 
@@ -155,7 +154,7 @@ public class Board implements de.fhws.gos.core.logic.Board{
         this.positions = new Position[24];
 
         for(int i = 0; i < 24; ++i) {
-            this.positions[i] = new PositionImpl(i);
+            this.positions[i] = new Position(i);
             this.positions[i].setPositionToken(PositionToken.IS_EMPTY);
         }
 
