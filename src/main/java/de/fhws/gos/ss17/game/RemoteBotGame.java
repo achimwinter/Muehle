@@ -5,7 +5,6 @@ import de.fhws.gos.core.network.Connection;
 import de.fhws.gos.remote.utils.JSONHelper;
 import de.fhws.gos.remote.utils.models.ServerEntity;
 import java.io.IOException;
-import de.fhws.gos.ss17.game.Board;
 
 /**
  * Created by Achim on 05.05.2017.

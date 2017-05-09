@@ -3,11 +3,17 @@ package de.fhws.gos.ss17.main;
 import de.fhws.gos.core.logic.Player;
 import de.fhws.gos.core.network.Connection;
 import de.fhws.gos.core.utils.PositionToken;
-import de.fhws.gos.ss17.game.Board;
 import de.fhws.gos.network.impl.DefaultConnection;
-//import de.fhws.gos.ss17.players.RandomPlayerWithRules;
 import de.fhws.gos.remote.impl.RemoteBotPlayer;
-import de.fhws.gos.ss17.players.*;
+import de.fhws.gos.ss17.game.Board;
+import de.fhws.gos.ss17.players.AdvancedRandomPlayer;
+import de.fhws.gos.ss17.players.CyborgPlayer;
+import de.fhws.gos.ss17.players.HumanPlayer;
+import de.fhws.gos.ss17.players.LogPlayer;
+import de.fhws.gos.ss17.players.RandomPlayerWithRules;
+import de.fhws.gos.ss17.players.ShortLogPlayer;
+
+//import de.fhws.gos.ss17.players.RandomPlayerWithRules;
 
 /**
  * (c) Tobias Fertig, FHWS 2017
@@ -18,7 +24,7 @@ public class Config {
 
   public final static int PORT = 3000;
 
-  public final static String GROUP_ID = "6997";
+  public final static String GROUP_ID = "-1";
 
   public final static String GAME_MODE = "remotebotgame";
 

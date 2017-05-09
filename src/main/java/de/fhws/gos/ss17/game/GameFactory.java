@@ -1,6 +1,6 @@
 package de.fhws.gos.ss17.game;
 
-import de.fhws.gos.core.logic.*;
+import de.fhws.gos.core.logic.Game;
 import de.fhws.gos.core.network.Connection;
 
 /**

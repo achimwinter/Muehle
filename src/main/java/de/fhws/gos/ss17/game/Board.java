@@ -4,7 +4,6 @@ import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Move;
 import de.fhws.gos.core.utils.GameStatus;
 import de.fhws.gos.core.utils.PositionToken;
-
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;

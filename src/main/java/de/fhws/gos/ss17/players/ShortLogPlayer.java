@@ -5,12 +5,7 @@ import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Move;
 import de.fhws.gos.core.utils.PositionToken;
-import de.fhws.gos.ss17.main.GameOfStonesMain;
 import de.fhws.gos.ss17.players.utils.LogMove;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 /**
  * Created by Neuer on 22.04.2017.

@@ -5,7 +5,6 @@ import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Move;
 import de.fhws.gos.core.utils.PositionToken;
 import de.fhws.gos.ss17.main.Config;
-
 import org.junit.Assert;
 import org.junit.Test;
 

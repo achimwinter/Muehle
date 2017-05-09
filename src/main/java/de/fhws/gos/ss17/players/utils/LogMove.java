@@ -7,7 +7,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import org.omg.CORBA.Environment;
 
 /**
  * Created by Auron on 02.05.2017.
