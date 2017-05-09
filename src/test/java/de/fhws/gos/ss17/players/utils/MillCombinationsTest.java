@@ -1,11 +1,11 @@
-package de.fhws.gos.ss17.players;
+package de.fhws.gos.ss17.players.utils;
 
 import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Move;
 import de.fhws.gos.core.utils.PositionToken;
 import de.fhws.gos.ss17.main.Config;
-import de.fhws.gos.ss17.players.utils.MillCombinations;
+
 import org.junit.Assert;
 import org.junit.Test;
 
