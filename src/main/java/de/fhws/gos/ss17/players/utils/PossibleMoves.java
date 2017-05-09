@@ -14,9 +14,9 @@ import java.util.List;
  */
 public class PossibleMoves {
 
-  private static RulesImpl rules = new RulesImpl();
-  private static PositionToken friendly = PositionToken.PLAYER_ONE;
-  private static PositionToken enemy = PositionToken.PLAYER_TWO;
+  private static final RulesImpl rules = new RulesImpl();
+  private static final PositionToken friendly = PositionToken.PLAYER_ONE;
+  private static final PositionToken enemy = PositionToken.PLAYER_TWO;
 
   public static List<Move> possibleMoves(Board board, Phase phase) throws GameException {
     switch (phase) {
@@ -87,7 +87,7 @@ public class PossibleMoves {
 
 
   private static int getRemoveId(Board board) throws GameException {
-    int removeId = -1;
+    int removeId;
     do {
       removeId = (int) (Math.random() * 24);
     } while (!rules.isValidRemove(board, enemy, removeId));
