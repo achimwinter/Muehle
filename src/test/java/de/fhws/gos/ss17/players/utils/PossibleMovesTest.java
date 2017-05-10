@@ -19,13 +19,43 @@ public class PossibleMovesTest {
 
   @Test
   public void testGetMoves_2MovesGotten_MovesPrinted() throws GameException{
-    board.executeMove((new Move(-1, 0, -1)), playerToken);
-    List<Move> moves=  PossibleMoves.possibleMoves(board, Phase.MOVING);
+    board.executeMove((new Move(-1, 4, -1)), playerToken);
+    List<Move> moves=  PossibleMoves.getPossibleMoves(board, Phase.MOVING);
     for(Move move: moves){
       System.out.println("From: " + move.getFromId() + " TO: " + move.getToId() + " Remove " + move.getRemoveId());
     }
-
   }
+
+  @Test
+  public void testGetBestMove_MillGotten_MovePrinted() throws GameException{
+    board.executeMove((new Move(-1, 19, -1)), playerToken);
+    board.executeMove((new Move(-1, 18, -1)), playerToken);
+    board.executeMove((new Move(-1, 13, -1)), playerToken);
+    board.executeMove((new Move(-1, 3, -1)), playerToken);
+    board.executeMove((new Move(-1, 2, -1)), playerToken);
+    board.executeMove((new Move(-1, 21, -1)), playerToken);
+    board.executeMove((new Move(-1, 0, -1)), PositionToken.PLAYER_TWO);
+    Move move = EvaluateMoves.getBestMove(board, Phase.MOVING);
+    System.out.println("From: " + move.getFromId() + " TO: " + move.getToId() + " Remove " + move.getRemoveId());
+  }
+
+  @Test
+  public void testGetBestMove_MoveToAlly_MovePrinted() throws GameException{
+    board.executeMove((new Move(-1, 21, -1)), playerToken);
+    board.executeMove((new Move(-1, 19, -1)), playerToken);
+    board.executeMove((new Move(-1, 2, -1)), playerToken);
+    board.executeMove((new Move(-1, 12, -1)), playerToken);
+    board.executeMove((new Move(-1, 18, -1)), playerToken);
+    //board.executeMove((new Move(-1, 0, -1)), PositionToken.PLAYER_TWO);
+    for(int i = 0; i< 20 ;i++) {
+      Move move = EvaluateMoves.getBestMove(board, Phase.MOVING);
+      System.out.println(
+          "From: " + move.getFromId() + " TO: " + move.getToId() + " Remove " + move.getRemoveId());
+      board.printBoard();
+      board.executeMove(move,playerToken);
+    }
+  }
+
 }
 
 

@@ -18,12 +18,12 @@ public class PossibleMoves {
   private static final PositionToken friendly = PositionToken.PLAYER_ONE;
   private static final PositionToken enemy = PositionToken.PLAYER_TWO;
 
-  public static List<Move> possibleMoves(Board board, Phase phase) throws GameException {
+  public static List<Move> getPossibleMoves(Board board, Phase phase) throws GameException {
     switch (phase) {
       case PLACING:
         return possiblePlacement(board);
       case MOVING:
-        return possibleMoving(board);
+        return possibleMoves(board);
       case FLYING:
         return possibleFlying(board);
       default:
@@ -47,7 +47,7 @@ public class PossibleMoves {
   }
 
 
-  private static List<Move> possibleMoving(Board board) throws GameException {
+  private static List<Move> possibleMoves(Board board) throws GameException {
     List<Move> moves = new ArrayList<>();
     int removeId = -1;
     for (int i = 0; i < 24; i++) {
