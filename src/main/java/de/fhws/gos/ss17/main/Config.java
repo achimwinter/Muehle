@@ -8,6 +8,7 @@ import de.fhws.gos.remote.impl.RemoteBotPlayer;
 import de.fhws.gos.ss17.game.Board;
 import de.fhws.gos.ss17.players.AdvancedRandomPlayer;
 import de.fhws.gos.ss17.players.CyborgPlayer;
+import de.fhws.gos.ss17.players.EvaluatePlayer;
 import de.fhws.gos.ss17.players.HumanPlayer;
 import de.fhws.gos.ss17.players.LogPlayer;
 import de.fhws.gos.ss17.players.RandomPlayerWithRules;
@@ -100,5 +101,10 @@ public class Config {
   public static Player getShortLogPlayer() {
     ShortLogPlayer localPlayer = new ShortLogPlayer(PositionToken.PLAYER_ONE);
     return localPlayer;
+  }
+
+  public static Player getEvaluatePlayer(){
+    EvaluatePlayer evaluatePlayer = new EvaluatePlayer(PositionToken.PLAYER_ONE);
+    return evaluatePlayer;
   }
 }
