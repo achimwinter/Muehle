@@ -41,6 +41,7 @@ public class PossibleMoves {
           removeId = getRemoveId(board);
         }
         moves.add(new Move(-1, i, removeId));
+        removeId = -1;
       }
     }
     return moves;
@@ -79,6 +80,7 @@ public class PossibleMoves {
               removeId = getRemoveId(board);
             }
             moves.add(new Move(i,j,removeId));
+            removeId = -1;
           }
         }
       }
