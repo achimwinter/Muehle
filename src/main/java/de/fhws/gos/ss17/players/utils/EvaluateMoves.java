@@ -6,9 +6,7 @@ import de.fhws.gos.core.logic.Move;
 import de.fhws.gos.core.logic.Position;
 import de.fhws.gos.core.utils.PositionToken;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by awinter on 10.05.17.
@@ -42,8 +40,7 @@ public class EvaluateMoves {
   }
 
   public static Move getBestMove(Board board, Phase phase) throws GameException{
-    int random = (int) (Math.random() *24);
-    Pair bestMove = new Pair(new Move(-1, random, -1), 0);
+    Pair bestMove = new Pair(null, -50);
     List<Pair> moves = fillMove(board, phase);
     moves = evaluateMoves(moves, board);
     for(Pair pair : moves){
@@ -52,6 +49,7 @@ public class EvaluateMoves {
     }
     return bestMove.getMove();
   }
+
 
   private static int allyAround(Board board, int toId) throws GameException{
     int counter = 0;

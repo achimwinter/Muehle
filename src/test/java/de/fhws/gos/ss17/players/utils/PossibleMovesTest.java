@@ -35,6 +35,7 @@ public class PossibleMovesTest {
     board.executeMove((new Move(-1, 2, -1)), playerToken);
     board.executeMove((new Move(-1, 21, -1)), playerToken);
     board.executeMove((new Move(-1, 0, -1)), PositionToken.PLAYER_TWO);
+    board.executeMove((new Move(-1, 23, -1)), PositionToken.PLAYER_TWO);
     Move move = EvaluateMoves.getBestMove(board, Phase.MOVING);
     System.out.println("From: " + move.getFromId() + " TO: " + move.getToId() + " Remove " + move.getRemoveId());
   }
@@ -51,6 +52,7 @@ public class PossibleMovesTest {
       Move move = EvaluateMoves.getBestMove(board, Phase.MOVING);
       System.out.println(
           "From: " + move.getFromId() + " TO: " + move.getToId() + " Remove " + move.getRemoveId());
+
       board.printBoard();
       board.executeMove(move,playerToken);
     }
