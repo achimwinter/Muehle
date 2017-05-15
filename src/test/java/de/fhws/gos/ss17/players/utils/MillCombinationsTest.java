@@ -5,6 +5,8 @@ import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Move;
 import de.fhws.gos.core.utils.PositionToken;
 import de.fhws.gos.ss17.main.Config;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -93,6 +95,8 @@ public class MillCombinationsTest {
     Assert.assertFalse("Wasn´t mill but true returned", result);
   }
 
+
+  //Hier ist ein Fehler, erzeugt RemoveId obwohl keine erzeugt werden sollte.
   @Test
   public void testisMill_NoMill_FalseReturned() throws GameException {
     board.executeMove((new Move(-1, 0, -1)), playerToken);
@@ -100,8 +104,21 @@ public class MillCombinationsTest {
     board.executeMove((new Move(-1, 2, -1)), playerToken);
     board.executeMove((new Move(-1, 3, -1)), playerToken);
     board.executeMove((new Move(-1, 7, -1)), playerToken);
-    board.executeMove((new Move(-1, 23, -1)), PositionToken.PLAYER_TWO);
+    board.executeMove((new Move(-1, 10, -1)), playerToken);
+    board.executeMove((new Move(-1, 11, -1)), playerToken);
+    board.executeMove((new Move(-1, 14, -1)), playerToken);
+    board.executeMove((new Move(-1, 8, -1)), playerToken);
+    board.executeMove((new Move(-1, 12, -1)), PositionToken.PLAYER_TWO);
+    board.executeMove((new Move(-1, 15, -1)), PositionToken.PLAYER_TWO);
+    board.executeMove((new Move(-1, 18, -1)), PositionToken.PLAYER_TWO);
+    board.executeMove((new Move(-1, 5, -1)), PositionToken.PLAYER_TWO);
+    board.executeMove((new Move(-1, 13, -1)), PositionToken.PLAYER_TWO);
+    board.executeMove((new Move(-1, 21, -1)), PositionToken.PLAYER_TWO);
     boolean result = MillCombinations.getInstance(board).willBeMill(playerToken, 1, 4);
+    Move move;
+    move = EvaluateMoves.getBestMove(board, Phase.MOVING);
+    System.out.println(
+        "From: " + move.getFromId() + " TO: " + move.getToId() + " Remove " + move.getRemoveId());
     board.printBoard();
     System.out.println(result);
     Assert.assertFalse("Wasn´t mill but true returned", result);
