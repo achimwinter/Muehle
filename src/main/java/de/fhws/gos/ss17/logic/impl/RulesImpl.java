@@ -8,6 +8,7 @@ import de.fhws.gos.ss17.exceptions.CheckedExceptions;
 import de.fhws.gos.ss17.exceptions.UncheckedExceptions;
 import de.fhws.gos.ss17.logic.Rules;
 import de.fhws.gos.ss17.players.utils.MillCombinations;
+import de.fhws.gos.ss17.players.utils.PossibleMoves;
 
 /**
  * Created by awinter on 29.03.17.
@@ -19,16 +20,13 @@ public class RulesImpl implements Rules {
   public boolean isMill(Board board, PositionToken playerToken, int stoneId) throws GameException {
     try {
       return MillCombinations.getInstance(board).isMill(playerToken, stoneId);
-    }
-    catch (GameException e){
+    } catch (GameException e) {
       CheckedExceptions.catchGameException(e);
       return false;
-    }
-    catch(NullPointerException e){
+    } catch (NullPointerException e) {
       UncheckedExceptions.getNullPointerException(e);
       return false;
-    }
-    catch(ArrayIndexOutOfBoundsException e){
+    } catch (ArrayIndexOutOfBoundsException e) {
       UncheckedExceptions.getArrayIndexOutOfBoundsException(e);
       return false;
     }
@@ -39,16 +37,13 @@ public class RulesImpl implements Rules {
       throws GameException {
     try {
       return MillCombinations.getInstance(board).willBeMill(playerToken, fromId, toId);
-    }
-    catch (GameException e){
+    } catch (GameException e) {
       CheckedExceptions.catchGameException(e);
       return false;
-    }
-    catch(NullPointerException e){
+    } catch (NullPointerException e) {
       UncheckedExceptions.getNullPointerException(e);
       return false;
-    }
-    catch(ArrayIndexOutOfBoundsException e){
+    } catch (ArrayIndexOutOfBoundsException e) {
       UncheckedExceptions.getArrayIndexOutOfBoundsException(e);
       return false;
     }
@@ -63,11 +58,10 @@ public class RulesImpl implements Rules {
 
     try {
       playerOwnsPosition = board.getPosition(fromId).getPositionToken().equals(playerToken);
-    }catch (GameException e){
+    } catch (GameException e) {
       CheckedExceptions.catchGameException(e);
       return false;
     }
-
 
     for (int i = 0; i < neighbors.length; ++i) {
       Position position = neighbors[i];
@@ -84,7 +78,7 @@ public class RulesImpl implements Rules {
       throws GameException {
     try {
       return board.getPosition(toId).getPositionToken().equals(PositionToken.IS_EMPTY);
-    }catch (GameException e){
+    } catch (GameException e) {
       CheckedExceptions.catchGameException(e);
       return false;
     }
@@ -97,7 +91,7 @@ public class RulesImpl implements Rules {
       return board.getPosition(stoneId).getPositionToken().equals(PositionToken.PLAYER_TWO)
           && !(MillCombinations.getInstance(board).isMill(PositionToken.PLAYER_TWO, stoneId)) ||
           MillCombinations.getInstance(board).allInMill(PositionToken.PLAYER_TWO);
-    }catch (GameException e){
+    } catch (GameException e) {
       CheckedExceptions.catchGameException(e);
       return false;
     }
@@ -129,6 +123,10 @@ public class RulesImpl implements Rules {
       throws GameException {
     return this.isValidPlacement(board, fromId) && this.isValidTo(board, toId) && (
         board.getNumberOfTokensForPlayer(playerToken) == 3);
+  }
+
+  public boolean allInMill(Board board, PositionToken playerToken) throws GameException {
+    return MillCombinations.getInstance(board).allInMill(playerToken);
   }
 
 }

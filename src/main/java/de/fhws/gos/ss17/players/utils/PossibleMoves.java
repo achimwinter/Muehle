@@ -55,7 +55,8 @@ public class PossibleMoves {
       if (board.getPosition(i).getPositionToken().equals(friendly)) {
         for (Position position : board.getPosition(i).getNeighbors()) {
           if (position.isAvailable()) {
-            boolean isMill = MillCombinations.getInstance(board).willBeMill(friendly, i, position.getId());
+            boolean isMill = MillCombinations.getInstance(board)
+                .willBeMill(friendly, i, position.getId());
             if (isMill) {
               removeId = getRemoveId(board);
             }
@@ -68,18 +69,18 @@ public class PossibleMoves {
     return moves;
   }
 
-  private static List<Move> possibleFlying(Board board) throws GameException{
+  private static List<Move> possibleFlying(Board board) throws GameException {
     List<Move> moves = new ArrayList<>();
     int removeId = -1;
-    for(int i = 0; i< 24; i++){
-      if(board.getPosition(i).getPositionToken().equals(friendly)){
-        for(int j = 0; j<24; j++){
-          if(board.getPosition(j).isAvailable()){
-            boolean isMill = rules.willBeMill(board, friendly ,i, j);
-            if(isMill){
+    for (int i = 0; i < 24; i++) {
+      if (board.getPosition(i).getPositionToken().equals(friendly)) {
+        for (int j = 0; j < 24; j++) {
+          if (board.getPosition(j).isAvailable()) {
+            boolean isMill = rules.willBeMill(board, friendly, i, j);
+            if (isMill) {
               removeId = getRemoveId(board);
             }
-            moves.add(new Move(i,j,removeId));
+            moves.add(new Move(i, j, removeId));
             removeId = -1;
           }
         }
@@ -89,12 +90,41 @@ public class PossibleMoves {
   }
 
 
-  private static int getRemoveId(Board board) throws GameException {
-    int removeId;
-    do {
-      removeId = (int) (Math.random() * 24);
-    } while (!rules.isValidRemove(board, enemy, removeId));
+  public static int getRemoveId(Board board) throws GameException {
+    int removeId = -1;
+    int highestEnemy = -1;
+    int[] positions = new int[24];
+    for (int i = 0; i < 24; i++) {
+      positions[i] = -1;
+    }
+    for (int i = 0; i < 24; i++) {
+      if (board.getPosition(i).getPositionToken().equals(enemy)) {
+        positions[i] = enemyAround(board, i);
+      }
+    }
+    for (int i = 0; i < 24; i++) {
+      if (positions[i] > highestEnemy) {
+        if (rules.allInMill(board, enemy)) {
+          highestEnemy = positions[i];
+          removeId = i;
+        } else if (!rules.isMill(board, enemy, i)) {
+          highestEnemy = positions[i];
+          removeId = i;
+        }
+      }
+    }
     return removeId;
+  }
+
+
+  private static int enemyAround(Board board, int stoneId) throws GameException {
+    int counter = 0;
+    for (Position position : board.getPosition(stoneId).getNeighbors()) {
+      if (position.getPositionToken().equals(enemy)) {
+        counter++;
+      }
+    }
+    return counter;
   }
 }
 

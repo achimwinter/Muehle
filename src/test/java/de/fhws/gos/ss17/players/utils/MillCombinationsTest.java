@@ -3,11 +3,13 @@ package de.fhws.gos.ss17.players.utils;
 import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Move;
+import de.fhws.gos.core.logic.Position;
 import de.fhws.gos.core.utils.PositionToken;
 import de.fhws.gos.ss17.main.Config;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -25,7 +27,6 @@ public class MillCombinationsTest {
     boolean result = (MillCombinations.getInstance(board).willBeMill(playerToken, 21, 9));
     board.printBoard();
     Assert.assertFalse("Mill found, returned true", result);
-
   }
 
 
@@ -75,6 +76,16 @@ public class MillCombinationsTest {
     Assert.assertTrue("Stone was not in Mill, returned false", result);
   }
 
+  @Before
+  public void setBoard()throws GameException {
+
+    for (int i = 0; i < 23; i++) {
+      board.getPosition(i).setPositionToken(PositionToken.IS_EMPTY);
+    }
+
+    //this.board = Config.initBoard();
+  }
+
   @Test
   public void testIsMill_NoMillDetected_FalseReturned() throws GameException {
     board.executeMove((new Move(-1, 3, -1)), playerToken);
@@ -99,6 +110,7 @@ public class MillCombinationsTest {
   //Hier ist ein Fehler, erzeugt RemoveId obwohl keine erzeugt werden sollte.
   @Test
   public void testisMill_NoMill_FalseReturned() throws GameException {
+    setBoard();
     board.executeMove((new Move(-1, 0, -1)), playerToken);
     board.executeMove((new Move(-1, 1, -1)), playerToken);
     board.executeMove((new Move(-1, 2, -1)), playerToken);
