@@ -6,6 +6,8 @@ import de.fhws.gos.core.logic.Move;
 import de.fhws.gos.core.logic.Position;
 import de.fhws.gos.core.utils.PositionToken;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -25,7 +27,7 @@ public class EvaluateMoves {
     return moves;
   }
 
-  //Evaluate if enemy has 2 stones somewhere and get in there to block them niggas
+  //Evaluate if enemy has 2 stones somewhere and get in there to block them
   //Block enemy stones from moving
   //"Zwickmuehle"
   private static List<Pair> evaluateMoves(List<Pair> moves, Board board) throws GameException{

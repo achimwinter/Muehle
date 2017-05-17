@@ -34,8 +34,9 @@ public class GameFactory {
   }
 
   public Game createGame(String gameMode) {
+    if(gameMode.equals("remoteversusgame"))
+      return new RemoteVersusGame(board, connection);
+    else
       return new RemoteBotGame(board, connection);
   }
-
-
 }
