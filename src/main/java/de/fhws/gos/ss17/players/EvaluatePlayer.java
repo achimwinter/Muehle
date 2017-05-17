@@ -32,14 +32,14 @@ public class EvaluatePlayer extends AbstractPlayer {
   public Move getFlyingMove(Board board) throws  GameException{
     Move move = EvaluateMoves.getBestMove(board, Phase.FLYING);
     LogMove.log(move, PositionToken.PLAYER_ONE);
-    return EvaluateMoves.getBestMove(board, Phase.FLYING);
+    return move;
   }
 
   @Override
   public Move getPlacingMove(Board board) throws GameException{
     Move move = EvaluateMoves.getBestMove(board, Phase.PLACING);
     LogMove.log(move, PositionToken.PLAYER_ONE);
-    return EvaluateMoves.getBestMove(board, Phase.PLACING);
+    return move;
   }
 
 }
