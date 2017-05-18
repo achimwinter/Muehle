@@ -14,7 +14,6 @@ import de.fhws.gos.ss17.players.LogPlayer;
 import de.fhws.gos.ss17.players.RandomPlayerWithRules;
 import de.fhws.gos.ss17.players.ShortLogPlayer;
 
-//import de.fhws.gos.ss17.players.RandomPlayerWithRules;
 
 /**
  * (c) Tobias Fertig, FHWS 2017
@@ -23,7 +22,10 @@ public class Config {
 
   public final static String HOST = "193.174.81.64";
 
-  public final static int PORT = 3000;
+  public final static int PORT = 3001; //old Serverport: 3000
+
+  //Authorization Token for group = 6997 and password = "7996"
+  public final static String authToken = "Njk5NzoiNzk5NiI=";
 
   public final static String GROUP_ID = "6997";
 
