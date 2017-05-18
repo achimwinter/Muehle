@@ -6,6 +6,7 @@ import de.fhws.gos.core.utils.PositionToken;
 import de.fhws.gos.network.impl.DefaultConnection;
 import de.fhws.gos.remote.impl.RemoteBotPlayer;
 import de.fhws.gos.ss17.game.Board;
+import de.fhws.gos.ss17.network.DefaultConnection;
 import de.fhws.gos.ss17.players.AdvancedRandomPlayer;
 import de.fhws.gos.ss17.players.CyborgPlayer;
 import de.fhws.gos.ss17.players.EvaluatePlayer;
@@ -25,7 +26,7 @@ public class Config {
   public final static int PORT = 3001; //old Serverport: 3000
 
   //Authorization Token for group = 6997 and password = "7996"
-  public final static String authToken = "Njk5NzoiNzk5NiI=";
+  public final static String authToken = "Basic Njk5NzoiNzk5NiI=";
 
   public final static String GROUP_ID = "6997";
 
@@ -38,8 +39,8 @@ public class Config {
    * @return the initialized connection object.
    */
   public static Connection initConnection() {
-    DefaultConnection connect = new DefaultConnection(HOST, PORT, GROUP_ID);
-    return connect;
+    DefaultConnection connection = new DefaultConnection();
+    return connection;
   }
 
   /**
