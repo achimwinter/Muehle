@@ -8,17 +8,17 @@ public class Game {
   private String gameId;
   private String activePlayer;
   private String boardState;
-  private int timeStarted;
+  private Integer timeStarted;
   private Integer timeLastTurnPlayed;
   private String state;
-  private int turnsTaken;
+  private Integer turnsTaken;
 
   public Game(String gameId) {
     this.gameId = gameId;
   }
 
-  public Game(String gameId, String activePlayer, String boardState, int timeStarted,
-      Integer timeLastTurnPlayed, String state, int turnsTaken) {
+  public Game(String gameId, String activePlayer, String boardState, Integer timeStarted,
+      Integer timeLastTurnPlayed, String state, Integer turnsTaken) {
 
     this.gameId = gameId;
     this.activePlayer = activePlayer;
@@ -42,7 +42,7 @@ public class Game {
     this.boardState = boardState;
   }
 
-  public void setTimeStarted(int timeStarted) {
+  public void setTimeStarted(Integer timeStarted) {
     this.timeStarted = timeStarted;
   }
 
@@ -54,7 +54,7 @@ public class Game {
     this.state = state;
   }
 
-  public void setTurnsTaken(int turnsTaken) {
+  public void setTurnsTaken(Integer turnsTaken) {
     this.turnsTaken = turnsTaken;
   }
 
@@ -71,7 +71,7 @@ public class Game {
     return boardState;
   }
 
-  public int getTimeStarted() {
+  public Integer getTimeStarted() {
     return timeStarted;
   }
 
@@ -83,7 +83,7 @@ public class Game {
     return state;
   }
 
-  public int getTurnsTaken() {
+  public Integer getTurnsTaken() {
     return turnsTaken;
   }
 }
