@@ -8,9 +8,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import sun.misc.IOUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 
 /**
@@ -18,10 +20,11 @@ import sun.misc.IOUtils;
  */
 public class DefaultConnection implements Connection{
 
+  HttpClient httpClient = HttpClientBuilder.create().build();
   private final String BASE_URL = "http://" + Config.HOST + ":" + Config.PORT + "/";
   private final String SIGN_IN = "signin/";
   private final String BOTGAME_URL = "botgame/";
-  public static String authorizationToken = "test";
+  public static String authorizationToken;
 
   private static DefaultConnection instance;
 
@@ -35,6 +38,13 @@ public class DefaultConnection implements Connection{
 
 
   public String signIn() throws IOException {
+    HttpPost request = new HttpPost(BASE_URL + SIGN_IN);
+    request.addHeader("Authorization", Config.BASE64Token);
+    HttpResponse response = httpClient.execute(request);
+
+
+
+
     String responseToken = null;
     URL signInURL = new URL(BASE_URL + SIGN_IN);
     HttpURLConnection conn = (HttpURLConnection) signInURL.openConnection();
