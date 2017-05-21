@@ -3,7 +3,6 @@ package de.fhws.gos.ss17.main;
 import de.fhws.gos.core.logic.Player;
 import de.fhws.gos.core.network.Connection;
 import de.fhws.gos.core.utils.PositionToken;
-import de.fhws.gos.network.impl.DefaultConnection;
 import de.fhws.gos.remote.impl.RemoteBotPlayer;
 import de.fhws.gos.ss17.game.Board;
 import de.fhws.gos.ss17.network.DefaultConnection;
@@ -26,7 +25,7 @@ public class Config {
   public final static int PORT = 3001; //old Serverport: 3000
 
   //Authorization Token for group = 6997 and password = "7996"
-  public final static String authToken = "Basic Njk5NzoiNzk5NiI=";
+  public final static String BASE64Token = "Basic Njk5NzoiNzk5NiI=";
 
   public final static String GROUP_ID = "6997";
 
@@ -38,10 +37,12 @@ public class Config {
    *
    * @return the initialized connection object.
    */
+
   public static Connection initConnection() {
     DefaultConnection connection = new DefaultConnection();
     return connection;
   }
+
 
   /**
    * This method is used to initialize a nine mens morris board. The BoardImpl class can be used.
