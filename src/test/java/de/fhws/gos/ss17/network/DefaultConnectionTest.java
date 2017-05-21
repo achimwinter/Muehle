@@ -13,8 +13,7 @@ public class DefaultConnectionTest {
   public void testGetAuthToken_TokenReceived_StringReceived() throws IOException {
 String test;
     defaultConnection.signIn();
-    test
-    defaultConnection.playBotgame("test");
+    System.out.println(defaultConnection.authorizationToken);
   }
 
   @Test

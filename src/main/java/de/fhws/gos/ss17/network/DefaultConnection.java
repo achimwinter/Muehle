@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -26,37 +27,15 @@ public class DefaultConnection implements Connection{
   private final String BOTGAME_URL = "botgame/";
   public static String authorizationToken;
 
-  private static DefaultConnection instance;
-
-  public static DefaultConnection getInstance(String authorizationToken) {
-    if (instance == null) {
-      instance = new DefaultConnection();
-    }
-    return instance;
+  public DefaultConnection() {
   }
 
-
-
-  public String signIn() throws IOException {
+  public void signIn() throws IOException {
     HttpPost request = new HttpPost(BASE_URL + SIGN_IN);
     request.addHeader("Authorization", Config.BASE64Token);
     HttpResponse response = httpClient.execute(request);
-
-
-
-
-    String responseToken = null;
-    URL signInURL = new URL(BASE_URL + SIGN_IN);
-    HttpURLConnection conn = (HttpURLConnection) signInURL.openConnection();
-    conn.setRequestMethod("POST");
-    conn.setDoInput( true );
-    conn.setDoOutput( true );
-    conn.setUseCaches( false );
-    conn.setRequestProperty( "Authorization" , Config.BASE64Token);
-
-    responseToken = conn.getHeaderField("authorization");
-    System.out.println(responseToken);
-    return responseToken;
+    Header authorizationHeader = response.getLastHeader("authorization");
+    this.authorizationToken = authorizationHeader.getValue();
   }
 
   public String joinBotgame() throws IOException{
