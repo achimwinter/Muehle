@@ -14,6 +14,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 
 
 /**
@@ -26,36 +27,38 @@ public class DefaultConnection implements Connection{
   private final String SIGN_IN = "signin/";
   private final String BOTGAME_URL = "botgame/";
   public static String authorizationToken;
+  private static String gameId;
+  public static Game game = new Game(gameId);
 
-  public DefaultConnection() {
+  public DefaultConnection() throws IOException {
+    signIn();
   }
 
   public void signIn() throws IOException {
     HttpPost request = new HttpPost(BASE_URL + SIGN_IN);
     request.addHeader("Authorization", Config.BASE64Token);
     HttpResponse response = httpClient.execute(request);
-    Header authorizationHeader = response.getLastHeader("authorization");
+    Header authorizationHeader = response.getFirstHeader("authorization");
     this.authorizationToken = authorizationHeader.getValue();
   }
 
-  public String joinBotgame() throws IOException{
-    String response  = null;
-    URL joinGameURL = new URL(BASE_URL + BOTGAME_URL + playBotgame("test"));
-    HttpURLConnection conn = (HttpURLConnection) joinGameURL.openConnection();
-    conn.setRequestMethod("POST");
-    conn.setDoInput( true );
-    conn.setDoOutput( true );
-    conn.setUseCaches( false );
-    conn.setRequestProperty( "Authorization" , this.authorizationToken);
+  public void createBotgame() throws IOException{
 
-    OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
-    writer.write(response);
-    writer.flush();
-    writer.close();
-    return response;
+    HttpPost request = new HttpPost(BASE_URL + BOTGAME_URL);
+    request.addHeader("Authorization" , this.authorizationToken);
+    HttpResponse response = httpClient.execute(request);
+    String jsonString = EntityUtils.toString(response.getEntity());
+    setGameId(jsonString);
+  }
+
+  public String joinBotgame() throws IOException{
+    HttpResponse response = getPostResponse(BASE_URL + BOTGAME_URL + gameId);
+    String jsonString = EntityUtils.toString(response.getEntity());
+    return jsonString;
   }
 
   public String readResponse(InputStream var1) throws IOException{
+    //not used
     BufferedReader br = null;
     StringBuilder sb = new StringBuilder();
 
@@ -84,20 +87,18 @@ public class DefaultConnection implements Connection{
   }
 
   public String playBotgame(String var1) throws IOException{
-    String gameId = null;
-    URL getBotgameURL = new URL(BASE_URL + BOTGAME_URL);
-    HttpURLConnection conn = (HttpURLConnection) getBotgameURL.openConnection();
-    conn.setRequestMethod("POST");
-    conn.setDoInput( true );
-    conn.setDoOutput( true );
-    conn.setUseCaches( false );
-    conn.setRequestProperty( "Authorization" , this.authorizationToken);
+    HttpPost request = new HttpPost(BASE_URL + BOTGAME_URL + gameId + "/turn");
+    request.addHeader("Authorization" , this.authorizationToken);
+    HttpResponse response = httpClient.execute(request);
+    String jsonString = EntityUtils.toString(response.getEntity());
+    setGameId(jsonString);
 
-    OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
-    writer.write(gameId);
-    writer.flush();
-    writer.close();
-    return gameId;
+  }
+
+  private HttpResponse getPostResponse(String url) throws IOException {
+    HttpPost request = new HttpPost(url);
+    request.addHeader("Authorization" , this.authorizationToken);
+    return httpClient.execute(request);
   }
 
   public String offerGame() throws IOException{
@@ -113,8 +114,10 @@ public class DefaultConnection implements Connection{
   }
 
   public void setGameId(String var1){
-    this.authorizationToken = var1;
+    this.gameId = JsonConverter.deserializeGameJSON(var1).getGameId();
   }
+
+
 
   //Liefert 404 error code
   public void signOut() throws IOException {

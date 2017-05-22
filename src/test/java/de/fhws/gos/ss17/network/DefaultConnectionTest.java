@@ -11,7 +11,6 @@ public class DefaultConnectionTest {
 
   @Test
   public void testGetAuthToken_TokenReceived_StringReceived() throws IOException {
-String test;
     defaultConnection.signIn();
     System.out.println(defaultConnection.authorizationToken);
   }
