@@ -62,6 +62,59 @@ public class DefaultConnection implements Connection{
     return jsonString;
   }
 
+
+
+  public String playBotgame(String turn) throws IOException{
+    HttpPost request = new HttpPost(BASE_URL + BOTGAME_URL + gameId + "/turn");
+    request.addHeader("Authorization" , this.authorizationToken);
+    request.addHeader("content-type", "application/x-www-form-urlencoded");
+    StringEntity params = new StringEntity(turn);
+    request.setEntity(params);
+    HttpResponse response = httpClient.execute(request);
+    String jsonString = EntityUtils.toString(response.getEntity());
+    return jsonString;
+  }
+
+  private HttpResponse getPostResponse(String url) throws IOException {
+    HttpPost request = new HttpPost(url);
+    request.addHeader("Authorization" , this.authorizationToken);
+    return httpClient.execute(request);
+  }
+
+  public String offerGame() throws IOException{
+    System.out.println("not implemented");
+    return null;
+  }
+
+  public String joinGame() throws IOException{
+    System.out.println("not implemented");
+    return null;
+  }
+
+  public String playGame(String var1) throws IOException{
+    System.out.println("not implemented");
+    return null;
+  }
+
+  public void setGameId(String var1){
+    this.gameId = var1;
+  }
+
+
+
+  //Liefert 404 error code
+  public void signOut() throws IOException {
+    URL logoutURL = new URL(BASE_URL + "signout");
+    HttpURLConnection conn = (HttpURLConnection) logoutURL.openConnection();
+    conn.setRequestMethod("POST");
+    conn.setDoInput( true );
+    conn.setDoOutput( true );
+    conn.setUseCaches( false );
+    conn.setRequestProperty( "Authorization" , this.authorizationToken);
+
+    conn.connect();
+  }
+
   public String readResponse(InputStream var1) throws IOException{
     //not used
     BufferedReader br = null;
@@ -89,53 +142,5 @@ public class DefaultConnection implements Connection{
 
     return sb.toString();
 
-  }
-
-  public String playBotgame(String turn) throws IOException{
-    HttpPost request = new HttpPost(BASE_URL + BOTGAME_URL + gameId + "/turn");
-    request.addHeader("Authorization" , this.authorizationToken);
-    request.addHeader("content-type", "application/x-www-form-urlencoded");
-    StringEntity params = new StringEntity(turn);
-    request.setEntity(params);
-    HttpResponse response = httpClient.execute(request);
-    String jsonString = EntityUtils.toString(response.getEntity());
-    return jsonString;
-  }
-
-  private HttpResponse getPostResponse(String url) throws IOException {
-    HttpPost request = new HttpPost(url);
-    request.addHeader("Authorization" , this.authorizationToken);
-    return httpClient.execute(request);
-  }
-
-  public String offerGame() throws IOException{
-    return "not implemented";
-  }
-
-  public String joinGame() throws IOException{
-    return "not implemented";
-  }
-
-  public String playGame(String var1) throws IOException{
-    return "not implemented";
-  }
-
-  public void setGameId(String var1){
-    this.gameId = var1;
-  }
-
-
-
-  //Liefert 404 error code
-  public void signOut() throws IOException {
-    URL logoutURL = new URL(BASE_URL + "signout");
-    HttpURLConnection conn = (HttpURLConnection) logoutURL.openConnection();
-    conn.setRequestMethod("POST");
-    conn.setDoInput( true );
-    conn.setDoOutput( true );
-    conn.setUseCaches( false );
-    conn.setRequestProperty( "Authorization" , this.authorizationToken);
-
-    conn.connect();
   }
 }

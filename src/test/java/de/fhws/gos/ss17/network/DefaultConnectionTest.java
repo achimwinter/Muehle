@@ -1,5 +1,6 @@
 package de.fhws.gos.ss17.network;
 
+import de.fhws.gos.core.logic.Move;
 import java.io.IOException;
 import org.junit.Test;
 
@@ -20,7 +21,19 @@ public class DefaultConnectionTest {
   @Test
   public void testJoinBotGame_GameInJsonReturned_StringReceived() throws IOException {
     defaultConnection.createBotgame();
+    System.out.println(defaultConnection.authorizationToken);
     System.out.println(defaultConnection.joinBotgame());
+  }
+
+  @Test
+  public void testPlayBotGame_TurnMade_AnswerGotten() throws IOException{
+    defaultConnection.createBotgame();
+    String game = defaultConnection.joinBotgame();
+    System.out.println(game);
+    String turn = JsonConverter.serializeMoveJSON(new Move(-1, 15, -1));
+    System.out.println(turn);
+    String test = defaultConnection.playBotgame(turn);
+    System.out.println(test);
   }
 
 }

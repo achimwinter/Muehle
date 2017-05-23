@@ -30,7 +30,6 @@ public class Game {
   }
 
   public void setGameId(String gameId) {
-
     this.gameId = gameId;
   }
 
