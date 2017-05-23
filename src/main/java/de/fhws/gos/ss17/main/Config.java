@@ -13,6 +13,7 @@ import de.fhws.gos.ss17.players.HumanPlayer;
 import de.fhws.gos.ss17.players.LogPlayer;
 import de.fhws.gos.ss17.players.RandomPlayerWithRules;
 import de.fhws.gos.ss17.players.ShortLogPlayer;
+import java.io.IOException;
 
 
 /**
@@ -39,7 +40,12 @@ public class Config {
    */
 
   public static Connection initConnection() {
-    DefaultConnection connection = new DefaultConnection();
+    DefaultConnection connection = null;
+    try {
+      connection = new DefaultConnection();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
     return connection;
   }
 

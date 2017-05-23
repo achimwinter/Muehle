@@ -1,20 +1,26 @@
 package de.fhws.gos.ss17.network;
 
+import com.owlike.genson.Genson;
+import com.owlike.genson.ext.jsr353.GensonJsonParser;
+import com.owlike.genson.stream.JsonReader;
 import de.fhws.gos.core.network.Connection;
+import de.fhws.gos.remote.utils.JSONHelper;
 import de.fhws.gos.ss17.main.Config;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import jdk.nashorn.internal.parser.JSONParser;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 
 
 /**
@@ -27,8 +33,8 @@ public class DefaultConnection implements Connection{
   private final String SIGN_IN = "signin/";
   private final String BOTGAME_URL = "botgame/";
   public static String authorizationToken;
-  private static String gameId;
-  public static Game game = new Game(gameId);
+  public static String gameId;
+
 
   public DefaultConnection() throws IOException {
     signIn();
@@ -43,12 +49,11 @@ public class DefaultConnection implements Connection{
   }
 
   public void createBotgame() throws IOException{
-
-    HttpPost request = new HttpPost(BASE_URL + BOTGAME_URL);
-    request.addHeader("Authorization" , this.authorizationToken);
-    HttpResponse response = httpClient.execute(request);
+    HttpResponse response = getPostResponse(BASE_URL + BOTGAME_URL);
     String jsonString = EntityUtils.toString(response.getEntity());
-    setGameId(jsonString);
+    JSONObject json = new JSONObject(jsonString);
+    String parsedGameID = (String) json.get("gameId");
+    setGameId(parsedGameID);
   }
 
   public String joinBotgame() throws IOException{
@@ -86,13 +91,15 @@ public class DefaultConnection implements Connection{
 
   }
 
-  public String playBotgame(String var1) throws IOException{
+  public String playBotgame(String turn) throws IOException{
     HttpPost request = new HttpPost(BASE_URL + BOTGAME_URL + gameId + "/turn");
     request.addHeader("Authorization" , this.authorizationToken);
+    request.addHeader("content-type", "application/x-www-form-urlencoded");
+    StringEntity params = new StringEntity(turn);
+    request.setEntity(params);
     HttpResponse response = httpClient.execute(request);
     String jsonString = EntityUtils.toString(response.getEntity());
-    setGameId(jsonString);
-
+    return jsonString;
   }
 
   private HttpResponse getPostResponse(String url) throws IOException {
@@ -114,7 +121,7 @@ public class DefaultConnection implements Connection{
   }
 
   public void setGameId(String var1){
-    this.gameId = JsonConverter.deserializeGameJSON(var1).getGameId();
+    this.gameId = var1;
   }
 
 

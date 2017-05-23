@@ -9,16 +9,18 @@ import org.junit.Test;
 public class DefaultConnectionTest {
   DefaultConnection defaultConnection = new DefaultConnection();
 
-  @Test
-  public void testGetAuthToken_TokenReceived_StringReceived() throws IOException {
-    defaultConnection.signIn();
-    System.out.println(defaultConnection.authorizationToken);
+  public DefaultConnectionTest() throws IOException {
   }
 
   @Test
-  public void testCreateGame_gameIDReceived_StringReceived() throws IOException {
-    String gameIdJSON = defaultConnection.playBotgame("test");
-    System.out.println(gameIdJSON);
+  public void testCreateGame_gameIdSet_gameIdSet() throws IOException {
+    defaultConnection.createBotgame();
+  }
+
+  @Test
+  public void testJoinBotGame_GameInJsonReturned_StringReceived() throws IOException {
+    defaultConnection.createBotgame();
+    System.out.println(defaultConnection.joinBotgame());
   }
 
 }
