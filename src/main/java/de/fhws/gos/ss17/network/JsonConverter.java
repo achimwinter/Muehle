@@ -1,6 +1,7 @@
 package de.fhws.gos.ss17.network;
 
 import com.owlike.genson.Genson;
+import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Game;
 import de.fhws.gos.core.logic.Move;
 
@@ -24,10 +25,26 @@ public class JsonConverter {
   }
 
   public static String serializeMoveJSON(Move move){
-    Genson genson = new Genson();
-    return genson.serialize(move);
+    StringBuilder jsonMove = new StringBuilder();
+    jsonMove.append("{\"fromId\":");
+    if(move.getFromId() == -1){
+      jsonMove.append("null");
+    }
+    else
+      jsonMove.append(move.getFromId());
+    jsonMove.append(", \"toId\":" + move.getToId() + ", \"removeId\":");
+    if(move.getRemoveId() == -1){
+      jsonMove.append("null}");
+    }
+    else
+      jsonMove.append(move.getRemoveId() + "}");
+    return jsonMove.toString();
   }
 
+  public static Board deserializeBoard(String boardString){
+    Genson genson = new Genson();
+    return genson.deserialize(boardString, Board.class);
+  }
 
   
 

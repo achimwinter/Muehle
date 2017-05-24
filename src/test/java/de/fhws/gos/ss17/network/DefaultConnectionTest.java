@@ -1,5 +1,6 @@
 package de.fhws.gos.ss17.network;
 
+import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Move;
 import java.io.IOException;
 import org.junit.Test;
@@ -34,6 +35,8 @@ public class DefaultConnectionTest {
     System.out.println(turn);
     String test = defaultConnection.playBotgame(turn);
     System.out.println(test);
+
+
   }
 
 }

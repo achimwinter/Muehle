@@ -4,6 +4,8 @@ import de.fhws.gos.core.logic.Player;
 import de.fhws.gos.core.network.Connection;
 import de.fhws.gos.remote.utils.JSONHelper;
 import de.fhws.gos.remote.utils.models.ServerEntity;
+import de.fhws.gos.ss17.network.Game;
+import de.fhws.gos.ss17.network.JsonConverter;
 import java.io.IOException;
 
 /**
@@ -29,6 +31,15 @@ public class RemoteBotGame extends AbstractGame {
   }
 
   public void initGame() {
+    /*
+    try {
+      String response = this.connection.joinBotgame();
+      Game game = JsonConverter.deserializeGameJSON(response);
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+*/
     try {
       String response = this.connection.joinBotgame();
       ServerEntity entity = (new JSONHelper()).deserialize(response);
