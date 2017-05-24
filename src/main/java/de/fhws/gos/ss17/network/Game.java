@@ -1,5 +1,11 @@
 package de.fhws.gos.ss17.network;
 
+
+import com.owlike.genson.annotation.JsonIgnore;
+import de.fhws.gos.core.logic.Move;
+import de.fhws.gos.core.utils.PositionToken;
+import de.fhws.gos.ss17.game.Board;
+
 /**
  * Created by Auron on 18.05.2017.
  */
@@ -7,17 +13,17 @@ public class Game {
 
   private String gameId;
   private String activePlayer;
-  private String boardState;
-  private Integer timeStarted;
-  private Integer timeLastTurnPlayed;
+  private String[] boardState;
+  private Long timeStarted;
+  private Long timeLastTurnPlayed;
   private String state;
   private Integer turnsTaken;
-
+/*
   public Game(String gameId) {
     this.gameId = gameId;
   }
 
-  public Game(String gameId, String activePlayer, String boardState, Integer timeStarted,
+  public Game(String gameId, String activePlayer, String[] boardState, Integer timeStarted,
       Integer timeLastTurnPlayed, String state, Integer turnsTaken) {
 
     this.gameId = gameId;
@@ -28,6 +34,9 @@ public class Game {
     this.state = state;
     this.turnsTaken = turnsTaken;
   }
+*/
+  public Game() {
+  }
 
   public void setGameId(String gameId) {
     this.gameId = gameId;
@@ -37,15 +46,15 @@ public class Game {
     this.activePlayer = activePlayer;
   }
 
-  public void setBoardState(String boardState) {
+  public void setBoardState(String[] boardState) {
     this.boardState = boardState;
   }
 
-  public void setTimeStarted(Integer timeStarted) {
+  public void setTimeStarted(Long timeStarted) {
     this.timeStarted = timeStarted;
   }
 
-  public void setTimeLastTurnPlayed(Integer timeLastTurnPlayed) {
+  public void setTimeLastTurnPlayed(Long timeLastTurnPlayed) {
     this.timeLastTurnPlayed = timeLastTurnPlayed;
   }
 
@@ -66,15 +75,15 @@ public class Game {
     return activePlayer;
   }
 
-  public String getBoardState() {
+  public String[] getBoardState() {
     return boardState;
   }
 
-  public Integer getTimeStarted() {
+  public Long getTimeStarted() {
     return timeStarted;
   }
 
-  public Integer getTimeLastTurnPlayed() {
+  public Long getTimeLastTurnPlayed() {
     return timeLastTurnPlayed;
   }
 
@@ -84,5 +93,19 @@ public class Game {
 
   public Integer getTurnsTaken() {
     return turnsTaken;
+  }
+
+  @JsonIgnore
+  public Board getBoard(String[] boardState){
+    Board board = new Board();
+    for(int i = 0; i < boardState.length; i++){
+      if(boardState[i].equals("NO_TOKEN"))
+        board.executeMove(new Move(-1, i , -1), PositionToken.IS_EMPTY);
+      else if(boardState[i].equals("6997"))
+        board.executeMove(new Move(-1, i,-1), PositionToken.PLAYER_ONE);
+      else
+        board.executeMove(new Move(-1, i, -1), PositionToken.PLAYER_TWO);
+    }
+    return board;
   }
 }

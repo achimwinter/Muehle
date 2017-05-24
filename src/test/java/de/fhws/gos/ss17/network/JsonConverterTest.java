@@ -13,8 +13,7 @@ public class JsonConverterTest {
 
   @Test
   public void testGameConverterToJson(){
-    Game game = new Game("root");
-    System.out.println(JsonConverter.serializeGameJSON(game));
+    //System.out.println(JsonConverter.serializeGameJSON(game));
   }
 
  

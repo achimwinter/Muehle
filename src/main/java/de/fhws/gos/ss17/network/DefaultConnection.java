@@ -46,9 +46,8 @@ public class DefaultConnection implements Connection {
   public void createBotgame() throws IOException {
     HttpResponse response = getPostResponse(BASE_URL + BOTGAME_URL);
     String jsonString = EntityUtils.toString(response.getEntity());
-    JSONObject json = new JSONObject(jsonString);
-    String parsedGameID = (String) json.get("gameId");
-    setGameId(parsedGameID);
+    Game game = JsonConverter.deserializeGameJSON(jsonString);
+    this.setGameId(game.getGameId());
   }
 
   public String joinBotgame() throws IOException {
