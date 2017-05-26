@@ -39,8 +39,7 @@ public class DefaultConnectionTest {
     String test = defaultConnection.playBotgame(turn);
     System.out.println(test);
     Game abc = JsonConverter.deserializeGameJSON(test);
-    Board board = abc.getBoard(abc.getBoardState());
-    board.printBoard();
+
   }
 
 }

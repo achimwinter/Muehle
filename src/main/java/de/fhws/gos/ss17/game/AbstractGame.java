@@ -9,13 +9,15 @@ import de.fhws.gos.remote.exceptions.GameLostException;
 import de.fhws.gos.remote.exceptions.GameTieException;
 import de.fhws.gos.remote.exceptions.GameWonException;
 import de.fhws.gos.ss17.exceptions.CheckedExceptions;
+import de.fhws.gos.ss17.network.DefaultConnection;
 
 /**
  * Created by awinter on 05.05.17.
  */
 public abstract class AbstractGame implements de.fhws.gos.core.logic.Game {
 
-  protected Board board;
+
+  protected de.fhws.gos.core.logic.Board board;
   protected Player playerOne;
   protected Player playerTwo;
   protected Player currentPlayer;
@@ -31,32 +33,11 @@ public abstract class AbstractGame implements de.fhws.gos.core.logic.Game {
   }
 
   public void initGame() {
-
   }
 
   public void startGame() {
-    for (; this.board.getCurrentGameStatus().equals(GameStatus.RUNNING); this.currentPlayer =
-        this.currentPlayer.equals(this.playerOne) ? (this.currentPlayer = this.playerTwo)
-            : (this.currentPlayer = this.playerOne)) {
-      try {
-        Move nextMove = currentPlayer.getNextMove(board);
-        board.executeMove(nextMove, currentPlayer.getPlayerToken());
-        board.printBoard();
-      } catch (GameLostException ex) {
-        this.board.setCurrentGameStatus(GameStatus.PLAYER_TWO_WON);
-        printGameResult();
-      } catch (GameWonException ex) {
-        this.board.setCurrentGameStatus(GameStatus.PLAYER_ONE_WON);
-        printGameResult();
-      } catch (GameTieException ex) {
-        this.board.setCurrentGameStatus(GameStatus.TIE);
-        printGameResult();
-      } catch (GameException ex) {
-        CheckedExceptions.catchGameException(ex);
-      }
-    }
 
-  }
+    }
 
 
   public void printGameResult() {

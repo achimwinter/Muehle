@@ -39,13 +39,15 @@ public class DefaultConnection implements Connection {
     request.addHeader("Authorization", Config.BASE64Token);
     HttpResponse response = httpClient.execute(request);
     Header authorizationHeader = response.getFirstHeader("authorization");
-    authorizationToken = authorizationHeader.getValue();
+    this.authorizationToken = authorizationHeader.getValue();
+    System.out.println(this.authorizationToken);
   }
 
   public void createBotgame() throws IOException {
     HttpResponse response = getPostResponse(BASE_URL + BOTGAME_URL);
     String jsonString = EntityUtils.toString(response.getEntity());
     Game game = JsonConverter.deserializeGameJSON(jsonString);
+    System.out.println(jsonString);
     this.setGameId(game.getGameId());
   }
 
@@ -53,6 +55,7 @@ public class DefaultConnection implements Connection {
     createBotgame();
     HttpResponse response = getPostResponse(BASE_URL + BOTGAME_URL + gameId);
     String jsonString = EntityUtils.toString(response.getEntity());
+    System.out.println(jsonString);
     return jsonString;
   }
 

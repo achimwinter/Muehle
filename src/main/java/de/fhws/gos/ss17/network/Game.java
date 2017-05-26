@@ -18,23 +18,7 @@ public class Game {
   private Long timeLastTurnPlayed;
   private String state;
   private Integer turnsTaken;
-/*
-  public Game(String gameId) {
-    this.gameId = gameId;
-  }
 
-  public Game(String gameId, String activePlayer, String[] boardState, Integer timeStarted,
-      Integer timeLastTurnPlayed, String state, Integer turnsTaken) {
-
-    this.gameId = gameId;
-    this.activePlayer = activePlayer;
-    this.boardState = boardState;
-    this.timeStarted = timeStarted;
-    this.timeLastTurnPlayed = timeLastTurnPlayed;
-    this.state = state;
-    this.turnsTaken = turnsTaken;
-  }
-*/
   public Game() {
   }
 
@@ -67,7 +51,6 @@ public class Game {
   }
 
   public String getGameId() {
-
     return gameId;
   }
 
@@ -95,17 +78,4 @@ public class Game {
     return turnsTaken;
   }
 
-  @JsonIgnore
-  public Board getBoard(String[] boardState){
-    Board board = new Board();
-    for(int i = 0; i < boardState.length; i++){
-      if(boardState[i].equals("NO_TOKEN"))
-        board.executeMove(new Move(-1, i , -1), PositionToken.IS_EMPTY);
-      else if(boardState[i].equals("6997"))
-        board.executeMove(new Move(-1, i,-1), PositionToken.PLAYER_ONE);
-      else
-        board.executeMove(new Move(-1, i, -1), PositionToken.PLAYER_TWO);
-    }
-    return board;
-  }
 }

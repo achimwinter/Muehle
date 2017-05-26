@@ -1,8 +1,9 @@
 package de.fhws.gos.ss17.network;
 
 import com.owlike.genson.Genson;
-import de.fhws.gos.core.logic.Board;
-import de.fhws.gos.core.logic.Game;
+import com.owlike.genson.annotation.JsonIgnore;
+import de.fhws.gos.core.utils.PositionToken;
+import de.fhws.gos.ss17.game.Board;
 import de.fhws.gos.core.logic.Move;
 
 /**
@@ -41,11 +42,18 @@ public class JsonConverter {
     return jsonMove.toString();
   }
 
-  public static Board deserializeBoard(String boardString){
-    Genson genson = new Genson();
-    return genson.deserialize(boardString, Board.class);
+  @JsonIgnore
+  public static Board deserializeBoard(String[] boardString){
+    Board board = new Board();
+    for(int i = 0; i < boardString.length; i++){
+      if(boardString[i].equals("NO_TOKEN"))
+        board.executeMove(new Move(-1, i , -1), PositionToken.IS_EMPTY);
+      else if(boardString[i].equals("6997"))
+        board.executeMove(new Move(-1, i,-1), PositionToken.PLAYER_ONE);
+      else
+        board.executeMove(new Move(-1, i, -1), PositionToken.PLAYER_TWO);
+    }
+    return board;
   }
-
-  
 
 }

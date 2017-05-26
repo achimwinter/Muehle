@@ -56,6 +56,9 @@ public class MillCombinations {
   }
 
   private boolean isAllied(List<Integer> millcoords, PositionToken playerToken) throws GameException {
+    System.out.println(board.getPosition(0).getPositionToken());
+    System.out.println(board.getPosition(1).getPositionToken());
+    System.out.println(board.getPosition(2).getPositionToken());
     int counter = 0;
     for (int i : millcoords) {
       if (board.getPosition(i).getPositionToken() == PositionToken.PLAYER_TWO) {
