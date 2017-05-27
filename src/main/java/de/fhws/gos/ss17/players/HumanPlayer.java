@@ -50,8 +50,7 @@ public class HumanPlayer extends AbstractPlayer {
       System.out.print("ID des zu entfernenden Steins eingeben: ");
       removeId = input.nextInt();
       if (board.getPosition(removeId).getPositionToken().equals(opponent) && (
-          !MillCombinations.getInstance(board).isMill(opponent, removeId) || MillCombinations
-              .getInstance(board).allInMill(opponent))) {
+          !MillCombinations.isMill(board, opponent, removeId) || MillCombinations.allInMill(board, opponent))) {
         repeat = false;
       }
     } while (repeat);

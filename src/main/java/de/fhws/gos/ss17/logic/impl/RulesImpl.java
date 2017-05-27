@@ -19,7 +19,7 @@ public class RulesImpl implements Rules {
   @Override
   public boolean isMill(Board board, PositionToken playerToken, int stoneId) throws GameException {
     try {
-      return MillCombinations.getInstance(board).isMill(playerToken, stoneId);
+      return MillCombinations.isMill(board, playerToken, stoneId);
     } catch (GameException e) {
       CheckedExceptions.catchGameException(e);
       return false;
@@ -36,7 +36,7 @@ public class RulesImpl implements Rules {
   public boolean willBeMill(Board board, PositionToken playerToken, int fromId, int toId)
       throws GameException {
     try {
-      return MillCombinations.getInstance(board).willBeMill(playerToken, fromId, toId);
+      return MillCombinations.willBeMill(board, playerToken, fromId, toId);
     } catch (GameException e) {
       CheckedExceptions.catchGameException(e);
       return false;
@@ -89,8 +89,8 @@ public class RulesImpl implements Rules {
       throws GameException {
     try {
       return board.getPosition(stoneId).getPositionToken().equals(PositionToken.PLAYER_TWO)
-          && !(MillCombinations.getInstance(board).isMill(PositionToken.PLAYER_TWO, stoneId)) ||
-          MillCombinations.getInstance(board).allInMill(PositionToken.PLAYER_TWO);
+          && !(MillCombinations.isMill(board, PositionToken.PLAYER_TWO, stoneId)) ||
+          MillCombinations.allInMill(board, PositionToken.PLAYER_TWO);
     } catch (GameException e) {
       CheckedExceptions.catchGameException(e);
       return false;
@@ -126,7 +126,7 @@ public class RulesImpl implements Rules {
   }
 
   public boolean allInMill(Board board, PositionToken playerToken) throws GameException {
-    return MillCombinations.getInstance(board).allInMill(playerToken);
+    return MillCombinations.allInMill(board, playerToken);
   }
 
 }

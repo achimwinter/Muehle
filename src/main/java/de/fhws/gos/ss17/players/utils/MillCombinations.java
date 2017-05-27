@@ -16,20 +16,6 @@ import java.util.List;
 
 public class MillCombinations {
 
-  private static MillCombinations instance;
-  private Board board;
-
-  public static MillCombinations getInstance(Board board) {
-    if (instance == null) {
-      instance = new MillCombinations(board);
-    }
-    return instance;
-  }
-
-  private MillCombinations(Board board) {
-    this.board = board;
-  }
-
   private static final List<List<Integer>> POSSIBLE_MILLS;
   private static final Integer[][] possibleMillsArray = {
       {0, 1, 2},
@@ -51,14 +37,11 @@ public class MillCombinations {
   };
 
 
-  public boolean isMill(PositionToken playerToken, int fromId , int toId) throws GameException {
-    return isMill(playerToken, toId);
+  public static boolean isMill(Board board, PositionToken playerToken, int fromId , int toId) throws GameException {
+    return isMill(board, playerToken, toId);
   }
 
-  private boolean isAllied(List<Integer> millcoords, PositionToken playerToken) throws GameException {
-    System.out.println(board.getPosition(0).getPositionToken());
-    System.out.println(board.getPosition(1).getPositionToken());
-    System.out.println(board.getPosition(2).getPositionToken());
+  private static boolean isAllied(Board board, List<Integer> millcoords, PositionToken playerToken) throws GameException {
     int counter = 0;
     for (int i : millcoords) {
       if (board.getPosition(i).getPositionToken() == PositionToken.PLAYER_TWO) {
@@ -70,7 +53,7 @@ public class MillCombinations {
     return counter == 2;
   }
 
-  public boolean willBeMill(PositionToken playerToken, int fromId, int toId) throws GameException {
+  public static boolean willBeMill(Board board, PositionToken playerToken, int fromId, int toId) throws GameException {
     for (List<Integer> millCoords : POSSIBLE_MILLS) {
       if (millCoords.contains(toId)) {
         boolean result = true;
@@ -78,7 +61,7 @@ public class MillCombinations {
           if (i == fromId) {
             result = false;
           } else if (result) {
-            if (!isAllied(millCoords, playerToken)) {
+            if (!isAllied(board , millCoords, playerToken)) {
               result = false;
             }
           }
@@ -92,7 +75,7 @@ public class MillCombinations {
   }
 
 
-  private Integer[][] getMillCombinations(int positionIndex) {
+  private static Integer[][] getMillCombinations(int positionIndex) {
     int counter = 0;
     Integer[][] combinations = new Integer[2][3];
     for (Integer[] aPossibleMillsArray : possibleMillsArray) {
@@ -107,7 +90,7 @@ public class MillCombinations {
   }
 
 
-  public boolean isMill(PositionToken playerToken, int stoneId) throws GameException {
+  public static boolean isMill(Board board, PositionToken playerToken, int stoneId) throws GameException {
     Integer[][] combinations = getMillCombinations(stoneId);
     for (int i = 0; i < 2; i++) {
       if (board.getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
@@ -119,14 +102,14 @@ public class MillCombinations {
     return false;
   }
 
-  public boolean allInMill(PositionToken token) throws GameException {
-    int tokensForPlayer = this.board.getNumberOfTokensForPlayer(token);
+  public static boolean allInMill(Board board, PositionToken token) throws GameException {
+    int tokensForPlayer = board.getNumberOfTokensForPlayer(token);
     int tokenInMillCounter = 0;
-    Iterator iterator = this.board.iteratePositions();
+    Iterator iterator = board.iteratePositions();
 
     while (iterator.hasNext()) {
       Position pos = (Position) iterator.next();
-      if (this.isMill(token, pos.getId())) {
+      if (isMill(board, token, pos.getId())) {
         ++tokenInMillCounter;
       }
     }

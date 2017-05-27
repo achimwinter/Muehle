@@ -113,8 +113,7 @@ public class RandomPlayerWithRules extends AbstractPlayer {
     do {
       removeId = (int) (Math.random() * 24);
       if (board.getPosition(removeId).getPositionToken().equals(opponent) && (
-          !MillCombinations.getInstance(board).isMill(opponent, removeId) || MillCombinations
-              .getInstance(board).allInMill(opponent))) {
+          !rules.isMill(board, opponent, removeId) || rules.allInMill(board, opponent))) {
         repeat = false;
       }
     } while (repeat);

@@ -55,8 +55,7 @@ public class PossibleMoves {
       if (board.getPosition(i).getPositionToken().equals(friendly)) {
         for (Position position : board.getPosition(i).getNeighbors()) {
           if (position.isAvailable()) {
-            boolean isMill = MillCombinations.getInstance(board)
-                .willBeMill(friendly, i, position.getId());
+            boolean isMill = rules.willBeMill(board, friendly, i , position.getId());
             if (isMill) {
               removeId = getRemoveId(board);
             }

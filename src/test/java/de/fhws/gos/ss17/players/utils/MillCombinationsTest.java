@@ -24,7 +24,7 @@ public class MillCombinationsTest {
   public void testWillBeMill_Only2StonesinMillPos_FalseReturned() throws GameException {
     board.executeMove((new Move(-1, 0, -1)), PositionToken.PLAYER_TWO);
     board.executeMove((new Move(-1, 21, -1)), PositionToken.PLAYER_TWO);
-    boolean result = (MillCombinations.getInstance(board).willBeMill(playerToken, 21, 9));
+    boolean result = (MillCombinations.willBeMill(board, playerToken, 21, 9));
     board.printBoard();
     Assert.assertFalse("Mill found, returned true", result);
   }
@@ -37,7 +37,7 @@ public class MillCombinationsTest {
     board.executeMove((new Move(-1, 2, -1)), PositionToken.PLAYER_TWO);
     board.executeMove((new Move(-1, 21, -1)), PositionToken.PLAYER_TWO);
     board.printBoard();
-    boolean result = MillCombinations.getInstance(board).allInMill(playerToken);
+    boolean result = MillCombinations.allInMill(board, playerToken);
     Assert.assertFalse("Not all Stones are in Mill", result);
   }
 
@@ -51,7 +51,7 @@ public class MillCombinationsTest {
     board.executeMove((new Move(-1, 9, -1)), playerToken);
     board.executeMove((new Move(-1, 21, -1)), playerToken);
     board.printBoard();
-    boolean result = MillCombinations.getInstance(board).allInMill(playerToken);
+    boolean result = MillCombinations.allInMill(board, playerToken);
     Assert.assertTrue("Stones remaining which are not in Mill, returned false", result);
   }
 
@@ -62,7 +62,7 @@ public class MillCombinationsTest {
     board.executeMove((new Move(-1, 1, -1)), playerToken);
     board.executeMove((new Move(-1, 4, -1)), playerToken);
     board.printBoard();
-    boolean result = MillCombinations.getInstance(board).allInMill(playerToken);
+    boolean result = MillCombinations.allInMill(board, playerToken);
     Assert.assertFalse("All Stones are in Mill, returned true", result);
   }
 
@@ -72,7 +72,7 @@ public class MillCombinationsTest {
     board.executeMove((new Move(-1, 2, -1)), playerToken);
     board.executeMove((new Move(-1, 1, -1)), playerToken);
     board.printBoard();
-    boolean result = MillCombinations.getInstance(board).isMill(playerToken, -1, 1);
+    boolean result = MillCombinations.isMill(board, playerToken, -1, 1);
     Assert.assertTrue("Stone was not in Mill, returned false", result);
   }
 
@@ -100,7 +100,7 @@ public class MillCombinationsTest {
     board.executeMove((new Move(-1, 23, -1)), PositionToken.PLAYER_TWO);
     board.executeMove((new Move(-1, 16, -1)), PositionToken.PLAYER_TWO);
     board.executeMove((new Move(-1, 12, -1)), PositionToken.PLAYER_TWO);
-    boolean result = MillCombinations.getInstance(board).willBeMill(playerToken, -1, 10);
+    boolean result = MillCombinations.willBeMill(board, playerToken, -1, 10);
     board.printBoard();
     System.out.println(result);
     Assert.assertFalse("Wasn´t mill but true returned", result);
@@ -126,7 +126,7 @@ public class MillCombinationsTest {
     board.executeMove((new Move(-1, 5, -1)), PositionToken.PLAYER_TWO);
     board.executeMove((new Move(-1, 13, -1)), PositionToken.PLAYER_TWO);
     board.executeMove((new Move(-1, 21, -1)), PositionToken.PLAYER_TWO);
-    boolean result = MillCombinations.getInstance(board).willBeMill(playerToken, 1, 4);
+    boolean result = MillCombinations.willBeMill(board, playerToken, 1, 4);
     Move move;
     move = EvaluateMoves.getBestMove(board, Phase.MOVING);
     System.out.println(
