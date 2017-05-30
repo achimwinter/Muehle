@@ -17,7 +17,7 @@ public class Game {
   private String[] boardState;
   private Long timeStarted;
   private Long timeLastTurnPlayed;
-  private String state;
+  private GameState state;
   private Integer turnsTaken;
 
   public Game() {
@@ -43,7 +43,7 @@ public class Game {
     this.timeLastTurnPlayed = timeLastTurnPlayed;
   }
 
-  public void setState(String state) {
+  public void setState(GameState state) {
     this.state = state;
   }
 
@@ -71,7 +71,7 @@ public class Game {
     return timeLastTurnPlayed;
   }
 
-  public String getState() {
+  public GameState getState() {
     return state;
   }
 

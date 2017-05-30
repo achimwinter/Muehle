@@ -13,6 +13,7 @@ import de.fhws.gos.remote.utils.JSONHelper;
 import de.fhws.gos.remote.utils.models.ServerEntity;
 import de.fhws.gos.ss17.network.DefaultConnection;
 import de.fhws.gos.ss17.network.Game;
+import de.fhws.gos.ss17.network.GameState;
 import de.fhws.gos.ss17.network.JsonConverter;
 import java.io.IOException;
 
@@ -46,9 +47,10 @@ public class RemoteBotGame extends AbstractGame {
         Move playerMove = this.playerOne.getNextMove(board);
         board.executeMove(playerMove, playerOne.getPlayerToken());
         board.printBoard();
-        String JsonResponse = connection.playBotgame(JsonConverter.serializeMoveJSON(playerMove));
+        String JsonResponse = this.connection
+            .playBotgame(JsonConverter.serializeMoveJSON(playerMove));
         Game gameObject1 = JsonConverter.deserializeGameJSON(JsonResponse);
-        if (!(gameObject1.getState().equals("STATE_RUNNING"))) {
+        if (!(gameObject1.getState().equals(GameState.STATE_RUNNING))) {
           endGame();
         }
         String[] boardArray = gameObject1.getBoardState();
@@ -56,26 +58,22 @@ public class RemoteBotGame extends AbstractGame {
         System.out.println("Player_TWO Move:");
         board.printBoard();
       } while (this.board.getCurrentGameStatus().equals(GameStatus.RUNNING));
-    }
-    catch (GameException ex){
+    } catch (GameException ex) {
       ex.printStackTrace();
-    }
-    catch (IOException iox){
+    } catch (IOException iox) {
       iox.printStackTrace();
     }
   }
 
-  private void endGame(){
-    System.out.println(this.board.getNumberOfTokensForPlayer(PositionToken.PLAYER_TWO));
-    System.out.println(board.getNumberOfTokensForPlayer(PositionToken.PLAYER_TWO));
-    if(this.board.getNumberOfTokensForPlayer(PositionToken.PLAYER_ONE) == 2) {
+  private void endGame() {
+    if (this.board.getNumberOfTokensForPlayer(PositionToken.PLAYER_ONE) == 2) {
       this.board.setCurrentGameStatus(GameStatus.PLAYER_TWO_WON);
       printGameResult();
-    }
-    else if(this.board.getNumberOfTokensForPlayer(PositionToken.PLAYER_TWO) == 2)
-    {
+      System.exit(0);
+    } else if (this.board.getNumberOfTokensForPlayer(PositionToken.PLAYER_TWO) == 2) {
       this.board.setCurrentGameStatus(GameStatus.PLAYER_ONE_WON);
       printGameResult();
+      System.exit(0);
     }
   }
 

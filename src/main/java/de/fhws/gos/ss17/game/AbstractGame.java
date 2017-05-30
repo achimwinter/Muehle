@@ -37,14 +37,10 @@ public abstract class AbstractGame implements de.fhws.gos.core.logic.Game {
 
   public void startGame() {
 
-    }
+  }
 
 
   public void printGameResult() {
-    System.out.println(
-        "Moves for Player One: " + board.getNumberOfMovesForPlayer(playerOne.getPlayerToken()));
-    System.out.println(
-        "Moves for Player Two: " + board.getNumberOfMovesForPlayer(playerTwo.getPlayerToken()));
     GameStatus status = board.getCurrentGameStatus();
     if (status.equals(GameStatus.ERROR)) {
       System.out.println("Error while Game");
