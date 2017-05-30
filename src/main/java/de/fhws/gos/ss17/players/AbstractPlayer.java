@@ -14,6 +14,7 @@ public abstract class AbstractPlayer implements Player {
 
   protected Phase phase;
   protected PositionToken playerToken;
+  static int counter;
 
   public AbstractPlayer(PositionToken playerToken) {
     this.playerToken = playerToken;
@@ -21,12 +22,13 @@ public abstract class AbstractPlayer implements Player {
   }
 
   public Move getNextMove(Board board) throws GameException {
-    if (board.getNumberOfMovesForPlayer(playerToken) == 9 && this.phase == Phase.PLACING) {
+    if (counter == 9 && this.phase == Phase.PLACING) {
       this.phase = Phase.MOVING;
     }
     if (board.getNumberOfTokensForPlayer(playerToken) == 3 && this.phase == Phase.MOVING) {
       this.phase = Phase.FLYING;
     }
+    counter++;
     Move nextMove = this.doGetNextMove(board);
     return nextMove;
   }
