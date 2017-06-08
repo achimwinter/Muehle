@@ -26,18 +26,7 @@ public class Node {
     this.phase = phase;
     this.depth = depth;
     this.playerToken = playerToken;
-    try {
-      if (this.depth > 0) {
-        getTree();
-      }
-    } catch (GameException e) {
-      e.printStackTrace();
-    }
   }
-
-  //generate possible Moves
-  //getBoardScore
-  //Copy Board
 
 
   public void getTree() throws GameException {
