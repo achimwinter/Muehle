@@ -19,14 +19,6 @@ public class Board implements de.fhws.gos.core.logic.Board {
   private int[] moveCounters;
   private LinkedList<Move> moveHistory;
 
-  public Board(Board board){
-    this.gameStatus = board.gameStatus;
-    this.tokenCounters = board.tokenCounters;
-    this.moveCounters = board.moveCounters;
-    this.positionImpls = board.positionImpls;
-    this.moveHistory = board.moveHistory;
-  }
-
   public Board() {
     this.gameStatus = GameStatus.RUNNING;
     this.tokenCounters = new int[2];
