@@ -20,7 +20,7 @@ public class PossibleMovesTest {
   @Test
   public void testGetMoves_2MovesGotten_MovesPrinted() throws GameException{
     board.executeMove((new Move(-1, 4, -1)), playerToken);
-    List<Move> moves=  PossibleMoves.getPossibleMoves(board, Phase.MOVING);
+    List<Move> moves=  PossibleMoves.getPossibleMoves(board, Phase.MOVING, PositionToken.PLAYER_ONE);
     for(Move move: moves){
       System.out.println("From: " + move.getFromId() + " TO: " + move.getToId() + " Remove " + move.getRemoveId());
     }
