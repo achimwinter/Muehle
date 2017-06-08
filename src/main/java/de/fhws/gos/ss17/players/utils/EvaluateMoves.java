@@ -19,7 +19,7 @@ public class EvaluateMoves {
 
   private static List<Pair> fillMove(Board board, Phase phase)throws GameException{
     List<Pair> moves = new ArrayList<>();
-    for(Move move : PossibleMoves.getPossibleMoves(board, phase)){
+    for(Move move : PossibleMoves.getPossibleMoves(board, phase, friendly)){
       Pair pair = new Pair(move, 0);
       moves.add(pair);
     }

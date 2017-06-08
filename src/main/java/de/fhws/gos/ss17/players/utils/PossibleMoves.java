@@ -15,30 +15,28 @@ import java.util.List;
 public class PossibleMoves {
 
   private static final RulesImpl rules = new RulesImpl();
-  private static final PositionToken friendly = PositionToken.PLAYER_ONE;
-  private static final PositionToken enemy = PositionToken.PLAYER_TWO;
 
-  public static List<Move> getPossibleMoves(Board board, Phase phase) throws GameException {
+  public static List<Move> getPossibleMoves(Board board, Phase phase, PositionToken playerToken) throws GameException {
     switch (phase) {
       case PLACING:
-        return possiblePlacement(board);
+        return possiblePlacement(board, playerToken);
       case MOVING:
-        return possibleMoves(board);
+        return possibleMoves(board, playerToken);
       case FLYING:
-        return possibleFlying(board);
+        return possibleFlying(board, playerToken);
       default:
         return null;
     }
   }
 
-  private static List<Move> possiblePlacement(Board board) throws GameException {
+  private static List<Move> possiblePlacement(Board board, PositionToken playerToken) throws GameException {
     List<Move> moves = new ArrayList<>();
     int removeId = -1;
     for (int i = 0; i < 24; i++) {
       if (board.getPosition(i).getPositionToken().equals(PositionToken.IS_EMPTY)) {
-        boolean isMill = rules.willBeMill(board, friendly, -1, i);
+        boolean isMill = rules.willBeMill(board, playerToken, -1, i);
         if (isMill) {
-          removeId = getRemoveId(board);
+          removeId = getRemoveId(board, playerToken);
         }
         moves.add(new Move(-1, i, removeId));
         removeId = -1;
@@ -48,16 +46,16 @@ public class PossibleMoves {
   }
 
 
-  private static List<Move> possibleMoves(Board board) throws GameException {
+  private static List<Move> possibleMoves(Board board, PositionToken playerToken) throws GameException {
     List<Move> moves = new ArrayList<>();
     int removeId = -1;
     for (int i = 0; i < 24; i++) {
-      if (board.getPosition(i).getPositionToken().equals(friendly)) {
+      if (board.getPosition(i).getPositionToken().equals(playerToken)) {
         for (Position position : board.getPosition(i).getNeighbors()) {
           if (position.isAvailable()) {
-            boolean isMill = rules.willBeMill(board, friendly, i , position.getId());
+            boolean isMill = rules.willBeMill(board, playerToken, i , position.getId());
             if (isMill) {
-              removeId = getRemoveId(board);
+              removeId = getRemoveId(board, playerToken);
             }
             moves.add(new Move(i, position.getId(), removeId));
             removeId = -1;
@@ -68,16 +66,16 @@ public class PossibleMoves {
     return moves;
   }
 
-  private static List<Move> possibleFlying(Board board) throws GameException {
+  private static List<Move> possibleFlying(Board board, PositionToken playerToken) throws GameException {
     List<Move> moves = new ArrayList<>();
     int removeId = -1;
     for (int i = 0; i < 24; i++) {
-      if (board.getPosition(i).getPositionToken().equals(friendly)) {
+      if (board.getPosition(i).getPositionToken().equals(playerToken)) {
         for (int j = 0; j < 24; j++) {
           if (board.getPosition(j).isAvailable()) {
-            boolean isMill = rules.willBeMill(board, friendly, i, j);
+            boolean isMill = rules.willBeMill(board, playerToken, i, j);
             if (isMill) {
-              removeId = getRemoveId(board);
+              removeId = getRemoveId(board, playerToken);
             }
             moves.add(new Move(i, j, removeId));
             removeId = -1;
@@ -89,7 +87,8 @@ public class PossibleMoves {
   }
 
 
-  public static int getRemoveId(Board board) throws GameException {
+  public static int getRemoveId(Board board, PositionToken playerToken) throws GameException {
+    PositionToken enemy = (playerToken.equals(PositionToken.PLAYER_ONE)) ? PositionToken.PLAYER_TWO : PositionToken.PLAYER_ONE;
     int removeId = -1;
     int highestEnemy = -1;
     int[] positions = new int[24];
@@ -98,7 +97,7 @@ public class PossibleMoves {
     }
     for (int i = 0; i < 24; i++) {
       if (board.getPosition(i).getPositionToken().equals(enemy)) {
-        positions[i] = enemyAround(board, i);
+        positions[i] = enemyAround(board, i, enemy);
       }
     }
     for (int i = 0; i < 24; i++) {
@@ -116,7 +115,7 @@ public class PossibleMoves {
   }
 
 
-  private static int enemyAround(Board board, int stoneId) throws GameException {
+  private static int enemyAround(Board board, int stoneId, PositionToken enemy) throws GameException {
     int counter = 0;
     for (Position position : board.getPosition(stoneId).getNeighbors()) {
       if (position.getPositionToken().equals(enemy)) {

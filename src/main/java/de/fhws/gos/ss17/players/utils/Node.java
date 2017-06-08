@@ -31,8 +31,8 @@ public class Node {
   //Copy Board
 
 
-  public Node getTree() throws GameException {
-    List<Move> possibleMoves = PossibleMoves.getPossibleMoves(this.board, this.phase);
+  public void getTree() throws GameException {
+    List<Move> possibleMoves = PossibleMoves.getPossibleMoves(this.board, this.phase, playerToken);
     Iterator<Move> moveIterator = possibleMoves.iterator();
     while (moveIterator.hasNext()){
       Move move = moveIterator.next();
@@ -42,6 +42,5 @@ public class Node {
       PositionToken nextPlayer = (playerToken.equals(PositionToken.PLAYER_ONE)) ? PositionToken.PLAYER_TWO : PositionToken.PLAYER_ONE;
       subNodes.add(new Node(newboard, this.phase, this.depth -1, nextPlayer));
     }
-    return this;
   }
 }
