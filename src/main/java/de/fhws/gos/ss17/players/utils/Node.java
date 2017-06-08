@@ -21,11 +21,18 @@ public class Node {
   private PositionToken playerToken;
   private List<Node> subNodes = new ArrayList<>();
 
-  public Node(Board board, Phase phase, int depth, PositionToken playerToken){
+  public Node(Board board, Phase phase, int depth, PositionToken playerToken) {
     this.board = board;
     this.phase = phase;
     this.depth = depth;
     this.playerToken = playerToken;
+    try {
+      if (this.depth > 0) {
+        getTree();
+      }
+    } catch (GameException e) {
+      e.printStackTrace();
+    }
   }
 
   //generate possible Moves
@@ -34,19 +41,26 @@ public class Node {
 
 
   public void getTree() throws GameException {
+    int test = 0;
     List<Move> possibleMoves = PossibleMoves.getPossibleMoves(this.board, this.phase, playerToken);
     Random rand = new Random();
     int randomNumber = rand.nextInt(possibleMoves.size());
     Iterator<Move> moveIterator = possibleMoves.iterator();
-    while (randomNumber > 0){
+    while (moveIterator.hasNext()) {
       Move move = moveIterator.next();
       Board newboard = new Board(board);
       newboard.executeMove(move, playerToken);
+      newboard.printBoard();
+      board.printBoard();
       //Phase herausfinden
-      PositionToken nextPlayer = (playerToken.equals(PositionToken.PLAYER_ONE)) ? PositionToken.PLAYER_TWO : PositionToken.PLAYER_ONE;
-      subNodes.add(new Node(newboard, this.phase, this.depth -1, nextPlayer));
-      if (this.depth == 0 || !newboard.getCurrentGameStatus().equals(GameStatus.RUNNING))
+      PositionToken nextPlayer =
+          (playerToken.equals(PositionToken.PLAYER_ONE)) ? PositionToken.PLAYER_TWO
+              : PositionToken.PLAYER_ONE;
+      subNodes.add(new Node(newboard, this.phase, this.depth - 1, nextPlayer));
+      //if (this.depth == 0 || !newboard.getCurrentGameStatus().equals(GameStatus.RUNNING))
       --randomNumber;
+      test++;
     }
+    System.out.println(test);
   }
 }
