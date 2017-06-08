@@ -52,6 +52,7 @@ public class RemoteBotGame extends AbstractGame {
         Game gameObject1 = JsonConverter.deserializeGameJSON(JsonResponse);
         if (!(gameObject1.getState().equals(GameState.STATE_RUNNING))) {
           endGame();
+          return;
         }
         String[] boardArray = gameObject1.getBoardState();
         board = JsonConverter.deserializeBoard(boardArray);
@@ -69,11 +70,9 @@ public class RemoteBotGame extends AbstractGame {
     if (this.board.getNumberOfTokensForPlayer(PositionToken.PLAYER_ONE) == 2) {
       this.board.setCurrentGameStatus(GameStatus.PLAYER_TWO_WON);
       printGameResult();
-      System.exit(0);
     } else if (this.board.getNumberOfTokensForPlayer(PositionToken.PLAYER_TWO) == 2) {
       this.board.setCurrentGameStatus(GameStatus.PLAYER_ONE_WON);
       printGameResult();
-      System.exit(0);
     }
   }
 
