@@ -7,10 +7,8 @@ import de.fhws.gos.core.logic.Board;
  */
 public class BoardState {
 
-  Board board;
-
-  public BoardState(Board board){
-    this.board = board;
+  public static int getScore(Board board){
+    return 5;
   }
 
 
