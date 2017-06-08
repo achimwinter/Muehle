@@ -1,6 +1,7 @@
 package de.fhws.gos.ss17.players.utils;
 
 import de.fhws.gos.core.exceptions.GameException;
+import de.fhws.gos.core.utils.GameStatus;
 import de.fhws.gos.ss17.game.Board;
 import de.fhws.gos.core.logic.Move;
 import de.fhws.gos.core.utils.PositionToken;
@@ -44,6 +45,7 @@ public class Node {
       //Phase herausfinden
       PositionToken nextPlayer = (playerToken.equals(PositionToken.PLAYER_ONE)) ? PositionToken.PLAYER_TWO : PositionToken.PLAYER_ONE;
       subNodes.add(new Node(newboard, this.phase, this.depth -1, nextPlayer));
+      if (this.depth == 0 || !newboard.getCurrentGameStatus().equals(GameStatus.RUNNING))
       --randomNumber;
     }
   }
