@@ -31,6 +31,15 @@ public class Board implements de.fhws.gos.core.logic.Board {
     this.moveHistory = new LinkedList<>();
   }
 
+  public Board(Board board){
+    this.positionImpls = board.positionImpls;
+    this.gameStatus = board.gameStatus;
+    this.tokenCounters = board.tokenCounters;
+    this.moveCounters = board.moveCounters;
+    this.moveHistory = board.moveHistory;
+  }
+
+
   @Override
   public void executeMove(Move move, PositionToken positionToken) {
     this.movePlusPlus(positionToken);
