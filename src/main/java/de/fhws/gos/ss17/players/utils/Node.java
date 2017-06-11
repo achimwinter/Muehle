@@ -17,19 +17,18 @@ public class Node {
 
   public int boardValue;
   public Board board;
-  private Phase phase;
-  private int depth;
-  private PositionToken playerToken;
-  private List<Node> subNodes = new ArrayList<>();
+  private Move move;
 
-  public Node(Board board, Phase phase, int depth, PositionToken playerToken) {
-    this.board = board;
-    this.phase = phase;
-    this.depth = depth;
-    this.playerToken = playerToken;
+  public Move getMove() {
+    return move;
   }
 
+  public Node(Board board, Move move) {
+    this.board = board;
+    this.move = move;
+  }
 
+/*
   public void getTree() throws GameException {
     List<Move> possibleMoves = PossibleMoves.getPossibleMoves(this.board, this.phase, playerToken);
     Random rand = new Random();
@@ -49,4 +48,5 @@ public class Node {
       --randomNumber;
     }
   }
+  */
 }

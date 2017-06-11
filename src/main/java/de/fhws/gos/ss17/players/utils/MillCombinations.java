@@ -16,7 +16,7 @@ import java.util.List;
 
 public class MillCombinations {
 
-  private static final List<List<Integer>> POSSIBLE_MILLS;
+  public static final List<List<Integer>> POSSIBLE_MILLS;
   private static final Integer[][] possibleMillsArray = {
       {0, 1, 2},
       {3, 4, 5},
@@ -41,19 +41,24 @@ public class MillCombinations {
     return isMill(board, playerToken, toId);
   }
 
-  private static boolean isAllied(Board board, List<Integer> millcoords, PositionToken playerToken) throws GameException {
+  private static boolean isAllied(Board board, List<Integer> millcoords, PositionToken playerToken) {
     int counter = 0;
-    for (int i : millcoords) {
-      if (board.getPosition(i).getPositionToken() == PositionToken.PLAYER_TWO) {
-        return false;
-      } else if (board.getPosition(i).getPositionToken() == playerToken) {
-        ++counter;
+    try {
+      for (int i : millcoords) {
+        if (board.getPosition(i).getPositionToken() == PositionToken.PLAYER_TWO) {
+          return false;
+        } else if (board.getPosition(i).getPositionToken() == playerToken) {
+          ++counter;
+        }
       }
+    }catch (GameException ex){
+      System.out.println("GAME EXCEPTION IN isAllied IN MILLCOMBINATIONS");
+      ex.printStackTrace();
     }
     return counter == 2;
   }
 
-  public static boolean willBeMill(Board board, PositionToken playerToken, int fromId, int toId) throws GameException {
+  public static boolean willBeMill(Board board, PositionToken playerToken, int fromId, int toId) {
     for (List<Integer> millCoords : POSSIBLE_MILLS) {
       if (millCoords.contains(toId)) {
         boolean result = true;
@@ -90,13 +95,17 @@ public class MillCombinations {
   }
 
 
-  public static boolean isMill(Board board, PositionToken playerToken, int stoneId) throws GameException {
+  public static boolean isMill(Board board, PositionToken playerToken, int stoneId) {
     Integer[][] combinations = getMillCombinations(stoneId);
     for (int i = 0; i < 2; i++) {
-      if (board.getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
-          .getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
-          .getPosition(combinations[i][2]).getPositionToken().equals(playerToken)) {
-        return true;
+      try {
+        if (board.getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
+            .getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
+            .getPosition(combinations[i][2]).getPositionToken().equals(playerToken)) {
+          return true;
+        }
+      } catch (GameException e) {
+        e.printStackTrace();
       }
     }
     return false;

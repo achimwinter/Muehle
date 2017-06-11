@@ -16,17 +16,22 @@ public class PossibleMoves {
 
   private static final RulesImpl rules = new RulesImpl();
 
-  public static List<Move> getPossibleMoves(Board board, Phase phase, PositionToken playerToken) throws GameException {
-    switch (phase) {
-      case PLACING:
-        return possiblePlacement(board, playerToken);
-      case MOVING:
-        return possibleMoves(board, playerToken);
-      case FLYING:
-        return possibleFlying(board, playerToken);
-      default:
-        return null;
+  public static List<Move> getPossibleMoves(Board board, Phase phase, PositionToken playerToken){
+    try {
+      switch (phase) {
+        case PLACING:
+          return possiblePlacement(board, playerToken);
+        case MOVING:
+          return possibleMoves(board, playerToken);
+        case FLYING:
+          return possibleFlying(board, playerToken);
+        default:
+          return null;
+      }
+    } catch (GameException ex){
+      ex.printStackTrace();
     }
+    return null;
   }
 
   private static List<Move> possiblePlacement(Board board, PositionToken playerToken) throws GameException {
