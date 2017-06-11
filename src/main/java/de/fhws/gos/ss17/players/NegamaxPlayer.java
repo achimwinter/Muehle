@@ -2,16 +2,14 @@ package de.fhws.gos.ss17.players;
 
 import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.utils.GameStatus;
-import de.fhws.gos.ss17.game.Board;
+import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Move;
 import de.fhws.gos.core.utils.PositionToken;
+import de.fhws.gos.ss17.main.Config;
 import de.fhws.gos.ss17.players.utils.BoardState;
 import de.fhws.gos.ss17.players.utils.Node;
-import de.fhws.gos.ss17.players.utils.Pair;
-import de.fhws.gos.ss17.players.utils.Phase;
 import de.fhws.gos.ss17.players.utils.PossibleMoves;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -33,8 +31,8 @@ public class NegamaxPlayer extends AbstractPlayer{
 
   @Override
   protected Move getPlacingMove(Board board) throws GameException {
-    Pair bestMove = negamax(new Node(board,null), depth, 1, MAX_VALUE, MIN_VALUE, System.currentTimeMillis());
-    return bestMove.getMove();
+    int test = negamax(new Node(board,null), depth, 1, MAX_VALUE, MIN_VALUE, System.currentTimeMillis());
+    return null;
   }
 
   @Override
@@ -59,7 +57,7 @@ public class NegamaxPlayer extends AbstractPlayer{
     int bestValue = MIN_VALUE;
     List<Node> childNodes = new ArrayList<>();
     for (Move move : possibleMoves) {
-      Board childBoard = new Board(node.board);
+      Board childBoard = Config.copyBoard((de.fhws.gos.ss17.game.Board) node.board);
       childBoard.executeMove(move, playerToken);
       childNodes.add(new Node(childBoard, move));
     }

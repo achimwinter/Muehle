@@ -1,14 +1,7 @@
 package de.fhws.gos.ss17.players.utils;
 
-import de.fhws.gos.core.exceptions.GameException;
-import de.fhws.gos.core.utils.GameStatus;
-import de.fhws.gos.ss17.game.Board;
+import de.fhws.gos.core.logic.Board;
 import de.fhws.gos.core.logic.Move;
-import de.fhws.gos.core.utils.PositionToken;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
 
 /**
  * Created by Achim on 01.06.2017.

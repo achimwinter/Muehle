@@ -60,6 +60,11 @@ public class Config {
     return board;
   }
 
+
+  public static Board copyBoard(Board board){
+    Board newboard = new Board(board);
+    return newboard;
+  }
   /**
    * This method is used to get a remote player that retrieves the moves from the server. In case of
    * bot games the RemoteBotPlayer class can be used. In case of versus games the RemoteVersusPlayer

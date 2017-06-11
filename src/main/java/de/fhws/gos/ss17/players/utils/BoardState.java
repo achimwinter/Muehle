@@ -36,6 +36,36 @@ public class BoardState {
     return 0;
   }
 
+  public static int getWinningConfig(Board board, PositionToken playerToken){
+    //high value
+    return 500;
+  }
+
+  public static int getDoubleMills(Board board, PositionToken playerToken) {
+    int counter = 0;
+    Iterator<Position> positionIterator = board.iteratePositions();
+    while (positionIterator.hasNext()) {
+      int positionCounter = 0;
+      Position position = positionIterator.next();
+      if (position.getPositionToken() != playerToken) {
+        continue;
+      }
+
+
+      for (List<Integer> millcomb : MillCombinations.POSSIBLE_MILLS) {
+        if (millcomb.contains(position.getId()) && MillCombinations
+            .isMill(board, playerToken, position.getId())) {
+          positionCounter++;
+        }
+      }
+      if(positionCounter == 2)
+        ++counter;
+
+    }
+    return counter;
+  }
+
+
   private static int get3PieceConfigs(Board board, PositionToken playerToken){
     Iterator<Position> positionIterator = board.iteratePositions();
     while(positionIterator.hasNext()){
@@ -43,22 +73,19 @@ public class BoardState {
       Position position = positionIterator.next();
       if (!position.getPositionToken().equals(playerToken))
         continue;
+
+      int positionCounter = 0;
       for(List<Integer> millComb : MillCombinations.POSSIBLE_MILLS){
-        if(millComb.contains(position))
-          millCombWithStone.add()
+        if(millComb.contains(position)){
+
+        }
       }
 
 
 
 
     }
-
-
-
-
-
-
-
+    return 0;
   }
 
   private static int get2PieceConfigs(Board board, PositionToken playerToken) {

@@ -20,9 +20,6 @@ public class RulesImpl implements Rules {
   public boolean isMill(Board board, PositionToken playerToken, int stoneId) throws GameException {
     try {
       return MillCombinations.isMill(board, playerToken, stoneId);
-    } catch (GameException e) {
-      CheckedExceptions.catchGameException(e);
-      return false;
     } catch (NullPointerException e) {
       UncheckedExceptions.getNullPointerException(e);
       return false;
@@ -37,9 +34,6 @@ public class RulesImpl implements Rules {
       throws GameException {
     try {
       return MillCombinations.willBeMill(board, playerToken, fromId, toId);
-    } catch (GameException e) {
-      CheckedExceptions.catchGameException(e);
-      return false;
     } catch (NullPointerException e) {
       UncheckedExceptions.getNullPointerException(e);
       return false;
