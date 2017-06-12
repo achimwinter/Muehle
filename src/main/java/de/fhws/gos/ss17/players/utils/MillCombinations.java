@@ -96,19 +96,15 @@ public class MillCombinations {
 
 
   public static boolean isMill(Board board, PositionToken playerToken, int stoneId) {
-    Integer[][] combinations = getMillCombinations(stoneId);
-    for (int i = 0; i < 2; i++) {
-      try {
-        if (board.getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
-            .getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
-            .getPosition(combinations[i][2]).getPositionToken().equals(playerToken)) {
-          return true;
-        }
-      } catch (GameException e) {
-        e.printStackTrace();
-      }
+    boolean result = false;
+    try {
+      board.getPosition(stoneId).setPositionToken(PositionToken.IS_EMPTY);
+      result = willBeMill(board , playerToken, -1, stoneId);
+      board.getPosition(stoneId).setPositionToken(playerToken);
+    } catch (GameException e) {
+      e.printStackTrace();
     }
-    return false;
+    return result;
   }
 
   public static boolean allInMill(Board board, PositionToken token) throws GameException {

@@ -23,8 +23,8 @@ public class BoardState {
     int playerMills = getNumberOfMills(board, playerToken);
     int diffInMills = playerMills - enemyMills;
 
-    int enemyBlockedPieces = getBlockedPieces(board, enemyToken);
-    int playerBlockedPieces = getBlockedPieces(board, playerToken);
+    int enemyBlockedPieces = getEnemyBlockedPieces(board, enemyToken);
+    int playerBlockedPieces = getEnemyBlockedPieces(board, playerToken);
     int diffinBlockedPieces = playerBlockedPieces - enemyBlockedPieces;
 
     int diffPieces = board.getNumberOfTokensForPlayer(playerToken) - board
@@ -41,8 +41,10 @@ public class BoardState {
     return 500;
   }
 
+  //work finished and test passed
   public static int getDoubleMills(Board board, PositionToken playerToken) {
     int counter = 0;
+    List<List<Integer>> millsAlreadyCounted = new ArrayList<>();
     Iterator<Position> positionIterator = board.iteratePositions();
     while (positionIterator.hasNext()) {
       int positionCounter = 0;
@@ -50,22 +52,22 @@ public class BoardState {
       if (position.getPositionToken() != playerToken) {
         continue;
       }
-
-
       for (List<Integer> millcomb : MillCombinations.POSSIBLE_MILLS) {
         if (millcomb.contains(position.getId()) && MillCombinations
             .isMill(board, playerToken, position.getId())) {
-          positionCounter++;
+          if (!millsAlreadyCounted.contains(position.getId())) {
+            positionCounter++;
+            millsAlreadyCounted.add(millcomb);
+          }
         }
       }
       if(positionCounter == 2)
         ++counter;
-
     }
     return counter;
   }
 
-
+  //work and test pending
   private static int get3PieceConfigs(Board board, PositionToken playerToken){
     Iterator<Position> positionIterator = board.iteratePositions();
     while(positionIterator.hasNext()){
@@ -88,7 +90,8 @@ public class BoardState {
     return 0;
   }
 
-  private static int get2PieceConfigs(Board board, PositionToken playerToken) {
+  //work finished and test passed
+  public static int get2PieceConfigs(Board board, PositionToken playerToken) {
     int possible2Mills = 0;
     for (List<Integer> millComb : MillCombinations.POSSIBLE_MILLS) {
       int counter = 0;
@@ -110,13 +113,13 @@ public class BoardState {
     return possible2Mills;
   }
 
-
-  private static int getBlockedPieces(Board board, PositionToken playerToken) {
+  //work finished and test passed
+  public static int getEnemyBlockedPieces(Board board, PositionToken playerToken) {
     int blockedPieces = 0;
     Iterator<Position> positionIterator = board.iteratePositions();
     while (positionIterator.hasNext()) {
       Position position = positionIterator.next();
-      if (position.getPositionToken() != playerToken) {
+      if (position.getPositionToken() == playerToken) {
         continue;
       }
       Position[] neighbours = position.getNeighbors();
@@ -133,13 +136,24 @@ public class BoardState {
     return blockedPieces;
   }
 
-  private static int getNumberOfMills(Board board, PositionToken playerToken) {
-    int counter = 0;
+  //isMill not applicable here need to code something else
+  public static int getNumberOfMills(Board board, PositionToken playerToken) {
     Iterator<Position> positionIterator = board.iteratePositions();
-    while (positionIterator.hasNext()) {
+    List<List<Integer>> millsAlreadyCounted = new ArrayList<>();
+    int counter = 0;
+
+    while (positionIterator.hasNext()){
       Position position = positionIterator.next();
-      if (MillCombinations.isMill(board, playerToken, position.getId())) {
-        counter++;
+      if(position.getPositionToken() != playerToken)
+        continue;
+      for (List<Integer> millcoords : MillCombinations.POSSIBLE_MILLS) {
+        if(MillCombinations.isMill(board,playerToken, position.getId())){
+          if(!millsAlreadyCounted.contains(position.getId())) {
+            counter++;
+            millsAlreadyCounted.add(millcoords);
+            break;
+          }
+        }
       }
     }
     return counter;
