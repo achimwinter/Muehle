@@ -16,7 +16,7 @@ import java.util.List;
 
 public class MillCombinations {
 
-  private static final List<List<Integer>> POSSIBLE_MILLS;
+  public static final List<List<Integer>> POSSIBLE_MILLS;
   private static final Integer[][] possibleMillsArray = {
       {0, 1, 2},
       {3, 4, 5},
