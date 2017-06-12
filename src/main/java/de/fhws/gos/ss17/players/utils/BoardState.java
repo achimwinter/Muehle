@@ -2,6 +2,8 @@ package de.fhws.gos.ss17.players.utils;
 
 import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Board;
+import de.fhws.gos.core.utils.PositionToken;
+import java.util.List;
 import de.fhws.gos.core.logic.Position;
 import de.fhws.gos.core.utils.PositionToken;
 import java.util.ArrayList;
@@ -40,6 +42,26 @@ public class BoardState {
     //high value
     return 500;
   }
+
+  private static int getMills(Board board, PositionToken playerToken){
+    int counter = 0;
+    for(List<Integer> millcombs : MillCombinations.POSSIBLE_MILLS){
+      int minicounter = 0;
+          for(int i : millcombs){
+            try {
+              if(board.getPosition(i).getPositionToken().equals(playerToken))
+                minicounter++;
+            } catch (GameException e) {
+              e.printStackTrace();
+            }
+          }
+          if(minicounter==3)
+            counter++;
+    }
+
+  return counter;
+  }
+
 
   //work finished and test passed
   public static int getDoubleMills(Board board, PositionToken playerToken) {
