@@ -95,16 +95,17 @@ public class MillCombinations {
   }
 
 
-  public static boolean isMill(Board board, PositionToken playerToken, int stoneId) {
-    boolean result = false;
-    try {
-      board.getPosition(stoneId).setPositionToken(PositionToken.IS_EMPTY);
-      result = willBeMill(board , playerToken, -1, stoneId);
-      board.getPosition(stoneId).setPositionToken(playerToken);
-    } catch (GameException e) {
-      e.printStackTrace();
+  public static boolean isMill(Board board, PositionToken playerToken, int stoneId) throws GameException {
+    for (List<Integer> millcomb : POSSIBLE_MILLS){
+      int counter = 0;
+      for (int i: millcomb) {
+        if(board.getPosition(i).getPositionToken().equals(playerToken))
+          counter++;
+      }
+      if(counter == 3)
+        return true;
     }
-    return result;
+    return false;
   }
 
   public static boolean allInMill(Board board, PositionToken token) throws GameException {

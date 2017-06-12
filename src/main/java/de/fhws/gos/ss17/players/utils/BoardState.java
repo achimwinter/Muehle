@@ -43,7 +43,7 @@ public class BoardState {
     return 500;
   }
 
-  private static int getMills(Board board, PositionToken playerToken){
+  public static int getNumberOfMills(Board board, PositionToken playerToken){
     int counter = 0;
     for(List<Integer> millcombs : MillCombinations.POSSIBLE_MILLS){
       int minicounter = 0;
@@ -63,7 +63,7 @@ public class BoardState {
   }
 
 
-  //work finished and test passed
+  //work pending need to check mills and then check on shared stones
   public static int getDoubleMills(Board board, PositionToken playerToken) {
     int counter = 0;
     List<List<Integer>> millsAlreadyCounted = new ArrayList<>();
@@ -75,12 +75,16 @@ public class BoardState {
         continue;
       }
       for (List<Integer> millcomb : MillCombinations.POSSIBLE_MILLS) {
-        if (millcomb.contains(position.getId()) && MillCombinations
-            .isMill(board, playerToken, position.getId())) {
-          if (!millsAlreadyCounted.contains(position.getId())) {
-            positionCounter++;
-            millsAlreadyCounted.add(millcomb);
+        try {
+          if (millcomb.contains(position.getId()) && MillCombinations
+              .isMill(board, playerToken, position.getId())) {
+            if (!millsAlreadyCounted.contains(position.getId())) {
+              positionCounter++;
+              millsAlreadyCounted.add(millcomb);
+            }
           }
+        } catch (GameException e) {
+          e.printStackTrace();
         }
       }
       if(positionCounter == 2)
@@ -158,26 +162,4 @@ public class BoardState {
     return blockedPieces;
   }
 
-  //isMill not applicable here need to code something else
-  public static int getNumberOfMills(Board board, PositionToken playerToken) {
-    Iterator<Position> positionIterator = board.iteratePositions();
-    List<List<Integer>> millsAlreadyCounted = new ArrayList<>();
-    int counter = 0;
-
-    while (positionIterator.hasNext()){
-      Position position = positionIterator.next();
-      if(position.getPositionToken() != playerToken)
-        continue;
-      for (List<Integer> millcoords : MillCombinations.POSSIBLE_MILLS) {
-        if(MillCombinations.isMill(board,playerToken, position.getId())){
-          if(!millsAlreadyCounted.contains(position.getId())) {
-            counter++;
-            millsAlreadyCounted.add(millcoords);
-            break;
-          }
-        }
-      }
-    }
-    return counter;
-  }
 }
