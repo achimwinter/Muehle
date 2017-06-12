@@ -15,7 +15,8 @@ import java.util.Random;
  */
 public class Node {
 
-  private Board board;
+  public int boardValue;
+  public Board board;
   private Phase phase;
   private int depth;
   private PositionToken playerToken;
@@ -26,22 +27,10 @@ public class Node {
     this.phase = phase;
     this.depth = depth;
     this.playerToken = playerToken;
-    try {
-      if (this.depth > 0) {
-        getTree();
-      }
-    } catch (GameException e) {
-      e.printStackTrace();
-    }
   }
-
-  //generate possible Moves
-  //getBoardScore
-  //Copy Board
 
 
   public void getTree() throws GameException {
-    int test = 0;
     List<Move> possibleMoves = PossibleMoves.getPossibleMoves(this.board, this.phase, playerToken);
     Random rand = new Random();
     int randomNumber = rand.nextInt(possibleMoves.size());
@@ -57,10 +46,7 @@ public class Node {
           (playerToken.equals(PositionToken.PLAYER_ONE)) ? PositionToken.PLAYER_TWO
               : PositionToken.PLAYER_ONE;
       subNodes.add(new Node(newboard, this.phase, this.depth - 1, nextPlayer));
-      //if (this.depth == 0 || !newboard.getCurrentGameStatus().equals(GameStatus.RUNNING))
       --randomNumber;
-      test++;
     }
-    System.out.println(test);
   }
 }
