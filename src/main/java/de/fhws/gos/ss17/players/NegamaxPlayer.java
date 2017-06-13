@@ -31,7 +31,7 @@ public class NegamaxPlayer extends AbstractPlayer{
 
   @Override
   protected Move getPlacingMove(Board board) throws GameException {
-    int test = negamax(new Node(board,null), depth, 1, MAX_VALUE, MIN_VALUE, System.currentTimeMillis());
+    int test = negamax(new Node(board,null), depth, 1, MIN_VALUE, MAX_VALUE, System.currentTimeMillis());
     return null;
   }
 
@@ -51,7 +51,7 @@ public class NegamaxPlayer extends AbstractPlayer{
         (playerValue == 1) ? PositionToken.PLAYER_ONE : PositionToken.PLAYER_TWO;
     if (depth == 0 || ((timePerRound + startTime) > System.currentTimeMillis()) || (
         node.board.getCurrentGameStatus() != GameStatus.RUNNING)) {
-      return playerValue * BoardState.getScore(node.board, playerValue);
+      return playerValue * BoardState.getScore(node.board, playerValue, super.phase);
     }
     List<Move> possibleMoves = PossibleMoves.getPossibleMoves(node.board, super.phase, playerToken);
     int bestValue = MIN_VALUE;

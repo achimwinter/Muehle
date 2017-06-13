@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class BoardState {
 
-  public static int getScore(Board board, int playerValue) {
+  public static int getScore(Board board, int playerValue, Phase phase) {
     PositionToken playerToken =
         (playerValue == 1) ? PositionToken.PLAYER_ONE : PositionToken.PLAYER_TWO;
     PositionToken enemyToken =
@@ -34,7 +34,7 @@ public class BoardState {
     int diff2PieceConfigs =
         get2PieceConfigs(board, playerToken) - get2PieceConfigs(board, enemyToken);
 
-    return 0;
+    return 43*diffInMills + 10 * diffinBlockedPieces + 11 *diffPieces + 8*diff2PieceConfigs;
   }
 
   public static int getWinningConfig(Board board, PositionToken playerToken) {
@@ -105,7 +105,7 @@ public class BoardState {
 
 
     }
-    return 0;
+    return 1;
   }
 
   //work finished and test passed

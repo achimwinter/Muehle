@@ -21,25 +21,11 @@ public class Node {
     this.move = move;
   }
 
-/*
-  public void getTree() throws GameException {
-    List<Move> possibleMoves = PossibleMoves.getPossibleMoves(this.board, this.phase, playerToken);
-    Random rand = new Random();
-    int randomNumber = rand.nextInt(possibleMoves.size());
-    Iterator<Move> moveIterator = possibleMoves.iterator();
-    while (moveIterator.hasNext()) {
-      Move move = moveIterator.next();
-      Board newboard = new Board(board);
-      newboard.executeMove(move, playerToken);
-      newboard.printBoard();
-      board.printBoard();
-      //Phase herausfinden
-      PositionToken nextPlayer =
-          (playerToken.equals(PositionToken.PLAYER_ONE)) ? PositionToken.PLAYER_TWO
-              : PositionToken.PLAYER_ONE;
-      subNodes.add(new Node(newboard, this.phase, this.depth - 1, nextPlayer));
-      --randomNumber;
-    }
+  public int getBoardValue() {
+    return boardValue;
   }
-  */
+
+  public void setBoardValue(int boardValue) {
+    this.boardValue = boardValue;
+  }
 }
