@@ -1,9 +1,8 @@
 package de.fhws.gos.ss17.players.utils;
 
+
 import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.logic.Board;
-import de.fhws.gos.core.utils.PositionToken;
-import java.util.List;
 import de.fhws.gos.core.logic.Position;
 import de.fhws.gos.core.utils.PositionToken;
 import java.util.ArrayList;
@@ -32,84 +31,77 @@ public class BoardState {
     int diffPieces = board.getNumberOfTokensForPlayer(playerToken) - board
         .getNumberOfTokensForPlayer(enemyToken);
 
-    int diff2PieceConfigs = get2PieceConfigs(board, playerToken) - get2PieceConfigs(board, enemyToken);
-
+    int diff2PieceConfigs =
+        get2PieceConfigs(board, playerToken) - get2PieceConfigs(board, enemyToken);
 
     return 0;
   }
 
-  public static int getWinningConfig(Board board, PositionToken playerToken){
+  public static int getWinningConfig(Board board, PositionToken playerToken) {
     //high value
     return 500;
   }
 
-  public static int getNumberOfMills(Board board, PositionToken playerToken){
+  public static int getNumberOfMills(Board board, PositionToken playerToken) {
     int counter = 0;
-    for(List<Integer> millcombs : MillCombinations.POSSIBLE_MILLS){
+    for (List<Integer> millcombs : MillCombinations.POSSIBLE_MILLS) {
       int minicounter = 0;
-          for(int i : millcombs){
-            try {
-              if(board.getPosition(i).getPositionToken().equals(playerToken))
-                minicounter++;
-            } catch (GameException e) {
-              e.printStackTrace();
-            }
-          }
-          if(minicounter==3)
-            counter++;
-    }
-
-  return counter;
-  }
-
-
-  //work pending need to check mills and then check on shared stones
-  public static int getDoubleMills(Board board, PositionToken playerToken) {
-    int counter = 0;
-    List<List<Integer>> millsAlreadyCounted = new ArrayList<>();
-    Iterator<Position> positionIterator = board.iteratePositions();
-    while (positionIterator.hasNext()) {
-      int positionCounter = 0;
-      Position position = positionIterator.next();
-      if (position.getPositionToken() != playerToken) {
-        continue;
-      }
-      for (List<Integer> millcomb : MillCombinations.POSSIBLE_MILLS) {
+      for (int i : millcombs) {
         try {
-          if (millcomb.contains(position.getId()) && MillCombinations
-              .isMill(board, playerToken, position.getId())) {
-            if (!millsAlreadyCounted.contains(position.getId())) {
-              positionCounter++;
-              millsAlreadyCounted.add(millcomb);
-            }
+          if (board.getPosition(i).getPositionToken().equals(playerToken)) {
+            minicounter++;
           }
         } catch (GameException e) {
           e.printStackTrace();
         }
       }
-      if(positionCounter == 2)
-        ++counter;
+      if (minicounter == 3) {
+        counter++;
+      }
+    }
+
+    return counter;
+  }
+
+
+  //work and tests done
+  public static int getDoubleMills(Board board, PositionToken playerToken) throws GameException {
+    int counter = 0;
+    List<List<Integer>> friendlyMillsOnBoard = new ArrayList<>();
+    for (List<Integer> millCoords : MillCombinations.POSSIBLE_MILLS) {
+      int pieceCounter = 0;
+      for (int i : millCoords) {
+        if (board.getPosition(i).getPositionToken().equals(playerToken)) {
+          pieceCounter++;
+        }
+      }
+      if (pieceCounter == 3) {
+        friendlyMillsOnBoard.add(millCoords);
+      }
+    }
+    for (int i = 0; i < 24; ++i) {
+      final int ii = i;
+      counter += Math.max(0, friendlyMillsOnBoard.stream().filter(x -> x.contains(ii)).count() - 1);
     }
     return counter;
   }
 
   //work and test pending
-  private static int get3PieceConfigs(Board board, PositionToken playerToken){
+  private static int get3PieceConfigs(Board board, PositionToken playerToken) {
     Iterator<Position> positionIterator = board.iteratePositions();
-    while(positionIterator.hasNext()){
+    while (positionIterator.hasNext()) {
       List<Integer> millCombWithStone = new ArrayList<>();
       Position position = positionIterator.next();
-      if (!position.getPositionToken().equals(playerToken))
+      if (!position.getPositionToken().equals(playerToken)) {
         continue;
+      }
 
       int positionCounter = 0;
-      for(List<Integer> millComb : MillCombinations.POSSIBLE_MILLS){
-        if(millComb.contains(position)){
+      for (List<Integer> millComb : MillCombinations.POSSIBLE_MILLS) {
+        if (millComb.contains(position)) {
 
         }
       }
-
-
 
 
     }
@@ -127,14 +119,16 @@ public class BoardState {
           if (board.getPosition(i).getPositionToken() == playerToken) {
             counter++;
           }
-          if (board.getPosition(i).isAvailable())
+          if (board.getPosition(i).isAvailable()) {
             oneAvailable = 1;
+          }
         }
-      }catch (GameException ex){
+      } catch (GameException ex) {
         ex.printStackTrace();
       }
-      if(counter == 2 && oneAvailable == 1)
+      if (counter == 2 && oneAvailable == 1) {
         possible2Mills++;
+      }
     }
     return possible2Mills;
   }

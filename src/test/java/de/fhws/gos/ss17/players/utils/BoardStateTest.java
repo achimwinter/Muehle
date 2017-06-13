@@ -20,13 +20,15 @@ public class BoardStateTest {
   public void testGetDoubleMills_1DoubleMill_TrueReturned()throws GameException{
     board.getPosition(0).setPositionToken(playerToken);
     board.getPosition(9).setPositionToken(playerToken);
+    board.getPosition(2).setPositionToken(playerToken);
+    board.getPosition(14).setPositionToken(playerToken);
     board.getPosition(21).setPositionToken(playerToken);
     board.getPosition(22).setPositionToken(playerToken);
     board.getPosition(23).setPositionToken(playerToken);
     board.printBoard();
     int numberOfDoubleMills = BoardState.getDoubleMills(board, playerToken);
     boolean result = false;
-    if (numberOfDoubleMills == 1)
+    if (numberOfDoubleMills == 2)
       result = true;
     Assert.assertTrue("No Double Mill found", result);
   }
