@@ -11,6 +11,7 @@ import de.fhws.gos.ss17.players.CyborgPlayer;
 import de.fhws.gos.ss17.players.EvaluatePlayer;
 import de.fhws.gos.ss17.players.HumanPlayer;
 import de.fhws.gos.ss17.players.LogPlayer;
+import de.fhws.gos.ss17.players.NegamaxPlayer;
 import de.fhws.gos.ss17.players.RandomPlayerWithRules;
 import de.fhws.gos.ss17.players.ShortLogPlayer;
 import java.io.IOException;
@@ -121,5 +122,10 @@ public class Config {
   public static Player getEvaluatePlayer(){
     EvaluatePlayer evaluatePlayer = new EvaluatePlayer(PositionToken.PLAYER_ONE);
     return evaluatePlayer;
+  }
+
+  public static Player getNegamaxPlayer(){
+    NegamaxPlayer negamaxPlayer = new NegamaxPlayer(PositionToken.PLAYER_ONE);
+    return negamaxPlayer;
   }
 }
