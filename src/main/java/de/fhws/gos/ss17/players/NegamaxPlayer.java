@@ -23,7 +23,7 @@ public class NegamaxPlayer extends AbstractPlayer{
   private final static int MAX_VALUE = 9999;
   private final static int MIN_VALUE = -9999;
   private static final long timePerRound = 28 * 1000;
-  private static final int depth = 3;
+  private static final int depth = 4;
 
   public NegamaxPlayer(PositionToken playerToken){
     super(playerToken);
@@ -31,8 +31,8 @@ public class NegamaxPlayer extends AbstractPlayer{
 
   @Override
   protected Move getPlacingMove(Board board) throws GameException {
-    int test = negamax(new Node(board,null), depth, 1, MIN_VALUE, MAX_VALUE, System.currentTimeMillis());
-    return null;
+    Node test = negamax(new Node(board,null), depth, 1, MIN_VALUE, MAX_VALUE, System.currentTimeMillis());
+    return test.getMove();
   }
 
   @Override
@@ -46,15 +46,17 @@ public class NegamaxPlayer extends AbstractPlayer{
   }
 
 
-  public int negamax(Node node, int depth, int playerValue, int alpha, int beta, long startTime) {
+  public Node negamax(Node node, int depth, int playerValue, int alpha, int beta, long startTime) {
     PositionToken playerToken =
         (playerValue == 1) ? PositionToken.PLAYER_ONE : PositionToken.PLAYER_TWO;
-    if (depth == 0 || ((timePerRound + startTime) > System.currentTimeMillis()) || (
+    if (depth == 0 || ((timePerRound + startTime) < System.currentTimeMillis()) || (
         node.board.getCurrentGameStatus() != GameStatus.RUNNING)) {
-      return playerValue * BoardState.getScore(node.board, playerValue, super.phase);
+      node.setBoardValue(BoardState.getScore(node.board, playerValue, super.phase) * playerValue);
+      return node;
     }
     List<Move> possibleMoves = PossibleMoves.getPossibleMoves(node.board, super.phase, playerToken);
-    int bestValue = MIN_VALUE;
+    Node bestNode = new Node(null, null);
+    bestNode.setBoardValue(MIN_VALUE);
     List<Node> childNodes = new ArrayList<>();
     for (Move move : possibleMoves) {
       Board childBoard = Config.copyBoard((de.fhws.gos.ss17.game.Board) node.board);
@@ -62,14 +64,15 @@ public class NegamaxPlayer extends AbstractPlayer{
       childNodes.add(new Node(childBoard, move));
     }
     for (Node child : childNodes) {
-      int v = -negamax(child, depth - 1, -playerValue, -alpha, -beta, startTime);
-      if (bestValue < v)
-        bestValue = v;
-      if (alpha < v)
-        alpha = v;
+      Node v = negamax(child, depth - 1, -playerValue, -alpha, -beta, startTime);
+      v.setBoardValue(v.getBoardValue() * -1);
+      if (bestNode.getBoardValue() < v.getBoardValue())
+        bestNode = v;
+      if (alpha < v.getBoardValue())
+        alpha = v.getBoardValue();
       if (alpha > beta)
         break;
     }
-    return bestValue;
+    return bestNode;
   }
 }
