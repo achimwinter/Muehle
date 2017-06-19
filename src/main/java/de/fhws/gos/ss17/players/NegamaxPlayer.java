@@ -31,8 +31,9 @@ public class NegamaxPlayer extends AbstractPlayer{
 
   @Override
   protected Move getPlacingMove(Board board) throws GameException {
-    int test = negamax(new Node(board,null), depth, 1, MIN_VALUE, MAX_VALUE, System.currentTimeMillis());
-    return null;
+    Move move = getBestMove(board, PositionToken.PLAYER_ONE);
+    Node test = negamax(new Node(board,null), depth, 1, MIN_VALUE, MAX_VALUE, System.currentTimeMillis());
+    return test.getMove();
   }
 
   @Override
@@ -45,31 +46,61 @@ public class NegamaxPlayer extends AbstractPlayer{
     return null;
   }
 
+  private Move getBestMove(Board board, PositionToken playerToken) {
 
-  public int negamax(Node node, int depth, int playerValue, int alpha, int beta, long startTime) {
-    PositionToken playerToken =
-        (playerValue == 1) ? PositionToken.PLAYER_ONE : PositionToken.PLAYER_TWO;
-    if (depth == 0 || ((timePerRound + startTime) > System.currentTimeMillis()) || (
-        node.board.getCurrentGameStatus() != GameStatus.RUNNING)) {
-      return playerValue * BoardState.getScore(node.board, playerValue, super.phase);
+    List<Move> validMoves = PossibleMoves.getPossibleMoves(board, super.phase, playerToken);
+    int bestResult = Integer.MIN_VALUE;
+    Move bestMove = null;
+
+    for (Move move : validMoves) {
+
+      board.executeMove(move, playerToken);
+      System.out.println("Evaluating: " + move);
+
+      int evaluationResult = -evaluateNegaMax(this.lookForward, "", Integer.MIN_VALUE, Integer.MAX_VALUE);
+      undoMove(move);
+
+      if (evaluationResult > bestResult) {
+        bestResult = evaluationResult;
+        bestMove = move;
+      }
     }
-    List<Move> possibleMoves = PossibleMoves.getPossibleMoves(node.board, super.phase, playerToken);
-    int bestValue = MIN_VALUE;
-    List<Node> childNodes = new ArrayList<>();
-    for (Move move : possibleMoves) {
-      Board childBoard = Config.copyBoard((de.fhws.gos.ss17.game.Board) node.board);
-      childBoard.executeMove(move, playerToken);
-      childNodes.add(new Node(childBoard, move));
+    System.out.println("Done thinking! The best move is: " + bestMove);
+    return bestMove;
+  }
+
+  public int evaluateNegaMax(int depth, String indent, int alpha, int beta) {
+    if (depth <= 0
+        || this.chessGame.getGameState() == ChessGame.GAME_STATE_WHITE_WON
+        || this.chessGame.getGameState() == ChessGame.GAME_STATE_BLACK_WON) {
+
+      return evaluateState();
     }
-    for (Node child : childNodes) {
-      int v = -negamax(child, depth - 1, -playerValue, -alpha, -beta, startTime);
-      if (bestValue < v)
-        bestValue = v;
-      if (alpha < v)
-        alpha = v;
-      if (alpha > beta)
+
+    List<Move> moves = generateMoves(false);
+    int bestValue = Integer.MIN_VALUE;
+
+    for (Move currentMove : moves) {
+
+      executeMove(currentMove);
+      int value = -evaluateNegaMax(depth - 1, indent + "    ", -beta, -alpha);
+      System.out.println(indent + "Handling move: " + currentMove + " : " + value);
+      undoMove(currentMove);
+      counter++;
+
+      if (value > bestValue) {
+        bestValue = value;
+      }
+
+      if (bestValue > alpha) {
+        alpha = bestValue;
+      }
+
+      if (bestValue >= beta) {
         break;
+      }
     }
-    return bestValue;
+    System.out.println(indent + "max: " + alpha);
+    return alpha;
   }
 }
