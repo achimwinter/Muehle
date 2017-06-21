@@ -4,6 +4,7 @@ import de.fhws.gos.ss17.core.exceptions.GameException;
 import de.fhws.gos.ss17.core.logic.Board;
 import de.fhws.gos.ss17.core.logic.Move;
 import de.fhws.gos.ss17.core.logic.Player;
+import de.fhws.gos.ss17.core.utils.GameStatus;
 import de.fhws.gos.ss17.core.utils.PositionToken;
 import de.fhws.gos.ss17.players.utils.Phase;
 
@@ -27,6 +28,12 @@ public abstract class AbstractPlayer implements Player {
     }
     if (board.getNumberOfTokensForPlayer(playerToken) == 3 && this.phase == Phase.MOVING) {
       this.phase = Phase.FLYING;
+    }
+    if(board.getNumberOfTokensForPlayer(PositionToken.PLAYER_ONE) == 2  && counter > 2){
+      board.setCurrentGameStatus(GameStatus.PLAYER_TWO_WON);
+    }
+    if(board.getNumberOfTokensForPlayer(PositionToken.PLAYER_TWO) == 2  && counter > 2){
+      board.setCurrentGameStatus(GameStatus.PLAYER_ONE_WON);
     }
     counter++;
     Move nextMove = this.doGetNextMove(board);

@@ -41,7 +41,6 @@ public class BoardState {
     } catch (GameException e) {
       e.printStackTrace();
     }
-    //System.out.println("Phasennummer: " + phase.ordinal());
     switch (phase.ordinal()) {
       case 0:
         return 26 * diffInMills + 3 * diffinBlockedPieces + 9 * diffPieces + 10 * diff2PieceConfigs;

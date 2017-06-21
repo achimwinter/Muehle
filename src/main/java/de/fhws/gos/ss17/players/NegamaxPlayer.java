@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class NegamaxPlayer extends AbstractPlayer{
 
-  private static final int depth = 3;
+  private static final int depth = 4;
 
   public NegamaxPlayer(PositionToken playerToken){
     super(playerToken);
@@ -45,8 +45,9 @@ public class NegamaxPlayer extends AbstractPlayer{
 
     for (Move move : validMoves) {
 
-      this.doMove(board,move, playerToken);
-      System.out.println("Evaluating: " + move);
+      board.executeMove(move, playerToken);
+      //this.doMove(board,move, playerToken);
+      //System.out.println("Evaluating: " + move);
 
       int evaluationResult = -evaluateNegaMax(depth - 1, "", Integer.MIN_VALUE, Integer.MAX_VALUE,
           board, playerValue);
@@ -77,7 +78,8 @@ public class NegamaxPlayer extends AbstractPlayer{
 
     for (Move currentMove : moves) {
 
-      this.doMove(board,currentMove, playerToken);
+      board.executeMove(currentMove, playerToken);
+      //this.doMove(board,currentMove, playerToken);
       int value = -evaluateNegaMax(depth - 1, indent + "    ", -beta, -alpha, board, -playerValue);
       //System.out.println(indent + "Handling move: " + currentMove + " : " + value);
 
@@ -95,7 +97,7 @@ public class NegamaxPlayer extends AbstractPlayer{
         break;
       }
     }
-    System.out.println(indent + "max: " + alpha);
+    //System.out.println(indent + "max: " + alpha);
     return alpha;
   }
 
