@@ -36,7 +36,7 @@ public class NegamaxPlayer extends AbstractPlayer{
     return getBestMove(board, playerToken);
   }
 
-  private Move getBestMove(Board board, PositionToken playerToken) {
+  private Move getBestMove(Board board, PositionToken playerToken) throws GameException {
     int playerValue =
         (playerToken.equals(PositionToken.PLAYER_ONE)) ? 1: -1;
     List<Move> validMoves = PossibleMoves.getPossibleMoves(board, super.phase, playerToken);
@@ -45,27 +45,25 @@ public class NegamaxPlayer extends AbstractPlayer{
 
     for (Move move : validMoves) {
 
-      board.executeMove(move, playerToken);
+      this.doMove(board,move, playerToken);
       System.out.println("Evaluating: " + move);
 
       int evaluationResult = -evaluateNegaMax(depth - 1, "", Integer.MIN_VALUE, Integer.MAX_VALUE,
           board, playerValue);
+      board.undoMove(move);
 
-      try {
-        board.undoMove(move);
-      } catch (GameException e) {
-        e.printStackTrace();
-      }
 
       if (evaluationResult > bestResult) {
         bestResult = evaluationResult;
         bestMove = move;
       }
     }
+    System.out.println("Best Move is FROM " + bestMove.getFromId() + "TO " + bestMove.getToId() + "REM " + bestMove.getRemoveId());
     return bestMove;
   }
 
-  public int evaluateNegaMax(int depth, String indent, int alpha, int beta, Board board, int playerValue) {
+  public int evaluateNegaMax(int depth, String indent, int alpha, int beta, Board board, int playerValue)
+      throws GameException {
     PositionToken playerToken =
         (playerValue == 1) ? PositionToken.PLAYER_ONE : PositionToken.PLAYER_TWO;
     if (depth <= 0
@@ -79,17 +77,11 @@ public class NegamaxPlayer extends AbstractPlayer{
 
     for (Move currentMove : moves) {
 
-      board.executeMove(currentMove, playerToken);
+      this.doMove(board,currentMove, playerToken);
       int value = -evaluateNegaMax(depth - 1, indent + "    ", -beta, -alpha, board, -playerValue);
       //System.out.println(indent + "Handling move: " + currentMove + " : " + value);
 
-      try {
-        board.undoMove(currentMove);
-      } catch (GameException e) {
-        e.printStackTrace();
-      }
-
-      counter++;
+      board.undoMove(currentMove);
 
       if (value > bestValue) {
         bestValue = value;
@@ -106,4 +98,22 @@ public class NegamaxPlayer extends AbstractPlayer{
     System.out.println(indent + "max: " + alpha);
     return alpha;
   }
+
+  private void doMove(Board board, Move move, PositionToken playerToken) {
+    try {
+      if (move.getFromId() == -1) {
+        board.getPosition(move.getToId()).setPositionToken(playerToken);
+        if (move.getRemoveId() > -1)
+          board.getPosition(move.getRemoveId()).setPositionToken(PositionToken.IS_EMPTY);
+      } else {
+        board.getPosition(move.getFromId()).setPositionToken(PositionToken.IS_EMPTY);
+        board.getPosition(move.getToId()).setPositionToken(playerToken);
+        if (move.getRemoveId() > -1)
+          board.getPosition(move.getRemoveId()).setPositionToken(PositionToken.IS_EMPTY);
+      }
+    }catch (GameException ex){
+      ex.printStackTrace();
+    }
+  }
+
 }

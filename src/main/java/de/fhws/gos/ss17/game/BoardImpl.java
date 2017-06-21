@@ -1,11 +1,11 @@
 package de.fhws.gos.ss17.game;
 
 import de.fhws.gos.ss17.core.exceptions.GameException;
-import de.fhws.gos.ss17.core.utils.PositionToken;
 import de.fhws.gos.ss17.core.logic.Board;
 import de.fhws.gos.ss17.core.logic.Move;
 import de.fhws.gos.ss17.core.logic.Position;
 import de.fhws.gos.ss17.core.utils.GameStatus;
+import de.fhws.gos.ss17.core.utils.PositionToken;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
@@ -199,9 +199,8 @@ public class BoardImpl implements Board {
     } else {
       if (move.getRemoveId() > -1) {
         this.getPosition(move.getRemoveId()).setPositionToken(enemy);
-      } else {
-        this.getPosition(toId).setPositionToken(PositionToken.IS_EMPTY);
       }
+        this.getPosition(toId).setPositionToken(PositionToken.IS_EMPTY);
     }
 
 

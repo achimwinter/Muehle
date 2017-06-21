@@ -39,10 +39,15 @@ public class RemoteBotGame extends AbstractGame {
 
   @Override
   public void startGame() {
+    int moveCounter = 0;
     try {
       do {
         Move playerMove = this.playerOne.getNextMove(board);
         board.executeMove(playerMove, playerOne.getPlayerToken());
+
+        moveCounter++;
+        System.out.println("Moves played: " + moveCounter);
+
         board.printBoard();
         String JsonResponse = this.connection
             .playBotgame(JsonConverter.serializeMoveJSON(playerMove));
