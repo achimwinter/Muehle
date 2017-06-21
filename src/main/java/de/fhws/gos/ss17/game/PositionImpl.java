@@ -1,7 +1,7 @@
 package de.fhws.gos.ss17.game;
 
-import de.fhws.gos.core.logic.Position;
-import de.fhws.gos.core.utils.PositionToken;
+import de.fhws.gos.ss17.core.logic.Position;
+import de.fhws.gos.ss17.core.utils.PositionToken;
 import java.util.Arrays;
 
 /**

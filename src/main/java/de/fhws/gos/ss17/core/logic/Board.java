@@ -5,9 +5,9 @@
 
 package de.fhws.gos.ss17.core.logic;
 
-import de.fhws.gos.core.exceptions.GameException;
+import de.fhws.gos.ss17.core.exceptions.GameException;
 import de.fhws.gos.ss17.core.utils.GameStatus;
-import de.fhws.gos.core.utils.PositionToken;
+import de.fhws.gos.ss17.core.utils.PositionToken;
 import de.fhws.gos.ss17.game.PositionImpl;
 import java.util.Iterator;
 
@@ -24,7 +24,7 @@ public interface Board {
 
   int getNumberOfMovesForPlayer(PositionToken var1);
 
-  de.fhws.gos.ss17.core.utils.GameStatus getCurrentGameStatus();
+  GameStatus getCurrentGameStatus();
 
   void setCurrentGameStatus(GameStatus var1);
 
@@ -32,5 +32,5 @@ public interface Board {
 
   Iterator<Position> iteratePositions();
 
-  void undoLastMove();
+  void undoMove(Move move) throws GameException;
 }

@@ -1,6 +1,6 @@
 package de.fhws.gos.ss17.network;
 
-import de.fhws.gos.core.network.Connection;
+import de.fhws.gos.ss17.core.network.Connection;
 import de.fhws.gos.ss17.main.Config;
 import java.io.BufferedReader;
 import java.io.IOException;

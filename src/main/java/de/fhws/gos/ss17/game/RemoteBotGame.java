@@ -1,11 +1,11 @@
 package de.fhws.gos.ss17.game;
 
-import de.fhws.gos.core.exceptions.GameException;
-import de.fhws.gos.core.logic.Move;
-import de.fhws.gos.core.logic.Player;
-import de.fhws.gos.core.network.Connection;
-import de.fhws.gos.core.utils.GameStatus;
-import de.fhws.gos.core.utils.PositionToken;
+import de.fhws.gos.ss17.core.exceptions.GameException;
+import de.fhws.gos.ss17.core.logic.Move;
+import de.fhws.gos.ss17.core.logic.Player;
+import de.fhws.gos.ss17.core.network.Connection;
+import de.fhws.gos.ss17.core.utils.GameStatus;
+import de.fhws.gos.ss17.core.utils.PositionToken;
 import de.fhws.gos.remote.utils.JSONHelper;
 import de.fhws.gos.remote.utils.models.ServerEntity;
 import de.fhws.gos.ss17.core.logic.Board;

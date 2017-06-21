@@ -12,7 +12,7 @@ import de.fhws.gos.ss17.core.logic.Board;
 public abstract class AbstractGame implements Board {
 
 
-  protected de.fhws.gos.core.logic.Board board;
+  protected Board board;
   protected Player playerOne;
   protected Player playerTwo;
   protected Player currentPlayer;

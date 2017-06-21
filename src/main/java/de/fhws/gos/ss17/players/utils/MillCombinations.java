@@ -4,10 +4,10 @@ package de.fhws.gos.ss17.players.utils;
  * Created by Achim on 09.04.2017.
  */
 
-import de.fhws.gos.core.exceptions.GameException;
-import de.fhws.gos.core.logic.Board;
-import de.fhws.gos.core.logic.Position;
-import de.fhws.gos.core.utils.PositionToken;
+import de.fhws.gos.ss17.core.exceptions.GameException;
+import de.fhws.gos.ss17.core.logic.Board;
+import de.fhws.gos.ss17.core.logic.Position;
+import de.fhws.gos.ss17.core.utils.PositionToken;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;

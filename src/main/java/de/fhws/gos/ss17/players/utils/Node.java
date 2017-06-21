@@ -1,7 +1,7 @@
 package de.fhws.gos.ss17.players.utils;
 
-import de.fhws.gos.core.logic.Board;
-import de.fhws.gos.core.logic.Move;
+import de.fhws.gos.ss17.core.logic.Board;
+import de.fhws.gos.ss17.core.logic.Move;
 
 /**
  * Created by Achim on 01.06.2017.

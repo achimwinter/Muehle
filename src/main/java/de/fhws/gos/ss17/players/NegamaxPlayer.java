@@ -1,15 +1,11 @@
 package de.fhws.gos.ss17.players;
 
-import de.fhws.gos.core.exceptions.GameException;
-import de.fhws.gos.core.utils.GameStatus;
-import de.fhws.gos.core.logic.Board;
-import de.fhws.gos.core.logic.Move;
-import de.fhws.gos.core.utils.PositionToken;
-import de.fhws.gos.ss17.main.Config;
-import de.fhws.gos.ss17.players.utils.BoardState;
+import de.fhws.gos.ss17.core.exceptions.GameException;
+import de.fhws.gos.ss17.core.logic.Board;
+import de.fhws.gos.ss17.core.logic.Move;
+import de.fhws.gos.ss17.core.utils.PositionToken;
 import de.fhws.gos.ss17.players.utils.Node;
 import de.fhws.gos.ss17.players.utils.PossibleMoves;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,7 +54,7 @@ public class NegamaxPlayer extends AbstractPlayer{
       System.out.println("Evaluating: " + move);
 
       int evaluationResult = -evaluateNegaMax(this.lookForward, "", Integer.MIN_VALUE, Integer.MAX_VALUE);
-      undoMove(move);
+      board.
 
       if (evaluationResult > bestResult) {
         bestResult = evaluationResult;

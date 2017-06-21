@@ -1,9 +1,9 @@
 package de.fhws.gos.ss17.players;
 
-import de.fhws.gos.core.exceptions.GameException;
-import de.fhws.gos.core.logic.Board;
-import de.fhws.gos.core.logic.Move;
-import de.fhws.gos.core.utils.PositionToken;
+import de.fhws.gos.ss17.core.exceptions.GameException;
+import de.fhws.gos.ss17.core.logic.Board;
+import de.fhws.gos.ss17.core.logic.Move;
+import de.fhws.gos.ss17.core.utils.PositionToken;
 import java.util.Scanner;
 
 /**

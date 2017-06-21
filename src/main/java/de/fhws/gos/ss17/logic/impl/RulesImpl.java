@@ -1,14 +1,13 @@
 package de.fhws.gos.ss17.logic.impl;
 
-import de.fhws.gos.core.exceptions.GameException;
-import de.fhws.gos.core.logic.Board;
-import de.fhws.gos.core.logic.Position;
-import de.fhws.gos.core.utils.PositionToken;
+import de.fhws.gos.ss17.core.exceptions.GameException;
+import de.fhws.gos.ss17.core.logic.Board;
+import de.fhws.gos.ss17.core.logic.Position;
+import de.fhws.gos.ss17.core.utils.PositionToken;
 import de.fhws.gos.ss17.exceptions.CheckedExceptions;
 import de.fhws.gos.ss17.exceptions.UncheckedExceptions;
 import de.fhws.gos.ss17.logic.Rules;
 import de.fhws.gos.ss17.players.utils.MillCombinations;
-import de.fhws.gos.ss17.players.utils.PossibleMoves;
 
 /**
  * Created by awinter on 29.03.17.

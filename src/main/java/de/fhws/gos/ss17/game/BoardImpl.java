@@ -1,7 +1,7 @@
 package de.fhws.gos.ss17.game;
 
-import de.fhws.gos.core.exceptions.GameException;
-import de.fhws.gos.core.utils.PositionToken;
+import de.fhws.gos.ss17.core.exceptions.GameException;
+import de.fhws.gos.ss17.core.utils.PositionToken;
 import de.fhws.gos.ss17.core.logic.Board;
 import de.fhws.gos.ss17.core.logic.Move;
 import de.fhws.gos.ss17.core.logic.Position;
@@ -184,19 +184,27 @@ public class BoardImpl implements Board {
   }
 
   @Override
-  public void undoLastMove() {
-    Move lastMove = this.getLastMove();
-    int toId = lastMove.getToId();
-    PositionToken playerToken=null;
-    try {
-      playerToken = this.getPosition(lastMove.getToId()).getPositionToken();
-    } catch (GameException e) {
-      e.printStackTrace();
+  public void undoMove(Move move) throws GameException {
+    int toId = move.getToId();
+    PositionToken playerToken = null;
+    playerToken = this.getPosition(move.getToId()).getPositionToken();
+    PositionToken enemy = (playerToken.equals(PositionToken.PLAYER_ONE)) ? PositionToken.PLAYER_TWO
+        : PositionToken.PLAYER_ONE;
+    if (move.getFromId() > -1) {
+      if (move.getRemoveId() > -1) {
+        this.getPosition(toId).setPositionToken(enemy);
+      } else {
+        this.getPosition(toId).setPositionToken(PositionToken.IS_EMPTY);
+      }
+    } else {
+      if (move.getRemoveId() > -1) {
+        this.getPosition(move.getRemoveId()).setPositionToken(enemy);
+      } else {
+        this.getPosition(toId).setPositionToken(PositionToken.IS_EMPTY);
+      }
     }
-    PositionToken enemy = (playerToken.equals(PositionToken.PLAYER_ONE)) ? PositionToken.PLAYER_TWO : PositionToken.PLAYER_ONE;
-    if(lastMove.getFromId() > -1){
-      this.
-    }
+
+
   }
 
   private void movePlusPlus(PositionToken playerToken) {
