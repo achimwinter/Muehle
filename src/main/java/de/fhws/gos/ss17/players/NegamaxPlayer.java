@@ -15,12 +15,6 @@ import java.util.List;
  */
 public class NegamaxPlayer extends AbstractPlayer{
 
-  //generate possible Moves
-  //getBoardScore
-  //Copy Board
-  private final static int MAX_VALUE = 9999;
-  private final static int MIN_VALUE = -9999;
-  private static final long timePerRound = 28 * 1000;
   private static final int depth = 3;
 
   public NegamaxPlayer(PositionToken playerToken){

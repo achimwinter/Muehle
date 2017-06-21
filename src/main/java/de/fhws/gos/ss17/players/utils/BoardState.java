@@ -34,7 +34,26 @@ public class BoardState {
     int diff2PieceConfigs =
         get2PieceConfigs(board, playerToken) - get2PieceConfigs(board, enemyToken);
 
-    return 43*diffInMills + 10 * diffinBlockedPieces + 11 *diffPieces + 8*diff2PieceConfigs;
+    int diffDoubleMills = 1;
+    try {
+      diffDoubleMills =
+          getDoubleMills(board, playerToken) - getDoubleMills(board, enemyToken);
+    } catch (GameException e) {
+      e.printStackTrace();
+    }
+    System.out.println("Phasennummer: " + phase.ordinal());
+    switch (phase.ordinal()) {
+      case 1:
+        return 26 * diffInMills + 3 * diffinBlockedPieces + 9 * diffPieces + 10 * diff2PieceConfigs;
+      case 2:
+        return 43 * diffInMills + 10 * diffinBlockedPieces + 11 * diffPieces + 8 * diff2PieceConfigs
+            + 8 * diffDoubleMills;
+      case 3:
+        return 43 * diffInMills + 10 * diffinBlockedPieces + 11 * diffPieces + 8 * diff2PieceConfigs
+            + 8 * diffDoubleMills;
+      default:
+        return 0;
+    }
   }
 
   public static int getWinningConfig(Board board, PositionToken playerToken) {
