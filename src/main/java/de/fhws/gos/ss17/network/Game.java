@@ -1,12 +1,6 @@
 package de.fhws.gos.ss17.network;
 
 
-import com.owlike.genson.annotation.JsonIgnore;
-import de.fhws.gos.core.logic.Move;
-import de.fhws.gos.core.utils.GameStatus;
-import de.fhws.gos.core.utils.PositionToken;
-import de.fhws.gos.ss17.game.Board;
-import de.fhws.gos.ss17.core.logic.Board;
 
 /**
  * Created by Auron on 18.05.2017.

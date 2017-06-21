@@ -1,6 +1,5 @@
 package de.fhws.gos.ss17.main;
 
-import de.fhws.gos.remote.impl.RemoteBotPlayer;
 import de.fhws.gos.ss17.core.logic.Player;
 import de.fhws.gos.ss17.core.network.Connection;
 import de.fhws.gos.ss17.core.utils.PositionToken;
@@ -15,6 +14,7 @@ import de.fhws.gos.ss17.players.LogPlayer;
 import de.fhws.gos.ss17.players.NegamaxPlayer;
 import de.fhws.gos.ss17.players.RandomPlayerWithRules;
 import de.fhws.gos.ss17.players.ShortLogPlayer;
+import de.fhws.gos.ss17.remote.impl.RemoteBotPlayer;
 import java.io.IOException;
 
 

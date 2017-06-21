@@ -1,6 +1,6 @@
 package de.fhws.gos.ss17.main;
 
-import de.fhws.gos.core.network.Connection;
+import de.fhws.gos.ss17.core.network.Connection;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

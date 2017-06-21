@@ -3,7 +3,9 @@ package de.fhws.gos.ss17.players;
 import de.fhws.gos.ss17.core.exceptions.GameException;
 import de.fhws.gos.ss17.core.logic.Board;
 import de.fhws.gos.ss17.core.logic.Move;
+import de.fhws.gos.ss17.core.utils.GameStatus;
 import de.fhws.gos.ss17.core.utils.PositionToken;
+import de.fhws.gos.ss17.players.utils.BoardState;
 import de.fhws.gos.ss17.players.utils.Node;
 import de.fhws.gos.ss17.players.utils.PossibleMoves;
 import java.util.List;
@@ -27,23 +29,22 @@ public class NegamaxPlayer extends AbstractPlayer{
 
   @Override
   protected Move getPlacingMove(Board board) throws GameException {
-    Move move = getBestMove(board, PositionToken.PLAYER_ONE);
-    Node test = negamax(new Node(board,null), depth, 1, MIN_VALUE, MAX_VALUE, System.currentTimeMillis());
-    return test.getMove();
+    return getBestMove(board, playerToken);
   }
 
   @Override
   protected Move getMovingMove(Board board) throws GameException {
-    return null;
+    return getBestMove(board, playerToken);
   }
 
   @Override
   protected Move getFlyingMove(Board board) throws GameException {
-    return null;
+    return getBestMove(board, playerToken);
   }
 
   private Move getBestMove(Board board, PositionToken playerToken) {
-
+    int playerValue =
+        (playerToken.equals(PositionToken.PLAYER_ONE)) ? 1: -1;
     List<Move> validMoves = PossibleMoves.getPossibleMoves(board, super.phase, playerToken);
     int bestResult = Integer.MIN_VALUE;
     Move bestMove = null;
@@ -53,35 +54,47 @@ public class NegamaxPlayer extends AbstractPlayer{
       board.executeMove(move, playerToken);
       System.out.println("Evaluating: " + move);
 
-      int evaluationResult = -evaluateNegaMax(this.lookForward, "", Integer.MIN_VALUE, Integer.MAX_VALUE);
-      board.
+      int evaluationResult = -evaluateNegaMax(depth - 1, "", Integer.MIN_VALUE, Integer.MAX_VALUE,
+          board, playerValue);
+
+      try {
+        board.undoMove(move);
+      } catch (GameException e) {
+        e.printStackTrace();
+      }
 
       if (evaluationResult > bestResult) {
         bestResult = evaluationResult;
         bestMove = move;
       }
     }
-    System.out.println("Done thinking! The best move is: " + bestMove);
     return bestMove;
   }
 
-  public int evaluateNegaMax(int depth, String indent, int alpha, int beta) {
+  public int evaluateNegaMax(int depth, String indent, int alpha, int beta, Board board, int playerValue) {
+    PositionToken playerToken =
+        (playerValue == 1) ? PositionToken.PLAYER_ONE : PositionToken.PLAYER_TWO;
     if (depth <= 0
-        || this.chessGame.getGameState() == ChessGame.GAME_STATE_WHITE_WON
-        || this.chessGame.getGameState() == ChessGame.GAME_STATE_BLACK_WON) {
+        || !board.getCurrentGameStatus().equals(GameStatus.RUNNING)) {
 
-      return evaluateState();
+      return BoardState.getScore(board, playerValue, super.phase);
     }
 
-    List<Move> moves = generateMoves(false);
+    List<Move> moves = PossibleMoves.getPossibleMoves(board, super.phase, playerToken);
     int bestValue = Integer.MIN_VALUE;
 
     for (Move currentMove : moves) {
 
-      executeMove(currentMove);
-      int value = -evaluateNegaMax(depth - 1, indent + "    ", -beta, -alpha);
-      System.out.println(indent + "Handling move: " + currentMove + " : " + value);
-      undoMove(currentMove);
+      board.executeMove(currentMove, playerToken);
+      int value = -evaluateNegaMax(depth - 1, indent + "    ", -beta, -alpha, board, -playerValue);
+      //System.out.println(indent + "Handling move: " + currentMove + " : " + value);
+
+      try {
+        board.undoMove(currentMove);
+      } catch (GameException e) {
+        e.printStackTrace();
+      }
+
       counter++;
 
       if (value > bestValue) {

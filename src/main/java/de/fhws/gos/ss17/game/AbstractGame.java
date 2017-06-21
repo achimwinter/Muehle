@@ -2,6 +2,7 @@ package de.fhws.gos.ss17.game;
 
 
 
+import de.fhws.gos.ss17.core.logic.Game;
 import de.fhws.gos.ss17.core.logic.Player;
 import de.fhws.gos.ss17.core.utils.GameStatus;
 import de.fhws.gos.ss17.core.logic.Board;
@@ -9,7 +10,7 @@ import de.fhws.gos.ss17.core.logic.Board;
 /**
  * Created by awinter on 05.05.17.
  */
-public abstract class AbstractGame implements Board {
+public abstract class AbstractGame implements Game {
 
 
   protected Board board;

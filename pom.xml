@@ -68,10 +68,5 @@
             <artifactId>genson</artifactId>
             <version>1.4</version>
         </dependency>
-        <dependency>
-            <groupId>de.fhws.gos</groupId>
-            <artifactId>remote</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 </project>

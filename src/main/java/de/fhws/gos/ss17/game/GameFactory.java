@@ -7,7 +7,7 @@ import de.fhws.gos.ss17.core.logic.Board;
 /**
  * Created by Achim on 05.05.2017.
  */
-public class GameFactory {
+public class GameFactory{
 
   private static GameFactory instance;
   private Connection connection;

@@ -1,7 +1,7 @@
 package de.fhws.gos.ss17.network;
 
-import de.fhws.gos.core.logic.Board;
-import de.fhws.gos.core.logic.Move;
+import de.fhws.gos.ss17.core.logic.Board;
+import de.fhws.gos.ss17.core.logic.Move;
 import java.io.IOException;
 import org.junit.Test;
 
