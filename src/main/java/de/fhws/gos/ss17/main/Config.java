@@ -4,7 +4,8 @@ import de.fhws.gos.core.logic.Player;
 import de.fhws.gos.core.network.Connection;
 import de.fhws.gos.core.utils.PositionToken;
 import de.fhws.gos.remote.impl.RemoteBotPlayer;
-import de.fhws.gos.ss17.game.Board;
+import de.fhws.gos.ss17.core.logic.Board;
+import de.fhws.gos.ss17.game.BoardImpl;
 import de.fhws.gos.ss17.network.DefaultConnection;
 import de.fhws.gos.ss17.players.AdvancedRandomPlayer;
 import de.fhws.gos.ss17.players.CyborgPlayer;
@@ -57,15 +58,11 @@ public class Config {
    * @return the initialized board object.
    */
   public static Board initBoard() {
-    Board board = new Board();
+    Board board = new BoardImpl();
     return board;
   }
 
 
-  public static Board copyBoard(Board board){
-    Board newboard = new Board(board);
-    return newboard;
-  }
   /**
    * This method is used to get a remote player that retrieves the moves from the server. In case of
    * bot games the RemoteBotPlayer class can be used. In case of versus games the RemoteVersusPlayer

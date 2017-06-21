@@ -1,9 +1,11 @@
 package de.fhws.gos.ss17.game;
 
 import de.fhws.gos.core.exceptions.GameException;
-import de.fhws.gos.core.logic.Move;
-import de.fhws.gos.core.utils.GameStatus;
 import de.fhws.gos.core.utils.PositionToken;
+import de.fhws.gos.ss17.core.logic.Board;
+import de.fhws.gos.ss17.core.logic.Move;
+import de.fhws.gos.ss17.core.logic.Position;
+import de.fhws.gos.ss17.core.utils.GameStatus;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
@@ -11,15 +13,15 @@ import java.util.NoSuchElementException;
 /**
  * Created by Neuer on 03.05.2017.
  */
-public class Board implements de.fhws.gos.core.logic.Board {
+public class BoardImpl implements Board {
 
-  private PositionImpl[] positionImpls;
+  private PositionImpl[] positionImpl;
   private GameStatus gameStatus;
   private int[] tokenCounters;
   private int[] moveCounters;
   private LinkedList<Move> moveHistory;
 
-  public Board() {
+  public BoardImpl() {
     this.gameStatus = GameStatus.RUNNING;
     this.tokenCounters = new int[2];
     this.tokenCounters[0] = 0;
@@ -31,14 +33,14 @@ public class Board implements de.fhws.gos.core.logic.Board {
     this.moveHistory = new LinkedList<>();
   }
 
-  public Board(Board board){
-    this.positionImpls = board.positionImpls;
-    this.gameStatus = board.gameStatus;
-    this.tokenCounters = board.tokenCounters;
-    this.moveCounters = board.moveCounters;
-    this.moveHistory = board.moveHistory;
+
+  public PositionImpl[] getpositionImpl() {
+    return positionImpl;
   }
 
+  public void setpositionImpl(PositionImpl[] positionImpl) {
+    this.positionImpl = positionImpl;
+  }
 
   @Override
   public void executeMove(Move move, PositionToken positionToken) {
@@ -46,20 +48,20 @@ public class Board implements de.fhws.gos.core.logic.Board {
     this.moveHistory.add(move);
     if (move.getFromId() != -1) {
       System.out.println(positionToken + " FR " + move.getFromId());
-      this.tokenMinusMinus(this.positionImpls[move.getFromId()].getPositionToken());
-      this.positionImpls[move.getFromId()].setPositionToken(PositionToken.IS_EMPTY);
+      this.tokenMinusMinus(this.positionImpl[move.getFromId()].getPositionToken());
+      this.positionImpl[move.getFromId()].setPositionToken(PositionToken.IS_EMPTY);
     }
 
     if (move.getToId() != -1) {
       System.out.println(positionToken + " TO " + move.getToId());
       this.tokenPlusPlus(positionToken);
-      this.positionImpls[move.getToId()].setPositionToken(positionToken);
+      this.positionImpl[move.getToId()].setPositionToken(positionToken);
     }
 
     if (move.getRemoveId() != -1) {
       System.out.println(positionToken + " REM: " + move.getRemoveId());
-      this.tokenMinusMinus(this.positionImpls[move.getRemoveId()].getPositionToken());
-      this.positionImpls[move.getRemoveId()].setPositionToken(PositionToken.IS_EMPTY);
+      this.tokenMinusMinus(this.positionImpl[move.getRemoveId()].getPositionToken());
+      this.positionImpl[move.getRemoveId()].setPositionToken(PositionToken.IS_EMPTY);
     }
 
   }
@@ -77,7 +79,7 @@ public class Board implements de.fhws.gos.core.logic.Board {
   @Override
   public PositionImpl getPosition(int i) throws GameException {
     if (i >= 0 && i < 24) {
-      return this.positionImpls[i];
+      return this.positionImpl[i];
     } else {
       throw new GameException("Blödl... " + i + "geht net!");
     }
@@ -155,9 +157,9 @@ public class Board implements de.fhws.gos.core.logic.Board {
   }
 
   public String getPositionTokenAsString(int position) {
-    if (this.positionImpls[position].getPositionToken() == PositionToken.PLAYER_ONE) {
+    if (this.positionImpl[position].getPositionToken() == PositionToken.PLAYER_ONE) {
       return "1";
-    } else if (this.positionImpls[position].getPositionToken() == PositionToken.PLAYER_TWO) {
+    } else if (this.positionImpl[position].getPositionToken() == PositionToken.PLAYER_TWO) {
       return "2";
     } else {
       return "0";
@@ -165,20 +167,36 @@ public class Board implements de.fhws.gos.core.logic.Board {
   }
 
   @Override
-  public Iterator<de.fhws.gos.core.logic.Position> iteratePositions() {
+  public Iterator<Position> iteratePositions() {
     return new Iterator() {
       private int index = 0;
 
       public boolean hasNext() {
-        return this.index < positionImpls.length;
+        return this.index < positionImpl.length;
       }
 
       public PositionImpl next() {
-        PositionImpl pos = positionImpls[this.index];
+        PositionImpl pos = positionImpl[this.index];
         ++this.index;
         return pos;
       }
     };
+  }
+
+  @Override
+  public void undoLastMove() {
+    Move lastMove = this.getLastMove();
+    int toId = lastMove.getToId();
+    PositionToken playerToken=null;
+    try {
+      playerToken = this.getPosition(lastMove.getToId()).getPositionToken();
+    } catch (GameException e) {
+      e.printStackTrace();
+    }
+    PositionToken enemy = (playerToken.equals(PositionToken.PLAYER_ONE)) ? PositionToken.PLAYER_TWO : PositionToken.PLAYER_ONE;
+    if(lastMove.getFromId() > -1){
+      this.
+    }
   }
 
   private void movePlusPlus(PositionToken playerToken) {
@@ -209,64 +227,64 @@ public class Board implements de.fhws.gos.core.logic.Board {
   }
 
   private void initPositions() {
-    this.positionImpls = new PositionImpl[24];
+    this.positionImpl = new PositionImpl[24];
 
     for (int i = 0; i < 24; ++i) {
-      this.positionImpls[i] = new PositionImpl(i);
-      this.positionImpls[i].setPositionToken(PositionToken.IS_EMPTY);
+      this.positionImpl[i] = new PositionImpl(i);
+      this.positionImpl[i].setPositionToken(PositionToken.IS_EMPTY);
     }
 
-    this.positionImpls[0]
-        .setNeighbors(new PositionImpl[]{this.positionImpls[1], this.positionImpls[9]});
-    this.positionImpls[1].setNeighbors(
-        new PositionImpl[]{this.positionImpls[0], this.positionImpls[2], this.positionImpls[4]});
-    this.positionImpls[2]
-        .setNeighbors(new PositionImpl[]{this.positionImpls[1], this.positionImpls[14]});
-    this.positionImpls[3]
-        .setNeighbors(new PositionImpl[]{this.positionImpls[4], this.positionImpls[10]});
-    this.positionImpls[4].setNeighbors(
-        new PositionImpl[]{this.positionImpls[1], this.positionImpls[3], this.positionImpls[5],
-            this.positionImpls[7]});
-    this.positionImpls[5]
-        .setNeighbors(new PositionImpl[]{this.positionImpls[4], this.positionImpls[13]});
-    this.positionImpls[6]
-        .setNeighbors(new PositionImpl[]{this.positionImpls[7], this.positionImpls[11]});
-    this.positionImpls[7].setNeighbors(
-        new PositionImpl[]{this.positionImpls[4], this.positionImpls[6], this.positionImpls[8]});
-    this.positionImpls[8]
-        .setNeighbors(new PositionImpl[]{this.positionImpls[7], this.positionImpls[12]});
-    this.positionImpls[9].setNeighbors(
-        new PositionImpl[]{this.positionImpls[0], this.positionImpls[10], this.positionImpls[21]});
-    this.positionImpls[10].setNeighbors(
-        new PositionImpl[]{this.positionImpls[3], this.positionImpls[9], this.positionImpls[11],
-            this.positionImpls[18]});
-    this.positionImpls[11].setNeighbors(
-        new PositionImpl[]{this.positionImpls[6], this.positionImpls[10], this.positionImpls[15]});
-    this.positionImpls[12].setNeighbors(
-        new PositionImpl[]{this.positionImpls[8], this.positionImpls[13], this.positionImpls[17]});
-    this.positionImpls[13].setNeighbors(
-        new PositionImpl[]{this.positionImpls[5], this.positionImpls[12], this.positionImpls[14],
-            this.positionImpls[20]});
-    this.positionImpls[14].setNeighbors(
-        new PositionImpl[]{this.positionImpls[2], this.positionImpls[13], this.positionImpls[23]});
-    this.positionImpls[15]
-        .setNeighbors(new PositionImpl[]{this.positionImpls[11], this.positionImpls[16]});
-    this.positionImpls[16].setNeighbors(
-        new PositionImpl[]{this.positionImpls[15], this.positionImpls[17], this.positionImpls[19]});
-    this.positionImpls[17]
-        .setNeighbors(new PositionImpl[]{this.positionImpls[12], this.positionImpls[16]});
-    this.positionImpls[18]
-        .setNeighbors(new PositionImpl[]{this.positionImpls[10], this.positionImpls[19]});
-    this.positionImpls[19].setNeighbors(
-        new PositionImpl[]{this.positionImpls[16], this.positionImpls[18], this.positionImpls[20],
-            this.positionImpls[22]});
-    this.positionImpls[20]
-        .setNeighbors(new PositionImpl[]{this.positionImpls[13], this.positionImpls[19]});
-    this.positionImpls[21]
-        .setNeighbors(new PositionImpl[]{this.positionImpls[9], this.positionImpls[22]});
-    this.positionImpls[22].setNeighbors(
-        new PositionImpl[]{this.positionImpls[19], this.positionImpls[21], this.positionImpls[23]});
-    this.positionImpls[23]
-        .setNeighbors(new PositionImpl[]{this.positionImpls[14], this.positionImpls[22]});
+    this.positionImpl[0]
+        .setNeighbors(new PositionImpl[]{this.positionImpl[1], this.positionImpl[9]});
+    this.positionImpl[1].setNeighbors(
+        new PositionImpl[]{this.positionImpl[0], this.positionImpl[2], this.positionImpl[4]});
+    this.positionImpl[2]
+        .setNeighbors(new PositionImpl[]{this.positionImpl[1], this.positionImpl[14]});
+    this.positionImpl[3]
+        .setNeighbors(new PositionImpl[]{this.positionImpl[4], this.positionImpl[10]});
+    this.positionImpl[4].setNeighbors(
+        new PositionImpl[]{this.positionImpl[1], this.positionImpl[3], this.positionImpl[5],
+            this.positionImpl[7]});
+    this.positionImpl[5]
+        .setNeighbors(new PositionImpl[]{this.positionImpl[4], this.positionImpl[13]});
+    this.positionImpl[6]
+        .setNeighbors(new PositionImpl[]{this.positionImpl[7], this.positionImpl[11]});
+    this.positionImpl[7].setNeighbors(
+        new PositionImpl[]{this.positionImpl[4], this.positionImpl[6], this.positionImpl[8]});
+    this.positionImpl[8]
+        .setNeighbors(new PositionImpl[]{this.positionImpl[7], this.positionImpl[12]});
+    this.positionImpl[9].setNeighbors(
+        new PositionImpl[]{this.positionImpl[0], this.positionImpl[10], this.positionImpl[21]});
+    this.positionImpl[10].setNeighbors(
+        new PositionImpl[]{this.positionImpl[3], this.positionImpl[9], this.positionImpl[11],
+            this.positionImpl[18]});
+    this.positionImpl[11].setNeighbors(
+        new PositionImpl[]{this.positionImpl[6], this.positionImpl[10], this.positionImpl[15]});
+    this.positionImpl[12].setNeighbors(
+        new PositionImpl[]{this.positionImpl[8], this.positionImpl[13], this.positionImpl[17]});
+    this.positionImpl[13].setNeighbors(
+        new PositionImpl[]{this.positionImpl[5], this.positionImpl[12], this.positionImpl[14],
+            this.positionImpl[20]});
+    this.positionImpl[14].setNeighbors(
+        new PositionImpl[]{this.positionImpl[2], this.positionImpl[13], this.positionImpl[23]});
+    this.positionImpl[15]
+        .setNeighbors(new PositionImpl[]{this.positionImpl[11], this.positionImpl[16]});
+    this.positionImpl[16].setNeighbors(
+        new PositionImpl[]{this.positionImpl[15], this.positionImpl[17], this.positionImpl[19]});
+    this.positionImpl[17]
+        .setNeighbors(new PositionImpl[]{this.positionImpl[12], this.positionImpl[16]});
+    this.positionImpl[18]
+        .setNeighbors(new PositionImpl[]{this.positionImpl[10], this.positionImpl[19]});
+    this.positionImpl[19].setNeighbors(
+        new PositionImpl[]{this.positionImpl[16], this.positionImpl[18], this.positionImpl[20],
+            this.positionImpl[22]});
+    this.positionImpl[20]
+        .setNeighbors(new PositionImpl[]{this.positionImpl[13], this.positionImpl[19]});
+    this.positionImpl[21]
+        .setNeighbors(new PositionImpl[]{this.positionImpl[9], this.positionImpl[22]});
+    this.positionImpl[22].setNeighbors(
+        new PositionImpl[]{this.positionImpl[19], this.positionImpl[21], this.positionImpl[23]});
+    this.positionImpl[23]
+        .setNeighbors(new PositionImpl[]{this.positionImpl[14], this.positionImpl[22]});
   }
 }

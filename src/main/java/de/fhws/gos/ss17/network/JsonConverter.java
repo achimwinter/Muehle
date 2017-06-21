@@ -4,8 +4,9 @@ import com.owlike.genson.Genson;
 import com.owlike.genson.annotation.JsonIgnore;
 import de.fhws.gos.core.exceptions.GameException;
 import de.fhws.gos.core.utils.PositionToken;
-import de.fhws.gos.ss17.game.Board;
 import de.fhws.gos.core.logic.Move;
+import de.fhws.gos.ss17.core.logic.Board;
+import de.fhws.gos.ss17.main.Config;
 
 /**
  * Created by Auron on 17.05.2017.
@@ -46,7 +47,7 @@ public class JsonConverter {
 
   @JsonIgnore
   public static Board deserializeBoard(String[] boardString) throws GameException {
-    Board board = new Board();
+    Board board = Config.initBoard();
     for (int i = 0; i < boardString.length; i++) {
       if (boardString[i].equals("NO_TOKEN")) {
         //board.executeMove(new Move(-1, i, -1), PositionToken.IS_EMPTY);

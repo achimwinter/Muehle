@@ -1,20 +1,15 @@
 package de.fhws.gos.ss17.game;
 
 
-import de.fhws.gos.core.exceptions.GameException;
-import de.fhws.gos.core.logic.Move;
-import de.fhws.gos.core.logic.Player;
-import de.fhws.gos.core.utils.GameStatus;
-import de.fhws.gos.remote.exceptions.GameLostException;
-import de.fhws.gos.remote.exceptions.GameTieException;
-import de.fhws.gos.remote.exceptions.GameWonException;
-import de.fhws.gos.ss17.exceptions.CheckedExceptions;
-import de.fhws.gos.ss17.network.DefaultConnection;
+
+import de.fhws.gos.ss17.core.logic.Player;
+import de.fhws.gos.ss17.core.utils.GameStatus;
+import de.fhws.gos.ss17.core.logic.Board;
 
 /**
  * Created by awinter on 05.05.17.
  */
-public abstract class AbstractGame implements de.fhws.gos.core.logic.Game {
+public abstract class AbstractGame implements Board {
 
 
   protected de.fhws.gos.core.logic.Board board;
