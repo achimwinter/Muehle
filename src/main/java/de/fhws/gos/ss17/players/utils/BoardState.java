@@ -20,6 +20,8 @@ public class BoardState {
     PositionToken enemyToken =
         (playerValue == 1) ? PositionToken.PLAYER_TWO : PositionToken.PLAYER_ONE;
 
+    int lastMillValue = getLastMill(board, playerToken);
+
     int enemyMills = getNumberOfMills(board, enemyToken);
     int playerMills = getNumberOfMills(board, playerToken);
     int diffInMills = playerMills - enemyMills;
@@ -28,8 +30,9 @@ public class BoardState {
     int playerBlockedPieces = getEnemyBlockedPieces(board, playerToken);
     int diffinBlockedPieces = playerBlockedPieces - enemyBlockedPieces;
 
-    int diffPieces = board.getNumberOfTokensForPlayer(playerToken) - board
-        .getNumberOfTokensForPlayer(enemyToken);
+    int friendlyPieces = board.getNumberOfTokensForPlayer(playerToken);
+    int enemyPieces = board.getNumberOfTokensForPlayer(enemyToken);
+    int diffPieces = friendlyPieces - enemyMills;
 
     int diff2PieceConfigs =
         get2PieceConfigs(board, playerToken) - get2PieceConfigs(board, enemyToken);
@@ -43,17 +46,27 @@ public class BoardState {
     }
     switch (phase.ordinal()) {
       case 0:
-        return 26 * diffInMills + 3 * diffinBlockedPieces + 9 * diffPieces + 10 * diff2PieceConfigs;
+        return 18*lastMillValue + 26 * diffInMills + 3 * diffinBlockedPieces + 9 * diffPieces + 10 * diff2PieceConfigs;
       case 1:
-        return 43 * diffInMills + 10 * diffinBlockedPieces + 11 * diffPieces + 8 * diff2PieceConfigs
+        return 14 * lastMillValue + 43 * diffInMills + 10 * diffinBlockedPieces + 11 * diffPieces + 8 * diff2PieceConfigs
             + 8 * diffDoubleMills;
       case 2:
-        return 43 * diffInMills + 10 * diffinBlockedPieces + 11 * diffPieces + 8 * diff2PieceConfigs
+        return 16 * lastMillValue + 43 * diffInMills + 10 * diffinBlockedPieces + 11 * diffPieces + 8 * diff2PieceConfigs
             + 8 * diffDoubleMills;
       default:
         return 0;
     }
   }
+
+  private static int getLastMill(Board board, PositionToken playerToken){
+    int value = 0;
+    if(board.getLastFriendlyMove().getRemoveId() > -1)
+      value = 1;
+    if(board.getLastMove().getRemoveId() > -1)
+      value=-1;
+    return value;
+  }
+
 
   public static int getWinningConfig(Board board, PositionToken playerToken) {
     //high value
@@ -81,8 +94,6 @@ public class BoardState {
     return counter;
   }
 
-
-  //work and tests done
   public static int getDoubleMills(Board board, PositionToken playerToken) throws GameException {
     int counter = 0;
     List<List<Integer>> friendlyMillsOnBoard = new ArrayList<>();
@@ -104,7 +115,6 @@ public class BoardState {
     return counter;
   }
 
-  //work and test pending
   private static int get3PieceConfigs(Board board, PositionToken playerToken) {
     Iterator<Position> positionIterator = board.iteratePositions();
     while (positionIterator.hasNext()) {
@@ -126,7 +136,6 @@ public class BoardState {
     return 1;
   }
 
-  //work finished and test passed
   public static int get2PieceConfigs(Board board, PositionToken playerToken) {
     int possible2Mills = 0;
     for (List<Integer> millComb : MillCombinations.POSSIBLE_MILLS) {
@@ -150,8 +159,7 @@ public class BoardState {
     }
     return possible2Mills;
   }
-
-  //work finished and test passed
+  
   public static int getEnemyBlockedPieces(Board board, PositionToken playerToken) {
     int blockedPieces = 0;
     Iterator<Position> positionIterator = board.iteratePositions();

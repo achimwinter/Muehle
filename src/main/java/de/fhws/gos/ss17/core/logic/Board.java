@@ -33,4 +33,6 @@ public interface Board {
   Iterator<Position> iteratePositions();
 
   void undoMove(Move move) throws GameException;
+
+  Move getLastFriendlyMove();
 }

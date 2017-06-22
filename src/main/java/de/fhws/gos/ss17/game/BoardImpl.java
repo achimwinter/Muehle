@@ -85,6 +85,10 @@ public class BoardImpl implements Board {
     }
   }
 
+  public Move getLastFriendlyMove(){
+    return moveHistory.get(moveHistory.size()-1);
+  }
+
   @Override
   public int getNumberOfTokensForPlayer(PositionToken positionToken) {
     if (positionToken == PositionToken.PLAYER_ONE) {
