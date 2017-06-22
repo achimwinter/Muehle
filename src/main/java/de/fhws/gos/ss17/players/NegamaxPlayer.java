@@ -6,16 +6,16 @@ import de.fhws.gos.ss17.core.logic.Move;
 import de.fhws.gos.ss17.core.utils.GameStatus;
 import de.fhws.gos.ss17.core.utils.PositionToken;
 import de.fhws.gos.ss17.players.utils.BoardState;
-import de.fhws.gos.ss17.players.utils.Node;
 import de.fhws.gos.ss17.players.utils.PossibleMoves;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Achim on 08.06.2017.
  */
 public class NegamaxPlayer extends AbstractPlayer{
 
-  private static final int depth = 4;
+  private static final int depth = 6;
 
   public NegamaxPlayer(PositionToken playerToken){
     super(playerToken);
@@ -43,22 +43,21 @@ public class NegamaxPlayer extends AbstractPlayer{
     int bestResult = Integer.MIN_VALUE;
     Move bestMove = null;
 
-    for (Move move : validMoves) {
+      for (Move move : validMoves) {
 
-      board.executeMove(move, playerToken);
-      //this.doMove(board,move, playerToken);
-      //System.out.println("Evaluating: " + move);
+        board.executeMove(move, playerToken);
+        //this.doMove(board,move, playerToken);
+        //System.out.println("Evaluating: " + move);
 
-      int evaluationResult = -evaluateNegaMax(depth - 1, "", Integer.MIN_VALUE, Integer.MAX_VALUE,
-          board, playerValue);
-      board.undoMove(move);
+        int evaluationResult = -evaluateNegaMax(depth - 1, "", Integer.MIN_VALUE, Integer.MAX_VALUE,
+            board, playerValue);
+        board.undoMove(move);
 
-
-      if (evaluationResult > bestResult) {
-        bestResult = evaluationResult;
-        bestMove = move;
+        if (evaluationResult > bestResult) {
+          bestResult = evaluationResult;
+          bestMove = move;
+        }
       }
-    }
     System.out.println("Best Move is FROM " + bestMove.getFromId() + "TO " + bestMove.getToId() + "REM " + bestMove.getRemoveId());
     return bestMove;
   }
@@ -73,32 +72,35 @@ public class NegamaxPlayer extends AbstractPlayer{
       return BoardState.getScore(board, playerValue, super.phase);
     }
 
-    List<Move> moves = PossibleMoves.getPossibleMoves(board, super.phase, playerToken);
-    int bestValue = Integer.MIN_VALUE;
+      List<Move> moves = PossibleMoves.getPossibleMoves(board, super.phase, playerToken);
+      int bestValue = Integer.MIN_VALUE;
 
-    for (Move currentMove : moves) {
+      for (Move currentMove : moves) {
 
-      board.executeMove(currentMove, playerToken);
-      //this.doMove(board,currentMove, playerToken);
-      int value = -evaluateNegaMax(depth - 1, indent + "    ", -beta, -alpha, board, -playerValue);
-      //System.out.println(indent + "Handling move: " + currentMove + " : " + value);
+        board.executeMove(currentMove, playerToken);
+        //this.doMove(board,currentMove, playerToken);
+        int value = -evaluateNegaMax(depth - 1, indent + "    ", -beta, -alpha, board,
+            -playerValue);
+        //System.out.println(indent + "Handling move: " + currentMove + " : " + value);
 
-      board.undoMove(currentMove);
+        board.undoMove(currentMove);
 
-      if (value > bestValue) {
-        bestValue = value;
+        if (value > bestValue) {
+          bestValue = value;
+        }
+
+        if (bestValue > alpha) {
+          alpha = bestValue;
+        }
+
+        if (bestValue >= beta) {
+          break;
+        }
       }
+      //System.out.println(indent + "max: " + alpha);
 
-      if (bestValue > alpha) {
-        alpha = bestValue;
-      }
+      return alpha;
 
-      if (bestValue >= beta) {
-        break;
-      }
-    }
-    //System.out.println(indent + "max: " + alpha);
-    return alpha;
   }
 
   private void doMove(Board board, Move move, PositionToken playerToken) {
