@@ -47,7 +47,7 @@ public class NegamaxPlayer extends AbstractPlayer{
 
         board.executeMove(move, playerToken);
         //this.doMove(board,move, playerToken);
-        System.out.println("Evaluating: " + move);
+        //System.out.println("Evaluating: " + move);
 
         int evaluationResult = -evaluateNegaMax(depth - 1, "", Integer.MIN_VALUE, Integer.MAX_VALUE,
             board, playerValue);

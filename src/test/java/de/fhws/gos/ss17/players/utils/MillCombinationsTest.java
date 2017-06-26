@@ -26,6 +26,22 @@ public class MillCombinationsTest {
     Assert.assertFalse("Mill found, returned true", result);
   }
 
+  @Test
+  public void testWillBeMill_Negamax_TrueReturned() throws GameException {
+    board.executeMove((new Move(-1, 0, -1)), PositionToken.PLAYER_ONE);
+    board.executeMove((new Move(-1, 1, -1)), PositionToken.PLAYER_ONE);
+    board.executeMove((new Move(-1, 2, -1)), PositionToken.PLAYER_ONE);
+    board.executeMove((new Move(-1, 3, -1)), PositionToken.PLAYER_ONE);
+    board.executeMove((new Move(-1, 4, -1)), PositionToken.PLAYER_ONE);
+    board.executeMove((new Move(-1, 5, -1)), PositionToken.PLAYER_TWO);
+    board.executeMove((new Move(-1, 6, -1)), PositionToken.PLAYER_ONE);
+    boolean result = (MillCombinations.willBeMill(board, playerToken, 6, 7));
+    board.printBoard();
+    if (result) {
+      System.out.println("alles gut");
+    }
+    Assert.assertTrue("No MIll, returned false", result);
+  }
 
   @Test
   public void testAllinMill_NoStonesPlaced_FalseReturned() throws GameException {

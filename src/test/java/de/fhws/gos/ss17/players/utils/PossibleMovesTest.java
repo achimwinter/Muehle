@@ -18,6 +18,30 @@ public class PossibleMovesTest {
 
 
   @Test
+  public void testGetRemoveId_RemoveIDReceived_TrueReturned() throws GameException{
+    board.getPosition(17).setPositionToken(playerToken);
+    board.getPosition(18).setPositionToken(playerToken);
+    board.getPosition(19).setPositionToken(playerToken);
+    board.getPosition(20).setPositionToken(playerToken);
+    board.getPosition(21).setPositionToken(playerToken);
+    board.getPosition(22).setPositionToken(playerToken);
+    board.getPosition(23).setPositionToken(playerToken);
+
+    board.getPosition(1).setPositionToken(PositionToken.PLAYER_TWO);
+    board.getPosition(2).setPositionToken(PositionToken.PLAYER_TWO);
+    board.getPosition(4).setPositionToken(PositionToken.PLAYER_TWO);
+    board.getPosition(7).setPositionToken(PositionToken.PLAYER_TWO);
+    board.getPosition(11).setPositionToken(PositionToken.PLAYER_TWO);
+    board.getPosition(12).setPositionToken(PositionToken.PLAYER_TWO);
+
+
+    board.printBoard();
+    List<Move> moves = PossibleMoves.getPossibleMoves(board, Phase.MOVING, playerToken);
+    moves.forEach(x -> System.out.println(x.getFromId() + " TO : " + x.getToId() + " REM: " + x.getRemoveId()));
+
+  }
+
+  @Test
   public void testGetMoves_2MovesGotten_MovesPrinted() throws GameException{
     board.executeMove((new Move(-1, 4, -1)), playerToken);
     List<Move> moves=  PossibleMoves.getPossibleMoves(board, Phase.MOVING, playerToken);

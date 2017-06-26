@@ -96,14 +96,13 @@ public class MillCombinations {
 
 
   public static boolean isMill(Board board, PositionToken playerToken, int stoneId) throws GameException {
-    for (List<Integer> millcomb : POSSIBLE_MILLS){
-      int counter = 0;
-      for (int i: millcomb) {
-        if(board.getPosition(i).getPositionToken().equals(playerToken))
-          counter++;
-      }
-      if(counter == 3)
+    Integer[][] combinations = getMillCombinations(stoneId);
+    for (int i = 0; i < 2; i++) {
+      if (board.getPosition(combinations[i][0]).getPositionToken().equals(playerToken) && board
+          .getPosition(combinations[i][1]).getPositionToken().equals(playerToken) && board
+          .getPosition(combinations[i][2]).getPositionToken().equals(playerToken)) {
         return true;
+      }
     }
     return false;
   }
