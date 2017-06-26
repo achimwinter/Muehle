@@ -189,24 +189,19 @@ public class BoardImpl implements Board {
 
   @Override
   public void undoMove(Move move) throws GameException {
-    int toId = move.getToId();
-    PositionToken playerToken = null;
-    playerToken = this.getPosition(move.getToId()).getPositionToken();
-    PositionToken enemy = (playerToken.equals(PositionToken.PLAYER_ONE)) ? PositionToken.PLAYER_TWO
+    PositionToken ally = this.getPosition(move.getToId()).getPositionToken();
+    PositionToken enemy = (ally.equals(PositionToken.PLAYER_ONE)) ? PositionToken.PLAYER_TWO
         : PositionToken.PLAYER_ONE;
-    if (move.getFromId() > -1) {
-      if (move.getRemoveId() > -1) {
-        this.getPosition(toId).setPositionToken(enemy);
-      } else {
-        this.getPosition(toId).setPositionToken(PositionToken.IS_EMPTY);
-      }
-    } else {
-      if (move.getRemoveId() > -1) {
-        this.getPosition(move.getRemoveId()).setPositionToken(enemy);
-      }
-        this.getPosition(toId).setPositionToken(PositionToken.IS_EMPTY);
+    if(move.getRemoveId() > -1){
+      this.getPosition(move.getRemoveId()).setPositionToken(enemy);
     }
-
+    if(move.getFromId() > -1){
+      this.getPosition(move.getFromId()).setPositionToken(ally);
+      this.getPosition(move.getToId()).setPositionToken(PositionToken.IS_EMPTY);
+    }
+    else{
+      this.getPosition(move.getToId()).setPositionToken(PositionToken.IS_EMPTY);
+    }
 
   }
 

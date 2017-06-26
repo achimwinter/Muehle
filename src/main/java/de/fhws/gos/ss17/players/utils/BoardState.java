@@ -20,7 +20,7 @@ public class BoardState {
     PositionToken enemyToken =
         (playerValue == 1) ? PositionToken.PLAYER_TWO : PositionToken.PLAYER_ONE;
 
-    int lastMillValue = getLastMill(board, playerToken);
+    //int lastMillValue = getLastMill(board, playerToken);
 
     int enemyMills = getNumberOfMills(board, enemyToken);
     int playerMills = getNumberOfMills(board, playerToken);
@@ -46,12 +46,12 @@ public class BoardState {
     }
     switch (phase.ordinal()) {
       case 0:
-        return 18*lastMillValue + 26 * diffInMills + 3 * diffinBlockedPieces + 9 * diffPieces + 10 * diff2PieceConfigs;
+        return  26 * diffInMills + 3 * diffinBlockedPieces + 9 * diffPieces + 10 * diff2PieceConfigs;
       case 1:
-        return 14 * lastMillValue + 43 * diffInMills + 10 * diffinBlockedPieces + 11 * diffPieces + 8 * diff2PieceConfigs
+        return 43 * diffInMills + 10 * diffinBlockedPieces + 11 * diffPieces + 8 * diff2PieceConfigs
             + 8 * diffDoubleMills;
       case 2:
-        return 16 * lastMillValue + 43 * diffInMills + 10 * diffinBlockedPieces + 11 * diffPieces + 8 * diff2PieceConfigs
+        return 43 * diffInMills + 10 * diffinBlockedPieces + 11 * diffPieces + 8 * diff2PieceConfigs
             + 8 * diffDoubleMills;
       default:
         return 0;

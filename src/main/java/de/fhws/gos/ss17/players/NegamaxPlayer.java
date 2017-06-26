@@ -8,7 +8,6 @@ import de.fhws.gos.ss17.core.utils.PositionToken;
 import de.fhws.gos.ss17.players.utils.BoardState;
 import de.fhws.gos.ss17.players.utils.PossibleMoves;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by Achim on 08.06.2017.
@@ -24,6 +23,7 @@ public class NegamaxPlayer extends AbstractPlayer{
   @Override
   protected Move getPlacingMove(Board board) throws GameException {
     return getBestMove(board, playerToken);
+
   }
 
   @Override

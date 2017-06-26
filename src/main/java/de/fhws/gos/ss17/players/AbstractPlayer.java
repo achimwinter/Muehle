@@ -29,12 +29,14 @@ public abstract class AbstractPlayer implements Player {
     if (board.getNumberOfTokensForPlayer(playerToken) == 3 && this.phase == Phase.MOVING) {
       this.phase = Phase.FLYING;
     }
+    /*
     if(board.getNumberOfTokensForPlayer(PositionToken.PLAYER_ONE) == 2  && counter > 2){
       board.setCurrentGameStatus(GameStatus.PLAYER_TWO_WON);
     }
     if(board.getNumberOfTokensForPlayer(PositionToken.PLAYER_TWO) == 2  && counter > 2){
       board.setCurrentGameStatus(GameStatus.PLAYER_ONE_WON);
     }
+    */
     counter++;
     Move nextMove = this.doGetNextMove(board);
     return nextMove;
