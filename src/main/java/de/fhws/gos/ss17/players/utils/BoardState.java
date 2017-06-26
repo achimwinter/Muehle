@@ -159,7 +159,7 @@ public class BoardState {
     }
     return possible2Mills;
   }
-  
+
   public static int getEnemyBlockedPieces(Board board, PositionToken playerToken) {
     int blockedPieces = 0;
     Iterator<Position> positionIterator = board.iteratePositions();

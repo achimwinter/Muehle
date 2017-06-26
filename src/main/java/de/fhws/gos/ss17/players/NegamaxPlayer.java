@@ -78,7 +78,7 @@ public class NegamaxPlayer extends AbstractPlayer{
       for (Move currentMove : moves) {
 
         board.executeMove(currentMove, playerToken);
-        int value = -evaluateNegaMax(depth - 1, indent + "    ", -beta, -alpha, board,
+        int value = evaluateNegaMax(depth - 1, indent + "    ", -beta, -alpha, board,
             -playerValue);
         //System.out.println(indent + "Handling move: " + currentMove + " : " + value);
 
