@@ -17,6 +17,19 @@ public class BoardStateTest {
   PositionToken enemy = PositionToken.PLAYER_TWO;
 
   @Test
+  public void testGet3PiecesConfigs_1Received_TrueReturned() throws GameException{
+    board.getPosition(0).setPositionToken(playerToken);
+    board.getPosition(1).setPositionToken(playerToken);
+    board.getPosition(4).setPositionToken(playerToken);
+    board.printBoard();
+    int number = BoardState.get3PieceConfigs(board, playerToken);
+    boolean result = false;
+    if(number == 1)
+      result = true;
+    Assert.assertTrue("No Config found", result);
+  }
+
+  @Test
   public void testGetDoubleMills_1DoubleMill_TrueReturned()throws GameException{
     board.getPosition(0).setPositionToken(playerToken);
     board.getPosition(9).setPositionToken(playerToken);

@@ -32,7 +32,14 @@ public class BoardState {
 
     int friendlyPieces = board.getNumberOfTokensForPlayer(playerToken);
     int enemyPieces = board.getNumberOfTokensForPlayer(enemyToken);
-    int diffPieces = friendlyPieces - enemyMills;
+    int diffPieces = friendlyPieces - enemyPieces;
+
+    int diff3PieceConfigs = 1;
+    try {
+      diff3PieceConfigs = get3PieceConfigs(board, playerToken) - get3PieceConfigs(board, enemyToken);
+    } catch (GameException e) {
+      e.printStackTrace();
+    }
 
     int diff2PieceConfigs =
         get2PieceConfigs(board, playerToken) - get2PieceConfigs(board, enemyToken);
@@ -46,13 +53,12 @@ public class BoardState {
     }
     switch (phase.ordinal()) {
       case 0:
-        return  26 * diffInMills + 3 * diffinBlockedPieces + 9 * diffPieces + 10 * diff2PieceConfigs;
+        return  26 * diffInMills+ 3 * diffinBlockedPieces + 9 * diffPieces + 10 * diff2PieceConfigs + 7 * diff3PieceConfigs;
       case 1:
-        return 43 * diffInMills + 10 * diffinBlockedPieces + 11 * diffPieces + 8 * diff2PieceConfigs
-            + 8 * diffDoubleMills;
+        return 43 * diffInMills + 10 * diffinBlockedPieces + 11 * diffPieces + 8 * diff2PieceConfigs + 8 * diffDoubleMills;
       case 2:
         return 43 * diffInMills + 10 * diffinBlockedPieces + 11 * diffPieces + 8 * diff2PieceConfigs
-            + 8 * diffDoubleMills;
+           + 8 * diffDoubleMills + diff3PieceConfigs;
       default:
         return 0;
     }
@@ -115,25 +121,34 @@ public class BoardState {
     return counter;
   }
 
-  private static int get3PieceConfigs(Board board, PositionToken playerToken) {
-    Iterator<Position> positionIterator = board.iteratePositions();
-    while (positionIterator.hasNext()) {
-      List<Integer> millCombWithStone = new ArrayList<>();
-      Position position = positionIterator.next();
-      if (!position.getPositionToken().equals(playerToken)) {
-        continue;
-      }
-
-      int positionCounter = 0;
-      for (List<Integer> millComb : MillCombinations.POSSIBLE_MILLS) {
-        if (millComb.contains(position)) {
-
+  public static int get3PieceConfigs(Board board, PositionToken playerToken) throws GameException {
+    int threePieceCounter = 0;
+    List<List<Integer>> friendly2PiecesConfigs = new ArrayList<>();
+    for (List<Integer> millCoords: MillCombinations.POSSIBLE_MILLS){
+      int pieceCounter = 0;
+      for (int i : millCoords) {
+        if (board.getPosition(i).getPositionToken().equals(playerToken)) {
+          pieceCounter++;
         }
       }
-
-
+      if(pieceCounter==2){
+        friendly2PiecesConfigs.add(millCoords);
+      }
     }
-    return 1;
+
+    int[] pieceCounter = new int[24];
+    for(List<Integer> mills : friendly2PiecesConfigs){
+      for (int i : mills){
+        pieceCounter[i]++;
+      }
+    }
+
+    for(int i = 0; i < 24; i++){
+      if(pieceCounter[i] > 1)
+        threePieceCounter++;
+    }
+
+    return threePieceCounter;
   }
 
   public static int get2PieceConfigs(Board board, PositionToken playerToken) {

@@ -40,6 +40,7 @@ public class RemoteBotGame extends AbstractGame {
   @Override
   public void startGame() {
     int moveCounter = 0;
+    String JsonResponse;
     try {
       do {
         Move playerMove = this.playerOne.getNextMove(board);
@@ -49,8 +50,9 @@ public class RemoteBotGame extends AbstractGame {
         System.out.println("Moves played: " + moveCounter);
 
         board.printBoard();
-        String JsonResponse = this.connection
+        JsonResponse = this.connection
             .playBotgame(JsonConverter.serializeMoveJSON(playerMove));
+        System.out.println(JsonResponse);
         Game gameObject1 = JsonConverter.deserializeGameJSON(JsonResponse);
         if (!(gameObject1.getState().equals(GameState.STATE_RUNNING))) {
           endGame();
@@ -65,6 +67,8 @@ public class RemoteBotGame extends AbstractGame {
       ex.printStackTrace();
     } catch (IOException iox) {
       iox.printStackTrace();
+    }catch (NullPointerException ex){
+      ex.printStackTrace();
     }
   }
 

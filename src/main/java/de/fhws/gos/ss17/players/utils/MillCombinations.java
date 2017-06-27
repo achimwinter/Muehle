@@ -80,7 +80,7 @@ public class MillCombinations {
   }
 
 
-  private static Integer[][] getMillCombinations(int positionIndex) {
+  public static Integer[][] getMillCombinations(int positionIndex) {
     int counter = 0;
     Integer[][] combinations = new Integer[2][3];
     for (Integer[] aPossibleMillsArray : possibleMillsArray) {
