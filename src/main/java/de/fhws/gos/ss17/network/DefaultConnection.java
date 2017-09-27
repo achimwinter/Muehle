@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Scanner;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -25,7 +26,7 @@ public class DefaultConnection implements Connection {
   private final HttpClient httpClient = HttpClientBuilder.create().build();
   private final String BASE_URL = "http://" + Config.HOST + ":" + Config.PORT + "/";
   private final String SIGN_IN = "signin/";
-  private final String BOTGAME_URL = "botgame/";
+  private final String BOTGAME_URL = "versus/";
   public static String authorizationToken;
   public static String gameId;
 
@@ -43,13 +44,26 @@ public class DefaultConnection implements Connection {
     System.out.println(this.authorizationToken);
   }
 
+  public String joinVersusGame()throws IOException{
+    Scanner sc = new Scanner(System.in);
+    String input = sc.nextLine();
+    this.setGameId(input);
+    HttpResponse response = getPostResponse(BASE_URL + BOTGAME_URL + gameId);
+    String jsonString = EntityUtils.toString(response.getEntity());
+    System.out.println(jsonString);
+    return jsonString;
+  }
+
   public void createBotgame() throws IOException {
     HttpResponse response = getPostResponse(BASE_URL + BOTGAME_URL);
     String jsonString = EntityUtils.toString(response.getEntity());
     Game game = JsonConverter.deserializeGameJSON(jsonString);
     System.out.println(jsonString);
     this.setGameId(game.getGameId());
+    //System.out.println(game.getGameId());
+
   }
+
 
   public String joinBotgame() throws IOException {
     createBotgame();
@@ -70,6 +84,11 @@ public class DefaultConnection implements Connection {
     return jsonString;
   }
 
+  @Override
+  public String offerGame() throws IOException {
+    return null;
+  }
+
   private HttpResponse getPostResponse(String url) throws IOException {
     HttpPost request = new HttpPost(url);
     request.addHeader("Authorization", authorizationToken);
@@ -80,10 +99,7 @@ public class DefaultConnection implements Connection {
     this.gameId = var1;
   }
 
-  public String offerGame() throws IOException {
-    System.out.println("not implemented");
-    return null;
-  }
+
 
   public String joinGame() throws IOException {
     System.out.println("not implemented");

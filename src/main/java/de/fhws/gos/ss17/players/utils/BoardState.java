@@ -53,12 +53,11 @@ public class BoardState {
     }
     switch (phase.ordinal()) {
       case 0:
-        return  26 * diffInMills+ 3 * diffinBlockedPieces + 9 * diffPieces + 10 * diff2PieceConfigs + 7 * diff3PieceConfigs;
+        return  26 * diffInMills+ 9 * diffPieces;
       case 1:
-        return 43 * diffInMills + 10 * diffinBlockedPieces + 11 * diffPieces + 8 * diff2PieceConfigs + 8 * diffDoubleMills;
+        return 43 * diffInMills +11 * diffPieces ;
       case 2:
-        return 43 * diffInMills + 10 * diffinBlockedPieces + 11 * diffPieces + 8 * diff2PieceConfigs
-           + 8 * diffDoubleMills + diff3PieceConfigs;
+        return 43 * diffInMills + 11 * diffPieces;
       default:
         return 0;
     }
@@ -119,6 +118,7 @@ public class BoardState {
       counter += Math.max(0, friendlyMillsOnBoard.stream().filter(x -> x.contains(ii)).count() - 1);
     }
     return counter;
+
   }
 
   public static int get3PieceConfigs(Board board, PositionToken playerToken) throws GameException {

@@ -22,4 +22,6 @@ public interface Connection {
   String playGame(String var1) throws IOException;
 
   void setGameId(String var1);
+
+  String joinVersusGame()throws IOException;
 }

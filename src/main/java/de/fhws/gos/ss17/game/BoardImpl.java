@@ -47,19 +47,19 @@ public class BoardImpl implements Board {
     this.movePlusPlus(positionToken);
     this.moveHistory.add(move);
     if (move.getFromId() != -1) {
-      //System.out.println(positionToken + " FR " + move.getFromId());
+      System.out.println(positionToken + " FR " + move.getFromId());
       this.tokenMinusMinus(this.positionImpl[move.getFromId()].getPositionToken());
       this.positionImpl[move.getFromId()].setPositionToken(PositionToken.IS_EMPTY);
     }
 
     if (move.getToId() != -1) {
-      //System.out.println(positionToken + " TO " + move.getToId());
+      System.out.println(positionToken + " TO " + move.getToId());
       this.tokenPlusPlus(positionToken);
       this.positionImpl[move.getToId()].setPositionToken(positionToken);
     }
 
     if (move.getRemoveId() != -1) {
-      //System.out.println(positionToken + " REM: " + move.getRemoveId());
+      System.out.println(positionToken + " REM: " + move.getRemoveId());
       this.tokenMinusMinus(this.positionImpl[move.getRemoveId()].getPositionToken());
       this.positionImpl[move.getRemoveId()].setPositionToken(PositionToken.IS_EMPTY);
     }

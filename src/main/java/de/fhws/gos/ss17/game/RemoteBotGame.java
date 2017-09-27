@@ -84,7 +84,7 @@ public class RemoteBotGame extends AbstractGame {
 
   public void initGame() {
     try {
-      String response = this.connection.joinBotgame();
+      String response = this.connection.joinVersusGame();
       ServerEntity entity = (new JSONHelper()).deserialize(response);
       if (entity.getTurnResult() != null) {
         this.currentPlayer = this.playerTwo;

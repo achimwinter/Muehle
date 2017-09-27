@@ -28,7 +28,7 @@ public class Config {
   public final static int PORT = 3001; //old Serverport: 3000
 
   //Authorization Token for group = 6997 and password = "7996"
-  public final static String BASE64Token = "Basic Njk5NzoiNzk5NiI=";
+  public final static String BASE64Token = "Basic Njk5Nzo3OTk2MA==";
 
   public final static String GROUP_ID = "6997";
 
